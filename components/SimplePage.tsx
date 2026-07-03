@@ -29,7 +29,7 @@ export function SimplePage({
             <Ship size={22} />
             <strong>{item}</strong>
             <p>
-              初期公開では仮コンテンツです。YouTube、note、Google Sheetsの連携後に自動反映します。
+              Ocean Questのコンテンツ基盤に順次接続し、公開済みの記事・動画・イベント情報を整理して掲載します。
             </p>
           </article>
         ))}
@@ -37,10 +37,10 @@ export function SimplePage({
       <section className="company-cta">
         <div>
           <p className="section-kicker">Next Action</p>
-          <h2>Ocean Questのコンテンツ基盤に接続する</h2>
-          <p>このページは後からCMSや外部APIに接続し、更新運用できる構成にしています。</p>
+          <h2>海洋産業の情報を、採用とキャリアの意思決定につなげる</h2>
+          <p>必要な情報に迷わずたどり着けるよう、テーマ別・対象者別にコンテンツを拡充していきます。</p>
         </div>
-        <a className="primary-button" href="/companies">
+        <a className="primary-button" href="/contact">
           {cta}
           <ArrowRight size={18} />
         </a>

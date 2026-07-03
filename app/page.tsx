@@ -107,11 +107,11 @@ export default function Home() {
           </p>
           <h1>Ocean Quest</h1>
           <p className="lead">
-            海運、造船、AUV、洋上風力、海洋資源。複雑で可能性の大きい海洋産業のキャリアと採用を、
-            メディアと支援サービスの両面から前に進めます。
+            海運、造船、AUV、洋上風力、海洋資源。専門性の高い海洋産業の仕事と採用を、
+            学べるメディアと実践的な人材支援で前に進めます。
           </p>
           <div className="hero-actions">
-            <a className="primary-button" href="#companies">
+            <a className="primary-button" href="/contact">
               採用相談をする
               <ArrowRight size={18} />
             </a>
@@ -141,7 +141,7 @@ export default function Home() {
         </div>
         <p>
           Ocean Questは、海洋産業の専門知をコンテンツ化しながら、求職者・採用担当者・事業会社をつなぐサービスサイトです。
-          YouTube、note、eBook、イベント、診断をひとつの情報基盤に集約し、認知から相談までの流れを作ります。
+          YouTube、note、eBook、イベント、診断をひとつの情報基盤に集約し、業界理解から採用・キャリア相談までの流れを作ります。
         </p>
       </section>
 
@@ -201,7 +201,7 @@ export default function Home() {
           <p className="section-kicker">Diagnosis</p>
           <h2>海洋産業キャリア診断</h2>
           <p>
-            求職者には合いそうな領域や職種を、企業には採用課題の現在地を返す診断コンテンツとして育てます。
+            関心テーマや経験職種から、合いそうな領域・職種・相談導線を返す診断コンテンツとして育てます。
           </p>
           <a className="primary-button" href="#">
             診断をはじめる
@@ -241,6 +241,7 @@ export default function Home() {
           title="企業の方へ"
           description="採用ブランディング、スカウト、母集団形成、候補者理解まで一気通貫で支援。"
           cta="採用支援を相談"
+          href="/contact"
         />
       </section>
 
@@ -250,10 +251,10 @@ export default function Home() {
           <h2>海洋産業の採用を、専門メディアと人材支援の両輪で。</h2>
           <p>
             Ocean Questは、ポテンシャライトが持つ採用ブランディング・スカウト・採用支援の知見を、
-            海洋産業に特化して展開するためのサービスサイトです。
+            海洋産業に特化して展開するサービスです。職種理解から候補者接点づくりまで、採用活動の土台を整えます。
           </p>
         </div>
-        <a className="primary-button" href="mailto:hello@example.com">
+        <a className="primary-button" href="/contact">
           相談する
           <ArrowRight size={18} />
         </a>
@@ -331,18 +332,20 @@ function AudienceCard({
   title,
   description,
   cta,
+  href = "#",
 }: {
   icon: React.ReactNode;
   title: string;
   description: string;
   cta: string;
+  href?: string;
 }) {
   return (
     <article className="audience-card">
       <div className="card-icon">{icon}</div>
       <h3>{title}</h3>
       <p>{description}</p>
-      <a href="#">
+      <a href={href}>
         {cta}
         <ArrowRight size={16} />
       </a>

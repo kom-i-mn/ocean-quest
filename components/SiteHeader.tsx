@@ -7,6 +7,7 @@ const navigation = [
   { label: "イベント", href: "/events" },
   { label: "診断", href: "/diagnosis" },
   { label: "企業の方へ", href: "/companies" },
+  { label: "問い合わせ", href: "/contact" },
 ];
 
 export function SiteHeader({ solid = false }: { solid?: boolean }) {

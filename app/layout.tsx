@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://ocean-quest.example.com",
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://ocean-quest.jp",
   ),
   title: "Ocean Quest | 海洋産業に特化した人材支援・採用支援",
   description:

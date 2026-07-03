@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "events",
     "diagnosis",
     "companies",
+    "contact",
   ].map((path) => ({
     url: path ? `${baseUrl}/${path}` : baseUrl,
     lastModified: new Date(),
