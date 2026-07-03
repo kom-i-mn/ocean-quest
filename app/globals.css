@@ -127,6 +127,10 @@ nav a:hover {
 
 .hero-image {
   object-fit: cover;
+  transform: scale(1.04);
+  transform-origin: 62% 50%;
+  animation: hero-drift 18s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .hero-overlay {
@@ -135,6 +139,52 @@ nav a:hover {
   background:
     linear-gradient(90deg, rgba(6, 31, 42, 0.88) 0%, rgba(6, 31, 42, 0.64) 44%, rgba(6, 31, 42, 0.08) 100%),
     linear-gradient(0deg, rgba(6, 27, 37, 0.62) 0%, rgba(6, 27, 37, 0) 40%);
+}
+
+.hero::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 46%, transparent 58%),
+    radial-gradient(circle at 78% 36%, rgba(255, 255, 255, 0.12), transparent 24%);
+  mix-blend-mode: screen;
+  opacity: 0.42;
+  animation: hero-light 12s ease-in-out infinite alternate;
+}
+
+@keyframes hero-drift {
+  0% {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+
+  45% {
+    transform: scale(1.08) translate3d(-1.5%, 0.6%, 0);
+  }
+
+  100% {
+    transform: scale(1.1) translate3d(-3%, -0.4%, 0);
+  }
+}
+
+@keyframes hero-light {
+  0% {
+    transform: translate3d(-8%, 0, 0);
+    opacity: 0.25;
+  }
+
+  100% {
+    transform: translate3d(8%, 0, 0);
+    opacity: 0.48;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-image,
+  .hero::after {
+    animation: none;
+  }
 }
 
 .hero-content {
