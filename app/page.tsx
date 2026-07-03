@@ -3,11 +3,13 @@ import {
   BookOpen,
   Building2,
   CalendarDays,
+  ClipboardCheck,
   FileText,
   PlayCircle,
   Ship,
-  Users,
+  Sparkles,
 } from "lucide-react";
+import Image from "next/image";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { categories, industries } from "@/lib/content";
@@ -46,62 +48,92 @@ const companySupports = [
   "母集団形成と候補者体験",
 ];
 
+const quickLinks = [
+  {
+    title: "動画",
+    description: "専門家対談や市場解説を視聴",
+    href: "/videos",
+    icon: PlayCircle,
+  },
+  {
+    title: "eBook",
+    description: "採用・職種・業界理解を深める",
+    href: "/ebooks",
+    icon: BookOpen,
+  },
+  {
+    title: "note",
+    description: "思想と解体新書を読む",
+    href: "/notes",
+    icon: FileText,
+  },
+  {
+    title: "イベント",
+    description: "海洋産業の人と出会う",
+    href: "/events",
+    icon: CalendarDays,
+  },
+  {
+    title: "診断",
+    description: "自分に合う領域を知る",
+    href: "/diagnosis",
+    icon: ClipboardCheck,
+  },
+  {
+    title: "企業の方へ",
+    description: "採用支援を相談する",
+    href: "/companies",
+    icon: Building2,
+  },
+];
+
 export default function Home() {
   return (
     <main>
       <SiteHeader />
 
-      <section className="pmq-hero">
-        <div className="pmq-hero-overlay" />
-        <div className="container pmq-hero-grid">
-          <div>
-            <p className="pmq-eyebrow">
-              <span />
-              Ocean Industry Career & Recruiting
-            </p>
-            <h1>
-              海洋産業の仕事を、<br />
-              <em>もっと届く言葉</em>にする。
-            </h1>
-            <p className="pmq-hero-copy">
-              海運、造船、AUV、洋上風力、海洋資源。可能性は大きいのに、仕事の中身や採用の魅力がまだ伝わりきっていない。
-              Ocean Questは、海洋産業の専門知をメディア化しながら、キャリアと採用の接点を作るサービスです。
-            </p>
-            <div className="pmq-actions">
-              <a className="pmq-btn primary" href="/contact">
-                採用支援を相談する
-                <ArrowRight size={18} />
-              </a>
-              <a className="pmq-btn ghost" href="/notes">
-                まず記事を読む
-              </a>
-            </div>
-            <div className="pmq-trust">
-              <div>
-                <strong>Media</strong>
-                <span>動画・note・eBookを集約</span>
-              </div>
-              <div>
-                <strong>Recruiting</strong>
-                <span>採用広報とスカウトを支援</span>
-              </div>
-              <div>
-                <strong>Career</strong>
-                <span>求職者の業界理解を支援</span>
-              </div>
-            </div>
+      <section className="hero">
+        <Image
+          src="/images/ocean-quest-hero.png"
+          alt="Ocean Questが扱う海洋産業と海洋技術のイメージ"
+          fill
+          priority
+          sizes="100vw"
+          className="hero-image"
+        />
+        <div className="hero-overlay" />
+        <div className="hero-content">
+          <p className="eyebrow">
+            <Sparkles size={16} />
+            海洋産業に特化した人材支援・採用支援
+          </p>
+          <h1>Ocean Quest</h1>
+          <p className="lead">
+            海運、造船、AUV、洋上風力、海洋資源。可能性は大きいのに、仕事の中身や採用の魅力がまだ伝わりきっていない。
+            Ocean Questは、海洋産業の専門知をメディア化しながら、キャリアと採用の接点を作るサービスです。
+          </p>
+          <div className="hero-actions">
+            <a className="primary-button" href="/contact">
+              採用相談をする
+              <ArrowRight size={18} />
+            </a>
+            <a className="secondary-button" href="/notes">
+              まず記事を読む
+            </a>
           </div>
-
-          <aside className="pmq-rep">
-            <div className="pmq-rep-mark">OQ</div>
-            <h2>なぜ、海洋産業なのか。</h2>
-            <p>
-              技術はある。社会的な意義もある。けれど、候補者から見ると仕事の輪郭がまだ見えにくい。
-              その距離を、採用とコンテンツの両面から縮めたいと思っています。
-            </p>
-            <small>Ocean Quest / Potentialight</small>
-          </aside>
         </div>
+      </section>
+
+      <section className="quick-links" aria-label="Ocean Quest sections">
+        {quickLinks.map(({ title, description, href, icon: Icon }) => (
+          <a className="quick-link" href={href} key={title}>
+            <Icon size={22} />
+            <span>
+              <strong>{title}</strong>
+              <small>{description}</small>
+            </span>
+          </a>
+        ))}
       </section>
 
       <section className="pmq-section" id="about">
@@ -203,7 +235,7 @@ export default function Home() {
           </p>
           <a className="pmq-btn primary" href="/contact">
             相談する
-            <Users size={18} />
+            <ArrowRight size={18} />
           </a>
         </div>
       </section>
