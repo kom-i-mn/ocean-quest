@@ -3,352 +3,212 @@ import {
   BookOpen,
   Building2,
   CalendarDays,
-  ClipboardCheck,
-  Compass,
   FileText,
   PlayCircle,
   Ship,
-  Sparkles,
   Users,
-  type LucideIcon,
 } from "lucide-react";
-import Image from "next/image";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import {
-  categories,
-  diagnosisQuestions,
-  featuredContents,
-  industries,
-} from "@/lib/content";
+import { categories, industries } from "@/lib/content";
 
-const typeLabels = {
-  video: "動画",
-  ebook: "eBook",
-  note: "note",
-  event: "イベント",
-};
-
-const typeIcons = {
-  video: PlayCircle,
-  ebook: BookOpen,
-  note: FileText,
-  event: CalendarDays,
-};
-
-const quickLinks: {
-  title: string;
-  description: string;
-  Icon: LucideIcon;
-  href: string;
-}[] = [
+const contentRoutes = [
   {
     title: "動画",
-    description: "専門家対談や市場解説を視聴",
-    Icon: PlayCircle,
+    description: "専門家対談、業界構造、職種理解を動画で届ける。",
     href: "/videos",
+    icon: PlayCircle,
   },
   {
     title: "eBook",
-    description: "採用・職種・業界理解を深める",
-    Icon: BookOpen,
+    description: "動画や記事で語った内容を、採用・キャリア資料として残す。",
     href: "/ebooks",
+    icon: BookOpen,
   },
   {
     title: "note",
-    description: "思想と解体新書を読む",
-    Icon: FileText,
+    description: "思想、業態別の解体新書、求職者向け、採用担当者向けに整理する。",
     href: "/notes",
+    icon: FileText,
   },
   {
     title: "イベント",
-    description: "海洋産業の人と出会う",
-    Icon: CalendarDays,
+    description: "海洋産業の人と企業が、学びながら出会える場を作る。",
     href: "/events",
-  },
-  {
-    title: "診断",
-    description: "自分に合う領域を知る",
-    Icon: ClipboardCheck,
-    href: "/diagnosis",
-  },
-  {
-    title: "企業の方へ",
-    description: "採用支援を相談する",
-    Icon: Building2,
-    href: "/companies",
+    icon: CalendarDays,
   },
 ];
 
-export default function Home() {
-  const videos = featuredContents.filter((item) => item.type === "video");
-  const ebooks = featuredContents.filter((item) => item.type === "ebook");
-  const notes = featuredContents.filter((item) => item.type === "note");
-  const events = featuredContents.filter((item) => item.type === "event");
+const companySupports = [
+  "採用戦略・職種要件の整理",
+  "専門人材向けスカウト支援",
+  "採用広報・ブランディング",
+  "母集団形成と候補者体験",
+];
 
+export default function Home() {
   return (
     <main>
       <SiteHeader />
 
-      <section className="hero">
-        <Image
-          src="/images/ocean-quest-hero.png"
-          alt="Ocean Questが扱う海洋産業と海洋技術のイメージ"
-          fill
-          priority
-          sizes="100vw"
-          className="hero-image"
-        />
-        <div className="hero-overlay" />
-        <div className="hero-content">
-          <p className="eyebrow">
-            <Sparkles size={16} />
-            海洋産業に特化した人材支援・採用支援
-          </p>
-          <h1>Ocean Quest</h1>
-          <p className="lead">
-            海運、造船、AUV、洋上風力、海洋資源。専門性の高い海洋産業の仕事と採用を、
-            学べるメディアと実践的な人材支援で前に進めます。
-          </p>
-          <div className="hero-actions">
-            <a className="primary-button" href="/contact">
-              採用相談をする
-              <ArrowRight size={18} />
-            </a>
-            <a className="secondary-button" href="/diagnosis">
-              キャリア診断へ
-            </a>
+      <section className="pmq-hero">
+        <div className="pmq-hero-overlay" />
+        <div className="container pmq-hero-grid">
+          <div>
+            <p className="pmq-eyebrow">
+              <span />
+              Ocean Industry Career & Recruiting
+            </p>
+            <h1>
+              海洋産業の仕事を、<br />
+              <em>もっと届く言葉</em>にする。
+            </h1>
+            <p className="pmq-hero-copy">
+              海運、造船、AUV、洋上風力、海洋資源。可能性は大きいのに、仕事の中身や採用の魅力がまだ伝わりきっていない。
+              Ocean Questは、海洋産業の専門知をメディア化しながら、キャリアと採用の接点を作るサービスです。
+            </p>
+            <div className="pmq-actions">
+              <a className="pmq-btn primary" href="/contact">
+                採用支援を相談する
+                <ArrowRight size={18} />
+              </a>
+              <a className="pmq-btn ghost" href="/notes">
+                まず記事を読む
+              </a>
+            </div>
+            <div className="pmq-trust">
+              <div>
+                <strong>Media</strong>
+                <span>動画・note・eBookを集約</span>
+              </div>
+              <div>
+                <strong>Recruiting</strong>
+                <span>採用広報とスカウトを支援</span>
+              </div>
+              <div>
+                <strong>Career</strong>
+                <span>求職者の業界理解を支援</span>
+              </div>
+            </div>
+          </div>
+
+          <aside className="pmq-rep">
+            <div className="pmq-rep-mark">OQ</div>
+            <h2>なぜ、海洋産業なのか。</h2>
+            <p>
+              技術はある。社会的な意義もある。けれど、候補者から見ると仕事の輪郭がまだ見えにくい。
+              その距離を、採用とコンテンツの両面から縮めたいと思っています。
+            </p>
+            <small>Ocean Quest / Potentialight</small>
+          </aside>
+        </div>
+      </section>
+
+      <section className="pmq-section" id="about">
+        <div className="container pmq-two">
+          <div>
+            <p className="pmq-kicker">ABOUT</p>
+            <h2>求人票だけでは、海洋産業の面白さは伝わりにくい。</h2>
+          </div>
+          <div className="pmq-text">
+            <p>
+              海洋産業には、研究開発、エンジニアリング、事業開発、現場実装、政策・インフラとの接続まで、複数の文脈があります。
+              だからこそ、採用では「どんな技術か」だけでなく、「誰が、何を、なぜ担うのか」を丁寧に伝える必要があります。
+            </p>
+            <p>
+              Ocean Questは、業界理解のコンテンツと採用支援を分けずに設計します。求職者が学べる場所を作りながら、企業の採用接点を増やしていきます。
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="quick-links" aria-label="Ocean Quest sections">
-        {quickLinks.map(({ title, description, Icon, href }) => (
-          <a className="quick-link" href={href} key={title}>
-            <Icon size={22} />
-            <span>
-              <strong>{title}</strong>
-              <small>{description}</small>
-            </span>
-          </a>
-        ))}
-      </section>
-
-      <section className="section intro-section">
-        <div>
-          <p className="section-kicker">Media x Recruiting</p>
-          <h2>海洋産業を学び、出会い、採用につなげる総合メディア。</h2>
-        </div>
-        <p>
-          Ocean Questは、海洋産業の専門知をコンテンツ化しながら、求職者・採用担当者・事業会社をつなぐサービスサイトです。
-          YouTube、note、eBook、イベント、診断をひとつの情報基盤に集約し、業界理解から採用・キャリア相談までの流れを作ります。
-        </p>
-      </section>
-
-      <section className="section split-section">
-        <div>
-          <p className="section-kicker">Category</p>
-          <h2>コンテンツカテゴリ</h2>
-          <div className="pill-grid">
-            {categories.map((category) => (
-              <span className="pill" key={category}>
-                {category}
-              </span>
-            ))}
+      <section className="pmq-section pmq-alt">
+        <div className="container">
+          <div className="pmq-head">
+            <p className="pmq-kicker">CONTENTS</p>
+            <h2>コンテンツは、採用のための土台になる。</h2>
+            <p>
+              PMQuestのように、動画・eBook・note・イベントをひとつの入口にまとめます。自動連携は後から入れ、まずは情報設計を崩さないことを優先します。
+            </p>
           </div>
-        </div>
-        <div>
-          <p className="section-kicker">Industry</p>
-          <h2>業態別の解体新書</h2>
-          <div className="industry-grid">
-            {industries.map((industry) => (
-              <a href="#" key={industry}>
-                <Ship size={18} />
-                {industry}
+          <div className="pmq-content-list">
+            {contentRoutes.map(({ title, description, href, icon: Icon }) => (
+              <a href={href} className="pmq-content-item" key={title}>
+                <Icon size={21} />
+                <div>
+                  <strong>{title}</strong>
+                  <span>{description}</span>
+                </div>
+                <ArrowRight size={16} />
               </a>
             ))}
           </div>
         </div>
       </section>
 
-      <ContentSection
-        id="videos"
-        title="動画"
-        description="YouTubeチャンネルの動画を自動取得し、テーマ別に整理して表示する想定です。"
-        items={videos}
-      />
-      <ContentSection
-        id="ebooks"
-        title="eBook"
-        description="動画やnoteの内容をもとに、採用担当者・求職者向けの資料として蓄積します。"
-        items={ebooks}
-      />
-      <ContentSection
-        id="notes"
-        title="note"
-        description="noteで公開した記事を取り込み、思想・解体新書・求職者向けなどに分類します。"
-        items={notes}
-      />
-      <ContentSection
-        id="events"
-        title="イベント"
-        description="勉強会、対談、採用イベント、企業向けウェビナーの導線をまとめます。"
-        items={events}
-      />
-
-      <section className="section diagnosis-section" id="diagnosis">
-        <div className="diagnosis-copy">
-          <p className="section-kicker">Diagnosis</p>
-          <h2>海洋産業キャリア診断</h2>
-          <p>
-            関心テーマや経験職種から、合いそうな領域・職種・相談導線を返す診断コンテンツとして育てます。
-          </p>
-          <a className="primary-button" href="#">
-            診断をはじめる
-            <ArrowRight size={18} />
-          </a>
+      <section className="pmq-section">
+        <div className="container pmq-two">
+          <div>
+            <p className="pmq-kicker">CATEGORY</p>
+            <h2>思想と業態別の解体新書を、分けて蓄積する。</h2>
+          </div>
+          <div>
+            <div className="pmq-tag-block">
+              {categories.map((category) => (
+                <span key={category}>{category}</span>
+              ))}
+            </div>
+            <div className="pmq-industry-block">
+              {industries.map((industry) => (
+                <a href="/notes" key={industry}>
+                  <Ship size={16} />
+                  {industry}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="question-list">
-          {diagnosisQuestions.map((item, index) => (
-            <div className="question" key={item.question}>
-              <span>Q{index + 1}</span>
-              <strong>{item.question}</strong>
-              <div>
-                {item.options.map((option) => (
-                  <small key={option}>{option}</small>
-                ))}
+      </section>
+
+      <section className="pmq-section pmq-alt" id="companies">
+        <div className="container pmq-two">
+          <div>
+            <p className="pmq-kicker">FOR COMPANIES</p>
+            <h2>海洋産業の採用を、専門理解から設計する。</h2>
+            <p className="pmq-lead">
+              採用計画が固まっていない段階でも大丈夫です。職種、候補者像、採用広報、スカウトのどこから着手すべきかを整理します。
+            </p>
+            <a className="pmq-btn primary" href="/companies">
+              企業向けページを見る
+              <ArrowRight size={18} />
+            </a>
+          </div>
+          <div className="pmq-support-list">
+            {companySupports.map((support) => (
+              <div key={support}>
+                <Building2 size={18} />
+                <span>{support}</span>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="section audience-section">
-        <AudienceCard
-          icon={<Users size={24} />}
-          title="求職者向け"
-          description="海洋産業に興味はあるが、どんな会社・職種・キャリアがあるか分からない人に向けた入口。"
-          cta="キャリア相談へ"
-        />
-        <AudienceCard
-          icon={<Compass size={24} />}
-          title="採用担当者向け"
-          description="専門職採用、事業開発人材、研究開発人材など、海洋産業特有の採用論点を整理。"
-          cta="採用ノウハウを見る"
-        />
-        <AudienceCard
-          icon={<Building2 size={24} />}
-          title="企業の方へ"
-          description="採用ブランディング、スカウト、母集団形成、候補者理解まで一気通貫で支援。"
-          cta="採用支援を相談"
-          href="/contact"
-        />
-      </section>
-
-      <section className="company-cta" id="companies">
-        <div>
-          <p className="section-kicker">For Companies</p>
-          <h2>海洋産業の採用を、専門メディアと人材支援の両輪で。</h2>
+      <section className="pmq-final">
+        <div className="container">
+          <p className="pmq-kicker">CONTACT</p>
+          <h2>海洋産業の採用について、まずは状況を聞かせてください。</h2>
           <p>
-            Ocean Questは、ポテンシャライトが持つ採用ブランディング・スカウト・採用支援の知見を、
-            海洋産業に特化して展開するサービスです。職種理解から候補者接点づくりまで、採用活動の土台を整えます。
+            求人票を作る前、スカウトを始める前、採用広報を出す前に、候補者へ何をどう伝えるべきかを一緒に整理します。
           </p>
-        </div>
-        <a className="primary-button" href="/contact">
-          相談する
-          <ArrowRight size={18} />
-        </a>
-      </section>
-
-      <section className="section integration-section">
-        <p className="section-kicker">Integration Blueprint</p>
-        <h2>自動連携の設計</h2>
-        <div className="flow-grid">
-          {[
-            ["YouTube", "APIで動画一覧を取得し、動画ページとeBook化の起点にする"],
-            ["note", "RSSで新着記事を取得し、カテゴリを付与して一覧に反映する"],
-            ["Google Sheets", "コンテンツ台帳としてURL、カテゴリ、公開状態を管理する"],
-            ["Search", "sitemap.xmlとメタデータを整え、Search Consoleへ登録する"],
-          ].map(([title, description]) => (
-            <div className="flow-card" key={title}>
-              <strong>{title}</strong>
-              <p>{description}</p>
-            </div>
-          ))}
+          <a className="pmq-btn primary" href="/contact">
+            相談する
+            <Users size={18} />
+          </a>
         </div>
       </section>
 
       <SiteFooter />
     </main>
-  );
-}
-
-function ContentSection({
-  id,
-  title,
-  description,
-  items,
-}: {
-  id: string;
-  title: string;
-  description: string;
-  items: typeof featuredContents;
-}) {
-  return (
-    <section className="section content-section" id={id}>
-      <div className="section-heading">
-        <div>
-          <p className="section-kicker">{title}</p>
-          <h2>{title}</h2>
-        </div>
-        <p>{description}</p>
-      </div>
-      <div className="card-grid">
-        {items.map((item) => {
-          const Icon = typeIcons[item.type];
-
-          return (
-            <article className="content-card" key={item.id}>
-              <div className="card-icon">
-                <Icon size={22} />
-              </div>
-              <span className="content-type">{typeLabels[item.type]}</span>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-              <div className="card-meta">
-                <span>{item.category}</span>
-                <time dateTime={item.publishedAt}>{item.publishedAt}</time>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
-function AudienceCard({
-  icon,
-  title,
-  description,
-  cta,
-  href = "#",
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  cta: string;
-  href?: string;
-}) {
-  return (
-    <article className="audience-card">
-      <div className="card-icon">{icon}</div>
-      <h3>{title}</h3>
-      <p>{description}</p>
-      <a href={href}>
-        {cta}
-        <ArrowRight size={16} />
-      </a>
-    </article>
   );
 }
