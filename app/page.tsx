@@ -9,7 +9,7 @@ import {
   Ship,
   Sparkles,
 } from "lucide-react";
-import Image from "next/image";
+import { HeroVideo } from "@/components/HeroVideo";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { categories, industries } from "@/lib/content";
@@ -93,14 +93,7 @@ export default function Home() {
       <SiteHeader />
 
       <section className="hero">
-        <Image
-          src="/images/ocean-quest-hero.png"
-          alt="Ocean Questが扱う海洋産業と海洋技術のイメージ"
-          fill
-          priority
-          sizes="100vw"
-          className="hero-image"
-        />
+        <HeroVideo />
         <div className="hero-overlay" />
         <div className="hero-content">
           <p className="eyebrow">

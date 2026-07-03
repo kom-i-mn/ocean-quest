@@ -125,12 +125,12 @@ nav a:hover {
   padding: 112px 40px 96px;
 }
 
-.hero-image {
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  transform: scale(1.04);
-  transform-origin: 62% 50%;
-  animation: hero-drift 18s ease-in-out infinite alternate;
-  will-change: transform;
 }
 
 .hero-overlay {
@@ -154,20 +154,6 @@ nav a:hover {
   animation: hero-light 12s ease-in-out infinite alternate;
 }
 
-@keyframes hero-drift {
-  0% {
-    transform: scale(1.04) translate3d(0, 0, 0);
-  }
-
-  45% {
-    transform: scale(1.08) translate3d(-1.5%, 0.6%, 0);
-  }
-
-  100% {
-    transform: scale(1.1) translate3d(-3%, -0.4%, 0);
-  }
-}
-
 @keyframes hero-light {
   0% {
     transform: translate3d(-8%, 0, 0);
@@ -181,9 +167,18 @@ nav a:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-image,
   .hero::after {
     animation: none;
+  }
+
+  .hero-video {
+    display: none;
+  }
+
+  .hero {
+    background:
+      linear-gradient(90deg, rgba(6, 31, 42, 0.88) 0%, rgba(6, 31, 42, 0.64) 44%, rgba(6, 31, 42, 0.08) 100%),
+      url("/images/ocean-quest-hero.png") center / cover;
   }
 }
 
