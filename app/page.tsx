@@ -129,7 +129,7 @@ export default function Home() {
         ))}
       </section>
 
-      <section className="pmq-section" id="about">
+      <section className="pmq-section photo-bg photo-foam photo-light" id="about">
         <div className="container pmq-two">
           <div>
             <p className="pmq-kicker">ABOUT</p>
@@ -147,7 +147,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pmq-section pmq-alt">
+      <section className="pmq-section pmq-alt photo-bg photo-harbor photo-dark">
         <div className="container">
           <div className="pmq-head">
             <p className="pmq-kicker">CONTENTS</p>
@@ -171,7 +171,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pmq-section">
+      <section className="pmq-section photo-bg photo-blue photo-light">
         <div className="container pmq-two">
           <div>
             <p className="pmq-kicker">CATEGORY</p>
@@ -195,7 +195,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pmq-section pmq-alt" id="companies">
+      <section className="pmq-section pmq-alt photo-bg photo-container photo-dark" id="companies">
         <div className="container pmq-two">
           <div>
             <p className="pmq-kicker">FOR COMPANIES</p>
@@ -219,7 +219,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pmq-final">
+      <section className="pmq-final photo-bg photo-shore">
         <div className="container">
           <p className="pmq-kicker">CONTACT</p>
           <h2>海洋産業の採用について、まずは状況を聞かせてください。</h2>

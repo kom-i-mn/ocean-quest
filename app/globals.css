@@ -622,12 +622,109 @@ h3 {
 }
 
 .pmq-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 84px 0;
   background: var(--white);
 }
 
 .pmq-section.pmq-alt {
   background: var(--primary-lt);
+}
+
+.photo-bg {
+  background-position: center;
+  background-size: cover;
+}
+
+.photo-bg::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+}
+
+.photo-bg::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.photo-bg > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.photo-light::before {
+  background: rgba(255, 255, 255, 0.84);
+}
+
+.photo-light::after {
+  background:
+    linear-gradient(120deg, rgba(248, 250, 252, 0.96), rgba(248, 250, 252, 0.7) 48%, rgba(248, 250, 252, 0.9)),
+    radial-gradient(circle at 80% 20%, rgba(15, 111, 120, 0.12), transparent 28%);
+}
+
+.photo-dark {
+  color: var(--white);
+}
+
+.photo-dark::before {
+  background: rgba(6, 31, 42, 0.72);
+}
+
+.photo-dark::after {
+  background:
+    linear-gradient(110deg, rgba(6, 31, 42, 0.92), rgba(6, 31, 42, 0.72) 48%, rgba(6, 31, 42, 0.84)),
+    radial-gradient(circle at 86% 18%, rgba(242, 109, 79, 0.18), transparent 26%);
+}
+
+.photo-dark .pmq-section h2,
+.photo-dark h2,
+.photo-dark .pmq-head p,
+.photo-dark .pmq-lead {
+  color: var(--white);
+}
+
+.photo-dark .pmq-kicker {
+  color: #ff9a70;
+}
+
+.photo-dark .pmq-content-item,
+.photo-dark .pmq-support-list div {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(255, 255, 255, 0.42);
+}
+
+.photo-foam {
+  background-image: url("/images/backgrounds/ocean-foam.jpg");
+  background-position: center 42%;
+}
+
+.photo-blue {
+  background-image: url("/images/backgrounds/blue-water.jpg");
+  background-position: center 46%;
+}
+
+.photo-harbor {
+  background-image: url("/images/backgrounds/harbor-sunset.jpg");
+  background-position: center 54%;
+}
+
+.photo-container {
+  background-image: url("/images/backgrounds/container-port.jpg");
+  background-position: center 48%;
+}
+
+.photo-shore {
+  background-image:
+    linear-gradient(135deg, rgba(8, 26, 40, 0.9), rgba(18, 50, 74, 0.78) 58%, rgba(30, 75, 95, 0.78)),
+    url("/images/backgrounds/shoreline.jpg");
+  background-position: center;
+  background-size: cover;
 }
 
 .pmq-two {
@@ -759,6 +856,12 @@ h3 {
   background:
     linear-gradient(135deg, var(--primary-dk), var(--primary) 60%, #1e4b5f),
     var(--primary);
+}
+
+.pmq-final.photo-shore {
+  background:
+    linear-gradient(135deg, rgba(8, 26, 40, 0.9), rgba(18, 50, 74, 0.78) 58%, rgba(30, 75, 95, 0.78)),
+    url("/images/backgrounds/shoreline.jpg") center / cover;
 }
 
 .pmq-final h2 {
