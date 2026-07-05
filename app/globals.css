@@ -1048,6 +1048,119 @@ h3 {
   color: var(--teal);
 }
 
+.video-library {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding-top: 24px;
+}
+
+.video-card {
+  overflow: hidden;
+  background: rgba(251, 255, 253, 0.9);
+  border: 1px solid rgba(190, 236, 234, 0.42);
+  border-radius: 8px;
+  box-shadow: 0 22px 58px rgba(0, 24, 30, 0.14);
+  backdrop-filter: blur(12px);
+}
+
+.video-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  color: var(--white);
+  background:
+    linear-gradient(135deg, rgba(0, 43, 52, 0.96), rgba(0, 139, 152, 0.72)),
+    var(--navy);
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 180ms ease;
+}
+
+.video-thumb:hover img {
+  transform: scale(1.04);
+}
+
+.video-thumb > span:first-child {
+  display: grid;
+  height: 100%;
+  place-items: center;
+}
+
+.video-play {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--white);
+  background: rgba(255, 122, 33, 0.92);
+  border-radius: 8px;
+  box-shadow: 0 14px 30px rgba(0, 24, 30, 0.24);
+}
+
+.video-card-body {
+  padding: 22px;
+}
+
+.video-card-body h2 {
+  margin-bottom: 12px;
+  font-size: 21px;
+  line-height: 1.45;
+}
+
+.video-card-body > p:not(.content-type) {
+  display: -webkit-box;
+  min-height: 84px;
+  overflow: hidden;
+  color: var(--muted);
+  line-height: 1.75;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.video-card .card-meta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--teal-dark);
+  font-weight: 600;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 42px;
+  color: var(--ink);
+  background: rgba(251, 255, 253, 0.88);
+  border: 1px solid rgba(190, 236, 234, 0.42);
+  border-radius: 8px;
+  box-shadow: 0 22px 58px rgba(0, 24, 30, 0.14);
+  backdrop-filter: blur(12px);
+}
+
+.empty-state svg {
+  margin-bottom: 16px;
+  color: var(--teal);
+}
+
+.empty-state h2 {
+  margin-bottom: 12px;
+  font-size: 28px;
+}
+
+.empty-state p {
+  max-width: 720px;
+  color: var(--muted);
+}
+
 .subpage-actions {
   margin-top: 28px;
 }
@@ -1429,6 +1542,7 @@ footer {
   .audience-section,
   .flow-grid,
   .subpage-grid,
+  .video-library,
   .process-list {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1574,6 +1688,7 @@ footer {
   .audience-section,
   .flow-grid,
   .subpage-grid,
+  .video-library,
   .process-list {
     grid-template-columns: 1fr;
   }
