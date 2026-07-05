@@ -18,6 +18,7 @@ YOUTUBE_CHANNEL_HANDLE=@mine_ocean-quest
 YOUTUBE_INGEST_LIMIT=12
 
 NOTE_RSS_URL=https://note.com/gentle_moraea373/m/me280dc72ba27/rss
+NOTE_INGEST_LIMIT=12
 OPENAI_API_KEY=
 ```
 
@@ -92,9 +93,17 @@ The first milestone intentionally allows `draft`, `review`, and `published` read
 5. Supabase upserts by `(source, source_id)` so repeated cron runs are safe.
 6. `/videos` reads Supabase and renders saved records.
 
+## note Flow
+
+1. Vercel Cron calls `/api/cron/ingest-note` daily.
+2. The route checks `Authorization: Bearer $CRON_SECRET` when `CRON_SECRET` is configured.
+3. The route fetches `NOTE_RSS_URL`.
+4. RSS items are normalized into `external_contents` records with `source = 'note'`.
+5. Supabase upserts by `(source, source_id)` so repeated cron runs are safe.
+6. `/notes` reads Supabase and renders saved records.
+
 ## Next milestones
 
-- Add `/api/cron/ingest-note` to parse `NOTE_RSS_URL` and upsert `source = 'note'`.
 - Add an internal route or script to generate `source = 'ebook'` drafts from selected note records, linked by `source_content_id`.
 - Add thumbnail generation metadata to eBook records, then store approved thumbnail URLs in `thumbnail_url`.
 - Add an editorial admin surface or Supabase view to move records from `draft` to `published`.

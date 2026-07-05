@@ -83,12 +83,20 @@ export async function supabaseRequest<T>(
 }
 
 export async function listYouTubeContents(limit = 24) {
+  return listExternalContents("youtube", limit);
+}
+
+export async function listNoteContents(limit = 24) {
+  return listExternalContents("note", limit);
+}
+
+async function listExternalContents(source: ContentSource, limit: number) {
   if (!hasSupabaseReadConfig()) {
     return [];
   }
 
   const query = new URLSearchParams({
-    source: "eq.youtube",
+    source: `eq.${source}`,
     status: "in.(draft,review,published)",
     select:
       "id,source,source_id,source_url,title,description,thumbnail_url,published_at,status,category,audience,metadata,source_content_id,created_at,updated_at",

@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/ingest-youtube",
       "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/ingest-note",
+      "schedule": "10 0 * * *"
     }
   ]
 }
