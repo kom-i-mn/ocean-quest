@@ -8,15 +8,17 @@ export function SimplePage({
   description,
   items,
   cta = "相談する",
+  backgroundClass,
 }: {
   kicker: string;
   title: string;
   description: string;
   items: string[];
   cta?: string;
+  backgroundClass: string;
 }) {
   return (
-    <main>
+    <main className={`subpage-shell ${backgroundClass}`}>
       <SiteHeader solid />
       <section className="subpage-hero">
         <p className="section-kicker">{kicker}</p>

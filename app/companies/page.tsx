@@ -47,7 +47,7 @@ const process = [
 
 export default function CompaniesPage() {
   return (
-    <main>
+    <main className="subpage-shell subpage-bg-port-cranes">
       <SiteHeader solid />
       <section className="subpage-hero companies-hero">
         <p className="section-kicker">For Companies</p>

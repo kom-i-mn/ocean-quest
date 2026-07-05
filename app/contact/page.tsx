@@ -11,7 +11,7 @@ const topics = [
 
 export default function ContactPage() {
   return (
-    <main>
+    <main className="subpage-shell subpage-bg-contact-sunset">
       <SiteHeader solid />
       <section className="subpage-hero contact-hero">
         <p className="section-kicker">Contact</p>

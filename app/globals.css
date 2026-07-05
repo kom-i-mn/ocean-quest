@@ -1052,6 +1052,121 @@ h3 {
   margin-top: 28px;
 }
 
+.subpage-shell {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--primary-dk);
+  background-position: center, center, center;
+  background-size: cover;
+  background-attachment: fixed;
+  isolation: isolate;
+}
+
+.subpage-shell > :not(.site-header) {
+  position: relative;
+  z-index: 1;
+}
+
+.subpage-shell .subpage-hero {
+  margin-top: 96px;
+  padding: 42px 40px 48px;
+  background: rgba(251, 255, 253, 0.76);
+  border: 1px solid rgba(190, 236, 234, 0.42);
+  border-radius: 8px;
+  box-shadow: 0 24px 70px rgba(0, 24, 30, 0.18);
+  backdrop-filter: blur(12px);
+}
+
+.subpage-shell .section-heading,
+.subpage-shell .company-cta,
+.subpage-shell .companies-band,
+.subpage-shell .process-section,
+.subpage-shell .contact-panel,
+.subpage-shell .contact-side-card {
+  background-color: rgba(251, 255, 253, 0.84);
+  border: 1px solid rgba(190, 236, 234, 0.42);
+  box-shadow: 0 22px 58px rgba(0, 24, 30, 0.14);
+  backdrop-filter: blur(12px);
+}
+
+.subpage-shell .section-heading,
+.subpage-shell .process-section {
+  padding: 34px;
+  border-radius: 8px;
+}
+
+.subpage-shell .flow-card,
+.subpage-shell .content-card,
+.subpage-shell .audience-card,
+.subpage-shell .process-item,
+.subpage-shell .contact-panel,
+.subpage-shell .contact-side-card {
+  background: rgba(251, 255, 253, 0.88);
+}
+
+.subpage-shell .company-cta,
+.subpage-shell .companies-band {
+  background:
+    linear-gradient(135deg, rgba(0, 43, 52, 0.82), rgba(0, 88, 102, 0.68)),
+    rgba(0, 43, 52, 0.74);
+}
+
+.subpage-bg-shark {
+  background-image:
+    linear-gradient(120deg, rgba(0, 43, 52, 0.74), rgba(0, 88, 102, 0.34) 48%, rgba(251, 255, 253, 0.16)),
+    radial-gradient(circle at 80% 20%, rgba(82, 218, 224, 0.2), transparent 32%),
+    url("/images/backgrounds/shark-deep.jpg");
+  background-position: center, center, center top;
+}
+
+.subpage-bg-bubbles {
+  background-image:
+    linear-gradient(120deg, rgba(0, 43, 52, 0.74), rgba(0, 88, 102, 0.34) 48%, rgba(251, 255, 253, 0.16)),
+    radial-gradient(circle at 80% 20%, rgba(82, 218, 224, 0.2), transparent 32%),
+    url("/images/backgrounds/bubbles.jpg");
+  background-position: center, center, center;
+}
+
+.subpage-bg-jellyfish-dark {
+  background-image:
+    linear-gradient(120deg, rgba(0, 43, 52, 0.74), rgba(0, 88, 102, 0.34) 48%, rgba(251, 255, 253, 0.16)),
+    radial-gradient(circle at 80% 20%, rgba(82, 218, 224, 0.2), transparent 32%),
+    url("/images/backgrounds/jellyfish-dark.jpg");
+  background-position: center, center, center;
+}
+
+.subpage-bg-port-sunset {
+  background-image:
+    linear-gradient(120deg, rgba(0, 43, 52, 0.74), rgba(0, 88, 102, 0.34) 48%, rgba(251, 255, 253, 0.16)),
+    radial-gradient(circle at 80% 20%, rgba(82, 218, 224, 0.2), transparent 32%),
+    url("/images/backgrounds/port-sunset.jpg");
+  background-position: center, center, center;
+}
+
+.subpage-bg-sun-jellyfish {
+  background-image:
+    linear-gradient(120deg, rgba(0, 43, 52, 0.74), rgba(0, 88, 102, 0.34) 48%, rgba(251, 255, 253, 0.16)),
+    radial-gradient(circle at 80% 20%, rgba(82, 218, 224, 0.2), transparent 32%),
+    url("/images/backgrounds/sun-jellyfish.jpg");
+  background-position: center, center, center 35%;
+}
+
+.subpage-bg-port-cranes {
+  background-image:
+    linear-gradient(120deg, rgba(0, 43, 52, 0.74), rgba(0, 88, 102, 0.34) 48%, rgba(251, 255, 253, 0.16)),
+    radial-gradient(circle at 80% 20%, rgba(82, 218, 224, 0.2), transparent 32%),
+    url("/images/backgrounds/port-cranes.jpg");
+  background-position: center, center, center top;
+}
+
+.subpage-bg-contact-sunset {
+  background-image:
+    linear-gradient(120deg, rgba(0, 43, 52, 0.74), rgba(0, 88, 102, 0.34) 48%, rgba(251, 255, 253, 0.16)),
+    radial-gradient(circle at 80% 20%, rgba(82, 218, 224, 0.2), transparent 32%),
+    url("/images/backgrounds/contact-sunset-family.jpg");
+  background-position: center, center, center 46%;
+}
+
 .companies-hero,
 .contact-hero {
   padding-bottom: 72px;
