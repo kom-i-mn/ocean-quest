@@ -1,22 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap");
 
 :root {
-  --ink: #0d1117;
-  --muted: #4b5563;
-  --soft-muted: #9ca3af;
-  --line: #eaedf0;
-  --paper: #f8fafc;
-  --white: #ffffff;
-  --teal: #0f6f78;
-  --teal-dark: #084852;
-  --coral: #ea580c;
-  --gold: #c9952c;
-  --navy: #12324a;
-  --sky: #eef5f6;
-  --primary: #12324a;
-  --primary-dk: #081a28;
-  --primary-lt: #eef3f5;
-  --accent: #ea580c;
+  --ink: #00383d;
+  --muted: #4d6668;
+  --soft-muted: #8fa0a0;
+  --line: rgba(0, 56, 61, 0.16);
+  --paper: #f6f3ec;
+  --white: #fffdf7;
+  --teal: #005b63;
+  --teal-dark: #00383d;
+  --coral: #ff7a21;
+  --gold: #b8894a;
+  --navy: #002f36;
+  --sky: #edf2ef;
+  --primary: #00383d;
+  --primary-dk: #00232a;
+  --primary-lt: #eef0e8;
+  --accent: #ff7a21;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
   --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.08), 0 10px 20px -6px rgba(0, 0, 0, 0.04);
@@ -59,7 +59,7 @@ a {
   min-height: 72px;
   padding: 0 40px;
   color: var(--white);
-  background: rgba(8, 39, 54, 0.9);
+  background: rgba(0, 47, 54, 0.84);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
 }
@@ -67,7 +67,7 @@ a {
 .site-header.solid {
   position: sticky;
   color: var(--white);
-  background: rgba(15, 51, 68, 0.96);
+  background: rgba(0, 47, 54, 0.96);
 }
 
 .brand {
@@ -88,7 +88,7 @@ a {
   width: 40px;
   height: 40px;
   color: var(--white);
-  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  background: linear-gradient(135deg, var(--teal), var(--primary));
   border-radius: 8px;
 }
 
@@ -139,8 +139,8 @@ nav a:hover {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(6, 31, 42, 0.88) 0%, rgba(6, 31, 42, 0.64) 44%, rgba(6, 31, 42, 0.08) 100%),
-    linear-gradient(0deg, rgba(6, 27, 37, 0.62) 0%, rgba(6, 27, 37, 0) 40%);
+    linear-gradient(90deg, rgba(0, 35, 42, 0.9) 0%, rgba(0, 47, 54, 0.62) 44%, rgba(0, 47, 54, 0.08) 100%),
+    linear-gradient(0deg, rgba(0, 35, 42, 0.66) 0%, rgba(0, 35, 42, 0) 40%);
 }
 
 .hero::after {
@@ -179,7 +179,7 @@ nav a:hover {
 
   .hero {
     background:
-      linear-gradient(90deg, rgba(6, 31, 42, 0.88) 0%, rgba(6, 31, 42, 0.64) 44%, rgba(6, 31, 42, 0.08) 100%),
+      linear-gradient(90deg, rgba(0, 35, 42, 0.88) 0%, rgba(0, 47, 54, 0.64) 44%, rgba(0, 47, 54, 0.08) 100%),
       url("/images/ocean-quest-hero.png") center / cover;
   }
 }
@@ -269,8 +269,8 @@ h3 {
 
 .primary-button {
   color: var(--white);
-  background: linear-gradient(135deg, var(--coral), #f08b48);
-  box-shadow: 0 12px 26px rgba(242, 109, 79, 0.24);
+  background: linear-gradient(135deg, var(--coral), #d9914e);
+  box-shadow: 0 12px 26px rgba(255, 122, 33, 0.22);
 }
 
 .secondary-button {
@@ -302,7 +302,7 @@ h3 {
   align-items: flex-start;
   gap: 12px;
   color: var(--ink);
-  background: var(--white);
+  background: rgba(255, 253, 247, 0.94);
   border: 1px solid var(--line);
   transition:
     transform 160ms ease,
@@ -312,8 +312,8 @@ h3 {
 
 .quick-link:hover {
   transform: translateY(-3px);
-  border-color: rgba(0, 139, 145, 0.34);
-  box-shadow: 0 18px 42px rgba(16, 35, 47, 0.1);
+  border-color: rgba(255, 122, 33, 0.36);
+  box-shadow: 0 18px 42px rgba(0, 56, 61, 0.1);
 }
 
 .quick-link:first-child {
@@ -552,7 +552,7 @@ h3 {
 .pmq-btn.primary {
   color: var(--white);
   background: var(--accent);
-  box-shadow: 0 14px 34px -10px rgba(234, 88, 12, 0.58);
+  box-shadow: 0 14px 34px -10px rgba(255, 122, 33, 0.44);
 }
 
 .pmq-btn.ghost {
@@ -671,13 +671,13 @@ h3 {
 }
 
 .photo-light::before {
-  background: rgba(255, 255, 255, 0.84);
+  background: rgba(246, 243, 236, 0.82);
 }
 
 .photo-light::after {
   background:
-    linear-gradient(120deg, rgba(248, 250, 252, 0.96), rgba(248, 250, 252, 0.7) 48%, rgba(248, 250, 252, 0.9)),
-    radial-gradient(circle at 80% 20%, rgba(15, 111, 120, 0.12), transparent 28%);
+    linear-gradient(120deg, rgba(255, 253, 247, 0.96), rgba(246, 243, 236, 0.72) 48%, rgba(255, 253, 247, 0.9)),
+    radial-gradient(circle at 80% 20%, rgba(0, 91, 99, 0.12), transparent 28%);
 }
 
 .photo-dark {
@@ -685,13 +685,13 @@ h3 {
 }
 
 .photo-dark::before {
-  background: rgba(6, 31, 42, 0.72);
+  background: rgba(0, 35, 42, 0.74);
 }
 
 .photo-dark::after {
   background:
-    linear-gradient(110deg, rgba(6, 31, 42, 0.92), rgba(6, 31, 42, 0.72) 48%, rgba(6, 31, 42, 0.84)),
-    radial-gradient(circle at 86% 18%, rgba(242, 109, 79, 0.18), transparent 26%);
+    linear-gradient(110deg, rgba(0, 35, 42, 0.93), rgba(0, 47, 54, 0.74) 48%, rgba(0, 35, 42, 0.84)),
+    radial-gradient(circle at 86% 18%, rgba(255, 122, 33, 0.16), transparent 26%);
 }
 
 .photo-dark .pmq-section h2,
@@ -702,13 +702,13 @@ h3 {
 }
 
 .photo-dark .pmq-kicker {
-  color: #ff9a70;
+  color: #f2a46f;
 }
 
 .photo-dark .pmq-content-item,
 .photo-dark .pmq-support-list div {
-  background: rgba(255, 255, 255, 0.94);
-  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 253, 247, 0.92);
+  border-color: rgba(255, 253, 247, 0.36);
 }
 
 .photo-foam {
@@ -835,7 +835,7 @@ h3 {
   min-height: 40px;
   padding: 0 14px;
   color: var(--primary);
-  background: var(--white);
+  background: rgba(255, 253, 247, 0.9);
   border: 1px solid var(--line);
   border-radius: 999px;
   font-weight: 500;
@@ -852,7 +852,7 @@ h3 {
   gap: 12px;
   min-height: 56px;
   padding: 0 18px;
-  background: var(--white);
+  background: rgba(255, 253, 247, 0.9);
   border: 1px solid var(--line);
   border-radius: 12px;
   box-shadow: var(--shadow-sm);
@@ -874,7 +874,7 @@ h3 {
 
 .pmq-final.photo-shore {
   background:
-    linear-gradient(135deg, rgba(8, 26, 40, 0.9), rgba(18, 50, 74, 0.78) 58%, rgba(30, 75, 95, 0.78)),
+    linear-gradient(135deg, rgba(0, 35, 42, 0.92), rgba(0, 56, 61, 0.78) 58%, rgba(0, 91, 99, 0.68)),
     url("/images/backgrounds/shoreline.jpg") center / cover;
 }
 
