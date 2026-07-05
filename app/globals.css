@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap");
+
 :root {
   --ink: #0d1117;
   --muted: #4b5563;
@@ -18,6 +20,9 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
   --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.08), 0 10px 20px -6px rgba(0, 0, 0, 0.04);
+  --font-serif-ja: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "MS PMincho", serif;
+  --font-serif-en: "Cormorant Garamond", "Garamond", "Times New Roman", serif;
+  --font-sans: Arial, "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
 }
 
 * {
@@ -32,13 +37,8 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--paper);
-  font-family:
-    Arial,
-    "Hiragino Sans",
-    "Yu Gothic",
-    "Meiryo",
-    sans-serif;
-  letter-spacing: 0;
+  font-family: var(--font-serif-ja);
+  letter-spacing: 0.04em;
   line-height: 1.8;
 }
 
@@ -74,8 +74,10 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 18px;
-  font-weight: 800;
+  font-family: var(--font-serif-en);
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
 }
 
 .brand-mark,
@@ -95,7 +97,7 @@ nav {
   align-items: center;
   gap: 22px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   color: inherit;
 }
 
@@ -185,7 +187,7 @@ nav a:hover {
 .hero-content {
   position: relative;
   z-index: 1;
-  width: min(720px, 100%);
+  width: min(920px, 100%);
   margin-left: max(0px, calc((100vw - 1180px) / 2));
 }
 
@@ -197,8 +199,8 @@ nav a:hover {
   margin: 0 0 16px;
   color: var(--coral);
   font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -211,34 +213,37 @@ p {
 
 h1 {
   margin-bottom: 22px;
-  font-size: 82px;
-  line-height: 0.96;
-  letter-spacing: 0;
+  font-family: var(--font-serif-en), var(--font-serif-ja);
+  font-size: 104px;
+  line-height: 0.98;
+  letter-spacing: 0.08em;
   overflow-wrap: anywhere;
-  font-weight: 800;
+  font-weight: 300;
 }
 
 h2 {
   margin-bottom: 18px;
   font-size: 42px;
-  line-height: 1.15;
-  letter-spacing: 0;
-  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+  font-weight: 400;
 }
 
 h3 {
   margin-bottom: 12px;
   font-size: 21px;
   line-height: 1.35;
-  letter-spacing: 0;
+  letter-spacing: 0.04em;
+  font-weight: 500;
 }
 
 .lead {
   width: min(620px, 100%);
   margin-bottom: 32px;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 18px;
-  line-height: 1.9;
+  font-size: 20px;
+  line-height: 2;
+  letter-spacing: 0.07em;
 }
 
 .hero-actions,
@@ -258,7 +263,8 @@ h3 {
   min-height: 48px;
   padding: 0 18px;
   border-radius: 8px;
-  font-weight: 800;
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 .primary-button {
@@ -331,6 +337,8 @@ h3 {
 .quick-link strong {
   margin-bottom: 8px;
   font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
 }
 
 .quick-link small {
@@ -382,7 +390,7 @@ h3 {
   background: var(--white);
   border: 1px solid var(--line);
   color: var(--navy);
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .industry-grid a svg {
@@ -432,7 +440,8 @@ h3 {
   margin-bottom: 14px;
   color: var(--teal);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 500;
+  letter-spacing: 0.08em;
 }
 
 .content-card p,
@@ -485,8 +494,8 @@ h3 {
   margin: 0 0 20px;
   color: var(--accent);
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1.6px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -502,9 +511,9 @@ h3 {
   margin: 0 0 24px;
   color: var(--white);
   font-size: 64px;
-  font-weight: 800;
+  font-weight: 300;
   line-height: 1.14;
-  letter-spacing: 0;
+  letter-spacing: 0.08em;
 }
 
 .pmq-hero h1 em {
@@ -535,7 +544,8 @@ h3 {
   min-height: 50px;
   padding: 0 26px;
   border-radius: 12px;
-  font-weight: 800;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-decoration: none;
 }
 
@@ -567,15 +577,16 @@ h3 {
 
 .pmq-trust strong {
   color: var(--white);
-  font-family: Arial, sans-serif;
+  font-family: var(--font-serif-en);
   font-size: 20px;
+  font-weight: 300;
   line-height: 1;
 }
 
 .pmq-trust span {
   color: rgba(255, 255, 255, 0.62);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .pmq-rep {
@@ -598,8 +609,9 @@ h3 {
   background: var(--accent);
   border-radius: 50%;
   font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 0;
+  font-family: var(--font-serif-en);
+  font-weight: 300;
+  letter-spacing: 0.04em;
 }
 
 .pmq-rep h2 {
@@ -739,9 +751,9 @@ h3 {
   margin: 0 0 18px;
   color: var(--ink);
   font-size: 42px;
-  font-weight: 800;
-  line-height: 1.3;
-  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.08em;
 }
 
 .pmq-text {
@@ -795,6 +807,8 @@ h3 {
 .pmq-content-item strong {
   margin-bottom: 4px;
   font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
 }
 
 .pmq-content-item span {
@@ -824,7 +838,7 @@ h3 {
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 999px;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .pmq-support-list {
@@ -842,7 +856,7 @@ h3 {
   border: 1px solid var(--line);
   border-radius: 12px;
   box-shadow: var(--shadow-sm);
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .pmq-support-list svg {
@@ -898,7 +912,7 @@ h3 {
   display: inline-block;
   margin-bottom: 8px;
   color: var(--coral);
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .question strong {
@@ -920,7 +934,7 @@ h3 {
   color: var(--navy);
   background: var(--sky);
   border-radius: 8px;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .audience-section {
@@ -930,7 +944,7 @@ h3 {
 .audience-card a {
   margin-top: 18px;
   color: var(--teal-dark);
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .company-cta {
@@ -1044,7 +1058,7 @@ h3 {
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 8px;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .process-section {
@@ -1070,7 +1084,7 @@ h3 {
   margin-bottom: 18px;
   color: var(--coral);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .process-item strong {
@@ -1110,7 +1124,7 @@ h3 {
   display: grid;
   gap: 8px;
   color: var(--ink);
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .contact-form input,
@@ -1164,7 +1178,7 @@ h3 {
   align-items: center;
   gap: 8px;
   color: var(--teal-dark);
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .integration-section {
@@ -1185,7 +1199,7 @@ footer {
   padding: 28px 40px;
   color: var(--white);
   background: #0b1d28;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 @media (max-width: 980px) {
