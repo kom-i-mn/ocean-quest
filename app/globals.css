@@ -1,21 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap");
 
 :root {
-  --ink: #00383d;
-  --muted: #4d6668;
-  --soft-muted: #8fa0a0;
-  --line: rgba(0, 56, 61, 0.16);
-  --paper: #f6f3ec;
-  --white: #fffdf7;
-  --teal: #005b63;
-  --teal-dark: #00383d;
+  --ink: #003f4a;
+  --muted: #4b7075;
+  --soft-muted: #8eaaa9;
+  --line: rgba(0, 128, 145, 0.18);
+  --paper: #eef8f7;
+  --white: #fbfffd;
+  --teal: #008b98;
+  --teal-dark: #005866;
   --coral: #ff7a21;
   --gold: #b8894a;
-  --navy: #002f36;
-  --sky: #edf2ef;
-  --primary: #00383d;
-  --primary-dk: #00232a;
-  --primary-lt: #eef0e8;
+  --navy: #00343f;
+  --sky: #e2f5f3;
+  --primary: #005866;
+  --primary-dk: #002b34;
+  --primary-lt: #e7f6f4;
   --accent: #ff7a21;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
   --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
@@ -59,7 +59,7 @@ a {
   min-height: 72px;
   padding: 0 40px;
   color: var(--white);
-  background: rgba(0, 47, 54, 0.84);
+  background: rgba(0, 52, 63, 0.84);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
 }
@@ -67,7 +67,7 @@ a {
 .site-header.solid {
   position: sticky;
   color: var(--white);
-  background: rgba(0, 47, 54, 0.96);
+  background: rgba(0, 52, 63, 0.96);
 }
 
 .brand {
@@ -671,13 +671,13 @@ h3 {
 }
 
 .photo-light::before {
-  background: rgba(246, 243, 236, 0.82);
+  background: rgba(238, 248, 247, 0.84);
 }
 
 .photo-light::after {
   background:
-    linear-gradient(120deg, rgba(255, 253, 247, 0.96), rgba(246, 243, 236, 0.72) 48%, rgba(255, 253, 247, 0.9)),
-    radial-gradient(circle at 80% 20%, rgba(0, 91, 99, 0.12), transparent 28%);
+    linear-gradient(120deg, rgba(251, 255, 253, 0.96), rgba(226, 245, 243, 0.76) 48%, rgba(251, 255, 253, 0.9)),
+    radial-gradient(circle at 80% 20%, rgba(0, 139, 152, 0.14), transparent 28%);
 }
 
 .photo-dark {
@@ -685,13 +685,13 @@ h3 {
 }
 
 .photo-dark::before {
-  background: rgba(0, 35, 42, 0.74);
+  background: rgba(0, 43, 52, 0.74);
 }
 
 .photo-dark::after {
   background:
-    linear-gradient(110deg, rgba(0, 35, 42, 0.93), rgba(0, 47, 54, 0.74) 48%, rgba(0, 35, 42, 0.84)),
-    radial-gradient(circle at 86% 18%, rgba(255, 122, 33, 0.16), transparent 26%);
+    linear-gradient(110deg, rgba(0, 43, 52, 0.94), rgba(0, 88, 102, 0.76) 48%, rgba(0, 63, 74, 0.86)),
+    radial-gradient(circle at 86% 18%, rgba(82, 218, 224, 0.22), transparent 26%);
 }
 
 .photo-dark .pmq-section h2,
@@ -702,13 +702,14 @@ h3 {
 }
 
 .photo-dark .pmq-kicker {
-  color: #f2a46f;
+  color: #89edf0;
 }
 
 .photo-dark .pmq-content-item,
 .photo-dark .pmq-support-list div {
-  background: rgba(255, 253, 247, 0.92);
-  border-color: rgba(255, 253, 247, 0.36);
+  color: var(--ink);
+  background: rgba(251, 255, 253, 0.94);
+  border-color: rgba(190, 236, 234, 0.5);
 }
 
 .photo-foam {
@@ -767,6 +768,28 @@ h3 {
   color: var(--muted);
   font-size: 16px;
   line-height: 1.95;
+}
+
+.photo-dark.pmq-section h2,
+.photo-dark .pmq-head h2,
+.photo-dark .pmq-two h2 {
+  color: #f5fffd;
+  text-shadow: 0 2px 22px rgba(0, 43, 52, 0.34);
+}
+
+.photo-dark .pmq-head p,
+.photo-dark .pmq-lead,
+.photo-dark .pmq-text p {
+  color: rgba(245, 255, 253, 0.88);
+}
+
+.photo-dark .pmq-content-item strong,
+.photo-dark .pmq-support-list span {
+  color: var(--ink);
+}
+
+.photo-dark .pmq-content-item span {
+  color: var(--muted);
 }
 
 .pmq-head {
@@ -835,7 +858,7 @@ h3 {
   min-height: 40px;
   padding: 0 14px;
   color: var(--primary);
-  background: rgba(255, 253, 247, 0.9);
+  background: rgba(251, 255, 253, 0.92);
   border: 1px solid var(--line);
   border-radius: 999px;
   font-weight: 500;
@@ -852,7 +875,8 @@ h3 {
   gap: 12px;
   min-height: 56px;
   padding: 0 18px;
-  background: rgba(255, 253, 247, 0.9);
+  color: var(--ink);
+  background: rgba(251, 255, 253, 0.92);
   border: 1px solid var(--line);
   border-radius: 12px;
   box-shadow: var(--shadow-sm);
@@ -874,7 +898,7 @@ h3 {
 
 .pmq-final.photo-shore {
   background:
-    linear-gradient(135deg, rgba(0, 35, 42, 0.92), rgba(0, 56, 61, 0.78) 58%, rgba(0, 91, 99, 0.68)),
+    linear-gradient(135deg, rgba(0, 43, 52, 0.92), rgba(0, 88, 102, 0.78) 58%, rgba(0, 139, 152, 0.66)),
     url("/images/backgrounds/shoreline.jpg") center / cover;
 }
 
