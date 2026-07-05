@@ -19,6 +19,22 @@ export type ExternalContent = {
   updated_at: string;
 };
 
+export type AnalyticsReport = {
+  id: string;
+  report_date: string;
+  source: string;
+  summary: Record<string, unknown>;
+  channel_groups: Array<Record<string, unknown>>;
+  search_queries: Array<Record<string, unknown>>;
+  landing_pages: Array<Record<string, unknown>>;
+  events: Array<Record<string, unknown>>;
+  insights: string[];
+  recommended_actions: string[];
+  metadata: Record<string, unknown>;
+  created_at: string;
+  updated_at: string;
+};
+
 type SupabaseRequestOptions = {
   method?: "GET" | "POST";
   query?: string;
@@ -136,6 +152,54 @@ export async function upsertExternalContents(
     method: "POST",
     query: "on_conflict=source,source_id",
     body: contents,
+    prefer: "resolution=merge-duplicates,return=representation",
+    useServiceRole: true,
+  });
+}
+
+export async function getLatestAnalyticsReport() {
+  if (!hasSupabaseReadConfig()) {
+    return null;
+  }
+
+  const query = new URLSearchParams({
+    select:
+      "id,report_date,source,summary,channel_groups,search_queries,landing_pages,events,insights,recommended_actions,metadata,created_at,updated_at",
+    order: "report_date.desc",
+    limit: "1",
+  });
+
+  try {
+    const reports = await supabaseRequest<AnalyticsReport[]>("analytics_reports", {
+      query: query.toString(),
+    });
+
+    return reports[0] ?? null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export async function upsertAnalyticsReport(
+  report: Pick<
+    AnalyticsReport,
+    | "report_date"
+    | "source"
+    | "summary"
+    | "channel_groups"
+    | "search_queries"
+    | "landing_pages"
+    | "events"
+    | "insights"
+    | "recommended_actions"
+    | "metadata"
+  >,
+) {
+  return supabaseRequest<AnalyticsReport[]>("analytics_reports", {
+    method: "POST",
+    query: "on_conflict=report_date",
+    body: report,
     prefer: "resolution=merge-duplicates,return=representation",
     useServiceRole: true,
   });
