@@ -6,10 +6,7 @@ type GoogleServiceAccount = {
   token_uri?: string;
 };
 
-const tokenCache = {
-  accessToken: "",
-  expiresAt: 0,
-};
+const tokenCache = new Map<string, { accessToken: string; expiresAt: number }>();
 
 export function hasGoogleAnalyticsConfig() {
   return Boolean(
@@ -22,9 +19,11 @@ export function hasGoogleAnalyticsConfig() {
 
 export async function getGoogleAccessToken(scopes: string[]) {
   const now = Math.floor(Date.now() / 1000);
+  const cacheKey = scopes.join(" ");
+  const cached = tokenCache.get(cacheKey);
 
-  if (tokenCache.accessToken && tokenCache.expiresAt - 60 > now) {
-    return tokenCache.accessToken;
+  if (cached && cached.expiresAt - 60 > now) {
+    return cached.accessToken;
   }
 
   const clientEmail = getGoogleClientEmail();
@@ -69,8 +68,10 @@ export async function getGoogleAccessToken(scopes: string[]) {
     throw new Error("Google OAuth token response did not include access_token.");
   }
 
-  tokenCache.accessToken = data.access_token;
-  tokenCache.expiresAt = now + (data.expires_in ?? 3600);
+  tokenCache.set(cacheKey, {
+    accessToken: data.access_token,
+    expiresAt: now + (data.expires_in ?? 3600),
+  });
 
   return data.access_token;
 }
