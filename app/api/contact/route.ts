@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { hasResendConfig, sendContactNotificationEmail } from "@/lib/email";
 import { hasSupabaseWriteConfig, insertContactSubmission } from "@/lib/supabase";
 
 export const runtime = "nodejs";
@@ -35,13 +36,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "相談内容を入力してください。" }, { status: 400 });
   }
 
-  await insertContactSubmission({
+  const submission = {
     name: name || null,
     company: company || null,
     email,
     topic: topic || null,
     message,
-  });
+  };
+
+  await insertContactSubmission(submission);
+
+  if (hasResendConfig()) {
+    try {
+      await sendContactNotificationEmail(submission);
+    } catch (error) {
+      console.error("Failed to send contact notification email:", error);
+    }
+  }
 
   return NextResponse.json({ ok: true });
 }
