@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import type { DailyAnalyticsReportInput } from "@/lib/analytics";
 import { generateDailyAnalyticsReport } from "@/lib/analytics";
+import { hasResendConfig, sendDailyMaintenanceEmail } from "@/lib/email";
 import { hasGoogleAnalyticsConfig } from "@/lib/google-auth";
 import { fetchNoteRssContents } from "@/lib/note";
 import {
@@ -27,6 +29,7 @@ export async function GET(request: Request) {
   }
 
   const results: Record<string, unknown> = {};
+  let analyticsReport: DailyAnalyticsReportInput | null = null;
 
   try {
     const youtubeLimit = Number(process.env.YOUTUBE_INGEST_LIMIT ?? "12");
@@ -61,6 +64,7 @@ export async function GET(request: Request) {
   if (hasGoogleAnalyticsConfig()) {
     try {
       const report = await generateDailyAnalyticsReport();
+      analyticsReport = report;
       const savedReports = await upsertAnalyticsReport(report);
       results.analytics = {
         report_date: report.report_date,
@@ -77,6 +81,29 @@ export async function GET(request: Request) {
       skipped: true,
       reason:
         "GA4_PROPERTY_ID, SEARCH_CONSOLE_SITE_URL, and Google service account credentials are required.",
+    };
+  }
+
+  if (hasResendConfig()) {
+    try {
+      await sendDailyMaintenanceEmail({
+        results,
+        report: analyticsReport,
+      });
+      results.email = {
+        sent: true,
+        to: process.env.DAILY_REPORT_EMAIL || "mine@potentialight.com",
+      };
+    } catch (error) {
+      results.email = {
+        skipped: true,
+        error: error instanceof Error ? error.message : "Daily email failed.",
+      };
+    }
+  } else {
+    results.email = {
+      skipped: true,
+      reason: "RESEND_API_KEY is required.",
     };
   }
 
