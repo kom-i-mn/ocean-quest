@@ -237,6 +237,16 @@ h3 {
   font-weight: 500;
 }
 
+.hero-subtitle {
+  width: min(620px, 100%);
+  margin-bottom: 18px;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+}
+
 .lead {
   width: min(620px, 100%);
   margin-bottom: 32px;
@@ -876,6 +886,7 @@ h3 {
 }
 
 .pmq-tag-block span,
+.pmq-tag-block a,
 .pmq-industry-block a {
   display: inline-flex;
   align-items: center;
@@ -889,9 +900,102 @@ h3 {
   font-weight: 500;
 }
 
+.pmq-tag-block a:hover {
+  background: var(--white);
+  border-color: var(--accent);
+}
+
+.pmq-keywords-section {
+  padding: 40px 0;
+}
+
+.pmq-keywords-section .pmq-note {
+  margin: 0 0 14px;
+}
+
+.faq-list {
+  display: grid;
+  gap: 12px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  padding: 6px 24px;
+  background: rgba(251, 255, 253, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 0;
+  color: var(--ink);
+  font-weight: 500;
+  list-style: none;
+  cursor: pointer;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item p {
+  display: flex;
+  gap: 14px;
+  margin: 0 0 20px;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.faq-q,
+.faq-a {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  color: var(--white);
+  background: var(--accent);
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.faq-a {
+  background: var(--primary);
+}
+
 .pmq-support-list {
   display: grid;
   gap: 12px;
+}
+
+.pmq-support-list--compact > div {
+  align-items: center;
+  min-height: 52px;
+  padding: 0 18px;
+}
+
+.pmq-support-list--compact strong {
+  margin-bottom: 0;
+}
+
+.pmq-support-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.photo-dark .pmq-support-more {
+  color: #f5fffd;
 }
 
 .pmq-support-list > div {
@@ -933,6 +1037,10 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin: 0 auto 24px;
+}
+
+.pmq-numbered-grid--four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .pmq-numbered-card {
@@ -1060,6 +1168,10 @@ h3 {
   background: var(--sky);
   border-radius: 8px;
   font-weight: 500;
+}
+
+.audience-intro {
+  padding-bottom: 96px;
 }
 
 .audience-section {

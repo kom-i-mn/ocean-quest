@@ -26,7 +26,7 @@ export default async function NotesPage() {
               <a className="note-thumb" href={note.source_url} target="_blank" rel="noreferrer">
                 {note.thumbnail_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={note.thumbnail_url} alt="" />
+                  <img src={note.thumbnail_url} alt={note.title} />
                 ) : (
                   <span>
                     <FileText size={34} />

@@ -4,9 +4,12 @@ import {
   Building2,
   CalendarDays,
   ClipboardCheck,
+  Compass,
   FileText,
   PlayCircle,
   Sparkles,
+  UserSearch,
+  Users,
 } from "lucide-react";
 import { HeroVideo } from "@/components/HeroVideo";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -39,6 +42,98 @@ const contentRoutes = [
   },
 ];
 
+const audiences = [
+  {
+    icon: UserSearch,
+    title: "海洋業界へ転職したい方",
+    description:
+      "海運、造船、AUV、洋上風力など、海洋業界への転職・キャリアチェンジを考えている方へ。異業種の経験を海洋産業でどう活かせるか、キャリア相談で一緒に整理します。",
+    href: "/diagnosis",
+    cta: "キャリア相談をする",
+  },
+  {
+    icon: Compass,
+    title: "海洋産業について知りたい方",
+    description:
+      "海洋業界とはどんな産業で、どんな仕事があるのか。動画やnoteの記事で、海洋産業の仕事・技術・キャリアの可能性をわかりやすく発信しています。",
+    href: "/notes",
+    cta: "海洋産業について知る",
+  },
+  {
+    icon: Users,
+    title: "海洋人材を採用したい企業",
+    description:
+      "海洋産業に強い専門人材の採用支援、採用広報、スカウト支援まで対応します。採用計画が固まっていない段階からご相談いただけます。",
+    href: "/companies",
+    cta: "採用について相談する",
+  },
+];
+
+const oceanQuestStrengths = [
+  {
+    number: "01",
+    title: "海洋産業に特化した専門サービス",
+    description:
+      "海運、造船、AUV、洋上風力、海洋資源など、海洋産業に特化して知見を蓄積しているからこそ、業界特有の文脈まで踏み込んだ採用支援・キャリア支援ができます。",
+  },
+  {
+    number: "02",
+    title: "採用だけでなく業界理解まで支援",
+    description:
+      "求人紹介だけでなく、海洋産業そのものの面白さや仕組みを伝えるコンテンツを通じて、候補者の理解と納得感を深めます。",
+  },
+  {
+    number: "03",
+    title: "YouTube・note・イベントを通じて候補者との接点を創出",
+    description:
+      "動画、note記事、イベントなど複数のチャネルを通じて、転職を考えていない層にも海洋産業の魅力を届け、将来の候補者との接点をつくります。",
+  },
+  {
+    number: "04",
+    title: "企業と求職者の双方へ価値提供",
+    description:
+      "採用したい企業と、海洋業界で挑戦したい人材、その両方に向き合いながら、海洋産業全体の人材循環を支援します。",
+  },
+];
+
+const relatedKeywords = [
+  "海洋産業とは",
+  "海洋業界とは",
+  "海洋企業一覧",
+  "海洋転職",
+  "海洋求人",
+  "海洋エンジニアとは",
+  "洋上風力とは",
+];
+
+const faqItems = [
+  {
+    question: "海洋産業とは？",
+    answer:
+      "海運、造船、漁業、洋上風力、海洋資源開発など、海の利用・開発・保全に関わる産業全体を指します。近年は洋上風力やAUV・ROVなどの新しい技術領域も拡大しています。",
+  },
+  {
+    question: "未経験でも海洋業界へ転職できますか？",
+    answer:
+      "はい、可能です。海洋産業には専門知識が必要な仕事だけでなく、事業開発、営業、マーケティング、採用など幅広い職種があり、他業界での経験を活かして海洋業界へ転職する方が増えています。",
+  },
+  {
+    question: "どのような企業を紹介していますか？",
+    answer:
+      "海運、造船、AUV・ROV、洋上風力、海洋土木、水産など、海洋産業に関わるさまざまな企業の求人・採用情報を扱っています。大手企業からスタートアップまで幅広くご紹介可能です。",
+  },
+  {
+    question: "採用相談・キャリア相談は無料ですか？",
+    answer:
+      "はい、無料です。転職を検討していない段階での情報収集や、企業の採用に関するご相談もお気軽にご利用いただけます。",
+  },
+  {
+    question: "地方企業でも相談できますか？",
+    answer:
+      "はい、対応しています。海洋産業は港湾や造船所など地方に拠点を持つ企業も多く、地域を問わずキャリア相談・採用相談を承っています。",
+  },
+];
+
 const oceanIndustryTypes = [
   {
     number: "01",
@@ -64,44 +159,18 @@ const companySupports = [
   {
     number: "01",
     title: "採用戦略・職種要件の設計",
-    description:
-      "採用計画、ターゲット人材、職種要件、選考設計などを整理し、海洋産業に必要な人材へ届く採用の土台をつくります。",
   },
   {
     number: "02",
-    title: "魅力設計・採用ブランディング",
-    description:
-      "事業、技術、働く人、社会的意義、キャリアの可能性を言語化し、候補者に伝わる魅力として整理します。",
+    title: "採用サイト・採用広報・コンテンツ企画",
   },
   {
     number: "03",
-    title: "採用サイト・採用広報・コンテンツ企画",
-    description:
-      "魅力設計をもとに、採用サイト、採用記事、動画、音声、イベントなどへ展開し、継続的に候補者へ届く接点をつくります。",
+    title: "専門人材向けスカウト支援",
   },
   {
     number: "04",
-    title: "専門人材向けスカウト支援",
-    description:
-      "エンジニア、研究開発、事業開発、現場実装、専門職など、海洋産業に関わる人材に向けたスカウト設計・運用を支援します。",
-  },
-  {
-    number: "05",
-    title: "人材紹介・候補者接点の創出",
-    description:
-      "海洋産業に関心を持つ人材や、隣接領域の経験者との接点づくりを支援します。採用広報やスカウトだけでは出会いにくい候補者との接点を広げます。",
-  },
-  {
-    number: "06",
     title: "母集団形成・候補者体験の設計",
-    description:
-      "応募前から選考中、内定後まで、候補者が企業や仕事を正しく理解し、前向きに意思決定できる採用体験を設計します。",
-  },
-  {
-    number: "07",
-    title: "面談・面接トレーニング",
-    description:
-      "現場社員や面接担当者が、候補者に事業や仕事の魅力を伝えられるよう、面談・面接の進め方や伝え方をレクチャーします。",
   },
 ];
 
@@ -155,13 +224,16 @@ export default function Home() {
         <div className="hero-content">
           <p className="eyebrow">
             <Sparkles size={16} />
-            海洋産業に、次の仲間が集まる入口を。
+            海洋産業専門の採用・転職・キャリア支援サービス
           </p>
           <h1>Ocean Quest</h1>
+          <p className="hero-subtitle">
+            海洋業界への転職・キャリア相談から、海洋人材の採用支援まで。
+          </p>
           <p className="lead">
-            海運、造船、AUV、洋上風力、海洋資源。海には、社会を支える仕事と、日本の産業・未来をつくる挑戦が広がっています。
-            でも、その面白さや可能性、そして重要性は、まだ十分に届いていません。Ocean
-            Questは、海洋産業の仕事・人・技術・未来をわかりやすく伝え、企業と人材の新しい出会いをつくるサービスです。
+            海運、造船、AUV、洋上風力、海洋資源。海洋業界には社会を支える仕事と、日本の未来をつくる挑戦が広がっていますが、海洋転職や海洋求人の情報はまだ十分に届いていません。
+            Ocean
+            Questは、海洋産業に特化したキャリア支援と採用支援を通じて、海洋業界を目指す人と、海洋人材を採用したい企業をつなぐサービスです。
           </p>
           <div className="hero-actions">
             <a className="primary-button" href="/contact">
@@ -169,9 +241,31 @@ export default function Home() {
               <ArrowRight size={18} />
             </a>
             <a className="secondary-button" href="/notes">
-              海洋産業について知る
+              海洋業界について知る
             </a>
           </div>
+        </div>
+      </section>
+
+      <section className="section audience-intro" aria-label="Ocean Questを使う3つの立場">
+        <div className="section-heading">
+          <p className="section-kicker">FOR YOU</p>
+          <h2>Ocean Questは、こんな方のためのサービスです。</h2>
+        </div>
+        <div className="audience-section">
+          {audiences.map(({ icon: Icon, title, description, href, cta }) => (
+            <article className="content-card audience-card" key={title}>
+              <div className="card-icon">
+                <Icon size={22} />
+              </div>
+              <h3>{title}</h3>
+              <p>{description}</p>
+              <a href={href}>
+                {cta}
+                <ArrowRight size={16} />
+              </a>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -199,12 +293,30 @@ export default function Home() {
             </p>
             <p>
               Ocean
-              Questは、海洋産業の専門性をわかりやすく言語化し、コンテンツとして届けながら、採用の接点をつくっていきます。求職者にとっては業界を知る入口に。企業にとっては、自社の魅力や仕事の価値を伝える場所に。海洋産業に関わる人と企業が、より自然に出会える状態を目指しています。
+              Questは、海洋産業の専門性をわかりやすく言語化し、コンテンツとして届けながら、採用支援の接点をつくっていきます。海洋転職を考える求職者にとっては海洋業界を知る入口に。企業にとっては、自社の魅力や仕事の価値を伝える場所に。海洋産業に関わる人と企業が、より自然に出会える状態を目指しています。
             </p>
             <p>
               Ocean
-              Questは、海洋産業に特化した人材・採用支援サービスです。海洋産業に特化して、採用支援、キャリア支援、業界理解の発信までを一体で行うサービスは、日本ではまだ存在していません。だからこそ私は、海洋産業について日本で最も深く理解する採用コンサルタント・キャリアカウンセラーでありたいと考えています。海洋産業の未来を一緒に探求する。企業の採用課題と、個人のキャリアの可能性、その両方に向き合いながら、海洋産業に関わる人を増やしていきます。
+              Questは、海洋産業に特化した人材・採用支援サービスです。海洋業界に特化して、採用支援、キャリア支援、業界理解の発信までを一体で行うサービスは、日本ではまだ存在していません。だからこそ私は、海洋産業について日本で最も深く理解する採用コンサルタント・キャリアカウンセラーでありたいと考えています。海洋産業の未来を一緒に探求する。企業の採用課題と、個人のキャリアの可能性、その両方に向き合いながら、海洋業界に関わる人を増やしていきます。
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="pmq-section photo-bg photo-blue photo-light">
+        <div className="container">
+          <div className="pmq-head">
+            <p className="pmq-kicker">WHY OCEAN QUEST</p>
+            <h2>Ocean Questだからできること。</h2>
+          </div>
+          <div className="pmq-numbered-grid pmq-numbered-grid--four">
+            {oceanQuestStrengths.map(({ number, title, description }) => (
+              <div className="pmq-numbered-card" key={number}>
+                <span className="pmq-number">{number}</span>
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -265,6 +377,19 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="pmq-section pmq-keywords-section">
+        <div className="container">
+          <p className="pmq-note">よく検索されるキーワードから探す</p>
+          <div className="pmq-tag-block">
+            {relatedKeywords.map((keyword) => (
+              <a href="/notes" key={keyword}>
+                {keyword}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="pmq-section pmq-alt photo-bg photo-container photo-dark" id="companies">
         <div className="container pmq-two">
           <div>
@@ -272,33 +397,74 @@ export default function Home() {
             <h2>海洋産業の採用を、伝えるところから設計する。</h2>
             <p className="pmq-lead">
               専門性の高い職種ほど、求人票だけで魅力を届けるのは簡単ではありません。Ocean
-              Questでは、職種要件の整理、候補者像の設計、採用広報、スカウト、コンテンツ発信まで、海洋産業ならではの文脈をふまえて採用を支援します。採用計画が固まりきっていない段階でも、まずは現状の整理からご相談いただけます。
+              Questでは、海洋産業ならではの文脈をふまえた採用支援で、海洋人材の採用をサポートします。採用計画が固まりきっていない段階でも、まずは現状の整理からご相談いただけます。
             </p>
             <a className="pmq-btn primary" href="/companies">
               採用に関する相談をする
               <ArrowRight size={18} />
             </a>
           </div>
-          <div className="pmq-support-list">
-            {companySupports.map(({ number, title, description }) => (
+          <div className="pmq-support-list pmq-support-list--compact">
+            {companySupports.map(({ number, title }) => (
               <div key={number}>
                 <Building2 size={18} />
-                <div>
-                  <strong>{title}</strong>
-                  <span>{description}</span>
-                </div>
+                <strong>{title}</strong>
               </div>
+            ))}
+            <a className="pmq-support-more" href="/companies">
+              支援内容の詳細を見る
+              <ArrowRight size={16} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="pmq-section photo-bg photo-foam photo-light" aria-label="よくある質問">
+        <div className="container">
+          <div className="pmq-head">
+            <p className="pmq-kicker">FAQ</p>
+            <h2>よくあるご質問</h2>
+          </div>
+          <div className="faq-list">
+            {faqItems.map(({ question, answer }) => (
+              <details className="faq-item" key={question}>
+                <summary>
+                  <span className="faq-q">Q</span>
+                  {question}
+                </summary>
+                <p>
+                  <span className="faq-a">A</span>
+                  {answer}
+                </p>
+              </details>
             ))}
           </div>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqItems.map(({ question, answer }) => ({
+              "@type": "Question",
+              name: question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: answer,
+              },
+            })),
+          }),
+        }}
+      />
 
       <section className="pmq-final photo-bg photo-shore">
         <div className="container">
           <p className="pmq-kicker">CONTACT</p>
           <h2>海洋産業の採用について、まずは話すところから。</h2>
           <p>
-            求人票を作る前でも、採用広報を始める前でも、スカウトに悩んでいる段階でも大丈夫です。どんな人に、何を、どう伝えるべきか。貴社の事業や採用状況を伺いながら、一緒に整理します。
+            求人票を作る前でも、採用広報を始める前でも、スカウトに悩んでいる段階でも大丈夫です。どんな人に、何を、どう伝えるべきか。貴社の事業や採用状況、海洋業界での採用課題を伺いながら、一緒に整理します。
           </p>
           <a className="pmq-btn primary" href="/contact">
             相談する

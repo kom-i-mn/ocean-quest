@@ -26,7 +26,7 @@ export default async function VideosPage() {
               <a className="video-thumb" href={video.source_url} target="_blank" rel="noreferrer">
                 {video.thumbnail_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={video.thumbnail_url} alt="" />
+                  <img src={video.thumbnail_url} alt={video.title} />
                 ) : (
                   <span>
                     <PlayCircle size={38} />

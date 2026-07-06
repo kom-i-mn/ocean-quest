@@ -2,16 +2,28 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 
+const siteTitle = "Ocean Quest | 海洋産業専門の採用・転職・キャリア支援サービス";
+const siteDescription =
+  "Ocean Questは、海洋産業に特化した採用・転職・キャリア支援サービスです。海洋業界への転職相談、海洋求人の紹介、企業の採用支援まで、海洋産業に関わる人と企業をつなぎます。";
+
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://ocean-quest.jp",
   ),
-  title: "Ocean Quest | 海洋産業に特化した人材支援・採用支援",
-  description:
-    "Ocean Questは、海洋産業に特化したキャリア・採用支援サービスです。動画、eBook、note、イベント、診断を通じて、海洋産業の人と組織をつなぎます。",
+  title: siteTitle,
+  description: siteDescription,
   openGraph: {
-    title: "Ocean Quest",
-    description: "海洋産業に特化した人材支援・採用支援サービス",
+    type: "website",
+    locale: "ja_JP",
+    siteName: "Ocean Quest",
+    title: siteTitle,
+    description: siteDescription,
+    images: ["/images/ocean-quest-hero.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
     images: ["/images/ocean-quest-hero.png"],
   },
   verification: {
