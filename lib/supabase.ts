@@ -19,6 +19,17 @@ export type ExternalContent = {
   updated_at: string;
 };
 
+export type ContactSubmission = {
+  id: string;
+  name: string | null;
+  company: string | null;
+  email: string;
+  topic: string | null;
+  message: string;
+  status: string;
+  created_at: string;
+};
+
 export type AnalyticsReport = {
   id: string;
   report_date: string;
@@ -179,6 +190,19 @@ export async function getLatestAnalyticsReport() {
     console.error(error);
     return null;
   }
+}
+
+export async function insertContactSubmission(
+  submission: Pick<ContactSubmission, "name" | "company" | "email" | "topic" | "message">,
+) {
+  const rows = await supabaseRequest<ContactSubmission[]>("contact_submissions", {
+    method: "POST",
+    body: submission,
+    prefer: "return=representation",
+    useServiceRole: true,
+  });
+
+  return rows[0];
 }
 
 export async function upsertAnalyticsReport(

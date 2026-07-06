@@ -1,4 +1,5 @@
-import { ArrowRight, Mail, MessageSquareText, Send, Ship } from "lucide-react";
+import { ArrowRight, Mail, MessageSquareText, Ship } from "lucide-react";
+import { ContactForm } from "@/components/ContactForm";
 import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -40,50 +41,7 @@ export default function ContactPage() {
             <MessageSquareText size={22} />
           </div>
           <h2>相談内容</h2>
-          <form
-            className="contact-form"
-            action="mailto:hello@potentialight.co?subject=Ocean%20Quest%E3%81%B8%E3%81%AE%E7%9B%B8%E8%AB%87"
-            method="post"
-            encType="text/plain"
-          >
-            <label>
-              お名前
-              <input name="name" placeholder="山田 太郎" />
-            </label>
-            <label>
-              会社名
-              <input name="company" placeholder="株式会社〇〇" />
-            </label>
-            <label>
-              メールアドレス
-              <input name="email" placeholder="name@example.com" type="email" />
-            </label>
-            <label>
-              相談したい内容
-              <select name="topic" defaultValue="">
-                <option value="" disabled>
-                  選択してください
-                </option>
-                {topics.map((topic) => (
-                  <option value={topic} key={topic}>
-                    {topic}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              詳細
-              <textarea
-                name="message"
-                placeholder="採用したい職種、困っていること、相談したい背景などをご記入ください。"
-                rows={7}
-              />
-            </label>
-            <button className="primary-button" type="submit">
-              相談を送信する
-              <Send size={18} />
-            </button>
-          </form>
+          <ContactForm topics={topics} />
         </div>
 
         <aside className="contact-side">

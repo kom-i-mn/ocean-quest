@@ -1988,6 +1988,27 @@ h3 {
   cursor: pointer;
 }
 
+.contact-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.contact-form-error {
+  margin: 0;
+  color: var(--coral);
+  font-size: 14px;
+}
+
+.contact-form-success {
+  padding: 24px;
+  color: var(--teal-dark);
+  background: var(--sky);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
 .contact-side {
   display: grid;
   align-content: start;
