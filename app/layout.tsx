@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     description: "海洋産業に特化した人材支援・採用支援サービス",
     images: ["/images/ocean-quest-hero.png"],
   },
+  verification: {
+    google: "gSZ3B4blvKNrTKZyfRZegZJWCfsEEl6PxGb-UFU6Zmk",
+  },
 };
 
 export default function RootLayout({
