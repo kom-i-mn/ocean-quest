@@ -1,4 +1,5 @@
 import { ArrowUpRight, FileText } from "lucide-react";
+import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { listNoteContents } from "@/lib/supabase";
@@ -13,13 +14,22 @@ export default async function NotesPage() {
       <SiteHeader solid />
       <section className="subpage-hero">
         <p className="section-kicker">note</p>
-        <h1>思想と解体新書を読む</h1>
+        <h1>海洋産業の今と、これからを読む。</h1>
         <p>
-          noteで公開した記事を取り込み、海洋産業の知識、思想、採用・キャリアの論点として蓄積します。
+          海洋産業の可能性、技術、職種、採用、キャリアについて、Ocean Questの視点で解説します。ニュースだけでは見えにくい業界の文脈を、わかりやすく言語化していきます。
         </p>
+        <div className="hero-actions subpage-actions">
+          <a className="primary-button" href="#notes">
+            noteを読む
+            <ArrowUpRight size={18} />
+          </a>
+          <a className="secondary-button light" href="/ebooks">
+            eBookを見る
+          </a>
+        </div>
       </section>
 
-      <section className="section note-library" aria-label="note記事一覧">
+      <section className="section note-library" id="notes" aria-label="note記事一覧">
         {notes.length > 0 ? (
           notes.map((note) => (
             <article className="note-card" key={note.id}>
@@ -52,25 +62,18 @@ export default async function NotesPage() {
         ) : (
           <div className="empty-state">
             <FileText size={28} />
-            <h2>note連携の準備中です</h2>
-            <p>
-              note RSSとSupabaseの環境変数を設定し、Cronを実行すると、DBに保存された記事がここに表示されます。
-            </p>
+            <h2>To Be Continued</h2>
+            <p>海洋産業の今とこれからを読み解く記事を、順次公開していきます。</p>
           </div>
         )}
       </section>
 
-      <section className="company-cta">
-        <div>
-          <p className="section-kicker">Next Action</p>
-          <h2>noteの記事を、eBookの種にしていく</h2>
-          <p>公開済みの記事を取り込み、次の段階ではeBook下書きやサムネイル生成につなげます。</p>
-        </div>
-        <a className="primary-button" href="/ebooks">
-          eBookを見る
-          <ArrowUpRight size={18} />
-        </a>
-      </section>
+      <ProfileCta
+        primaryLabel="noteで全記事を見る"
+        primaryHref="https://note.com/gentle_moraea373"
+        secondaryLabel="無料相談する"
+        secondaryHref="/contact"
+      />
       <SiteFooter />
     </main>
   );

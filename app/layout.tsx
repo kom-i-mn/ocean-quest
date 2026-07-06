@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { FloatingCta } from "@/components/FloatingCta";
 import "./globals.css";
 
 const siteTitle = "Ocean Quest | 海洋産業専門の採用・転職・キャリア支援サービス";
@@ -58,6 +59,7 @@ export default function RootLayout({
           </>
         ) : null}
         {children}
+        <FloatingCta />
       </body>
     </html>
   );

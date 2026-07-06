@@ -1,4 +1,5 @@
 import { ArrowRight, Mail, MessageSquareText, Send, Ship } from "lucide-react";
+import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
@@ -17,18 +18,34 @@ export default function ContactPage() {
         <p className="section-kicker">Contact</p>
         <h1>Ocean Questに相談する</h1>
         <p>
-          海洋産業に関する採用支援、キャリア相談、コンテンツ連携について、お気軽にご相談ください。
-          フォーム送信機能は次の段階でメール通知・CRM連携に接続します。
+          海洋産業の採用、転職・キャリア相談、記事・動画・イベント連携について、お気軽にご相談ください。内容が固まっていない段階でも、状況を伺いながら一緒に整理します。
         </p>
+        <div className="hero-actions subpage-actions">
+          <a className="primary-button" href="#contact-form">
+            相談を送信する
+            <ArrowRight size={18} />
+          </a>
+          <a
+            className="secondary-button light"
+            href="mailto:hello@potentialight.co?subject=Ocean%20Quest%E3%81%B8%E3%81%AE%E7%9B%B8%E8%AB%87"
+          >
+            メールで相談する
+          </a>
+        </div>
       </section>
 
       <section className="section contact-layout">
-        <div className="contact-panel">
+        <div className="contact-panel" id="contact-form">
           <div className="card-icon">
             <MessageSquareText size={22} />
           </div>
           <h2>相談内容</h2>
-          <form className="contact-form">
+          <form
+            className="contact-form"
+            action="mailto:hello@potentialight.co?subject=Ocean%20Quest%E3%81%B8%E3%81%AE%E7%9B%B8%E8%AB%87"
+            method="post"
+            encType="text/plain"
+          >
             <label>
               お名前
               <input name="name" placeholder="山田 太郎" />
@@ -62,8 +79,8 @@ export default function ContactPage() {
                 rows={7}
               />
             </label>
-            <button className="primary-button" type="button">
-              送信機能を接続予定
+            <button className="primary-button" type="submit">
+              相談を送信する
               <Send size={18} />
             </button>
           </form>
@@ -74,7 +91,7 @@ export default function ContactPage() {
             <Ship size={28} />
             <h3>まずはメールで相談する</h3>
             <p>
-              フォームの送信処理を接続するまでは、メール起動の導線から相談できます。送信先メールアドレスは後で正式な窓口に差し替えます。
+              採用やキャリア相談の内容がまだ整理できていない段階でも大丈夫です。まずは現在の状況や関心テーマをお送りください。
             </p>
             <a
               className="secondary-button light"
@@ -99,6 +116,12 @@ export default function ContactPage() {
         </aside>
       </section>
 
+      <ProfileCta
+        primaryLabel="noteで全記事を見る"
+        primaryHref="https://note.com/gentle_moraea373"
+        secondaryLabel="企業向け支援を見る"
+        secondaryHref="/companies"
+      />
       <SiteFooter />
     </main>
   );

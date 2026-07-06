@@ -1,4 +1,5 @@
 import { ArrowRight, Ship } from "lucide-react";
+import { ProfileCta } from "./ProfileCta";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 
@@ -7,7 +8,11 @@ export function SimplePage({
   title,
   description,
   items,
-  cta = "相談する",
+  cta,
+  ctaHref = "/contact",
+  secondaryCta,
+  secondaryHref,
+  comingSoon = false,
   backgroundClass,
 }: {
   kicker: string;
@@ -15,6 +20,10 @@ export function SimplePage({
   description: string;
   items: string[];
   cta?: string;
+  ctaHref?: string;
+  secondaryCta?: string;
+  secondaryHref?: string;
+  comingSoon?: boolean;
   backgroundClass: string;
 }) {
   return (
@@ -24,29 +33,42 @@ export function SimplePage({
         <p className="section-kicker">{kicker}</p>
         <h1>{title}</h1>
         <p>{description}</p>
+        {(cta || secondaryCta) && (
+          <div className="hero-actions subpage-actions">
+            {cta && (
+              <a className="primary-button" href={ctaHref}>
+                {cta}
+                <ArrowRight size={18} />
+              </a>
+            )}
+            {secondaryCta && secondaryHref && (
+              <a className="secondary-button light" href={secondaryHref}>
+                {secondaryCta}
+              </a>
+            )}
+          </div>
+        )}
       </section>
-      <section className="section subpage-grid">
-        {items.map((item) => (
-          <article className="flow-card" key={item}>
-            <Ship size={22} />
-            <strong>{item}</strong>
+      <section className="section subpage-grid" id="contents">
+        {comingSoon ? (
+          <div className="empty-state">
+            <Ship size={28} />
+            <h2>To Be Continued</h2>
             <p>
-              Ocean Questのコンテンツ基盤に順次接続し、公開済みの記事・動画・イベント情報を整理して掲載します。
+              現在、公開に向けて準備中です。海洋産業の理解やキャリア・採用に役立つコンテンツを順次お届けしていきます。
             </p>
-          </article>
-        ))}
+          </div>
+        ) : (
+          items.map((item) => (
+            <article className="flow-card" key={item}>
+              <Ship size={22} />
+              <strong>{item}</strong>
+              <p>海洋産業の理解やキャリア・採用に役立つ情報を、テーマごとに整理してお届けします。</p>
+            </article>
+          ))
+        )}
       </section>
-      <section className="company-cta">
-        <div>
-          <p className="section-kicker">Next Action</p>
-          <h2>海洋産業の情報を、採用とキャリアの意思決定につなげる</h2>
-          <p>必要な情報に迷わずたどり着けるよう、テーマ別・対象者別にコンテンツを拡充していきます。</p>
-        </div>
-        <a className="primary-button" href="/contact">
-          {cta}
-          <ArrowRight size={18} />
-        </a>
-      </section>
+      <ProfileCta />
       <SiteFooter />
     </main>
   );

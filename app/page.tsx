@@ -11,6 +11,7 @@ import {
   UserSearch,
   Users,
 } from "lucide-react";
+import Image from "next/image";
 import { HeroVideo } from "@/components/HeroVideo";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -295,9 +296,27 @@ export default function Home() {
               Ocean
               Questは、海洋産業の専門性をわかりやすく言語化し、コンテンツとして届けながら、採用支援の接点をつくっていきます。海洋転職を考える求職者にとっては海洋業界を知る入口に。企業にとっては、自社の魅力や仕事の価値を伝える場所に。海洋産業に関わる人と企業が、より自然に出会える状態を目指しています。
             </p>
+          </div>
+        </div>
+        <div className="container founder-profile">
+          <div className="founder-photo">
+            <Image
+              src="/images/minenaho-profile.jpg"
+              alt="Ocean Questを運営するミネナホのプロフィール写真"
+              width={400}
+              height={400}
+              sizes="(max-width: 768px) 220px, 320px"
+            />
+          </div>
+          <div className="founder-copy">
+            <p className="pmq-kicker">FOUNDER</p>
+            <h3>海洋産業に特化した、人材・採用支援の入口をつくる。</h3>
             <p>
               Ocean
-              Questは、海洋産業に特化した人材・採用支援サービスです。海洋業界に特化して、採用支援、キャリア支援、業界理解の発信までを一体で行うサービスは、日本ではまだ存在していません。だからこそ私は、海洋産業について日本で最も深く理解する採用コンサルタント・キャリアカウンセラーでありたいと考えています。海洋産業の未来を一緒に探求する。企業の採用課題と、個人のキャリアの可能性、その両方に向き合いながら、海洋業界に関わる人を増やしていきます。
+              Questは、海洋産業に特化した人材・採用支援サービスです。海洋業界に特化して、採用支援、キャリア支援、業界理解の発信までを一体で行うサービスは、日本ではまだ存在していません。
+            </p>
+            <p>
+              だからこそ私は、海洋産業について日本で最も深く理解する採用コンサルタント・キャリアカウンセラーでありたいと考えています。海洋産業の未来を一緒に探求する。企業の採用課題と、個人のキャリアの可能性、その両方に向き合いながら、海洋業界に関わる人を増やしていきます。
             </p>
           </div>
         </div>
@@ -364,6 +383,16 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <figure className="ocean-industry-map">
+            <Image
+              src="/images/ocean-industry-map.png"
+              alt="海洋産業を海洋空間活動型、素材・サービス等供給型、海洋資源活用型の3分類で整理した図"
+              width={1536}
+              height={1024}
+              sizes="(max-width: 768px) 100vw, 1120px"
+              priority={false}
+            />
+          </figure>
           <div className="pmq-category-footer">
             <p className="pmq-note">興味のある領域から、海洋産業の仕事・技術・企業・キャリアを知ることができます。</p>
             <p className="pmq-source">

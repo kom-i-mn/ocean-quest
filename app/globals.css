@@ -796,6 +796,84 @@ h3 {
   gap: 18px;
 }
 
+.founder-profile {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.42fr) minmax(0, 0.58fr);
+  gap: 0;
+  align-items: center;
+  margin-top: 46px;
+  padding: 0;
+  overflow: hidden;
+  color: var(--white);
+  background:
+    linear-gradient(105deg, rgba(0, 20, 31, 0.95), rgba(0, 57, 75, 0.88) 58%, rgba(0, 86, 104, 0.72)),
+    url("/images/backgrounds/deep-sea.jpg") center / cover;
+  border: 1px solid rgba(190, 236, 234, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 28px 70px rgba(0, 43, 52, 0.22);
+}
+
+.founder-photo {
+  position: relative;
+  width: 100%;
+  min-height: 430px;
+  align-self: stretch;
+  overflow: hidden;
+}
+
+.founder-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.founder-photo::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(0, 28, 40, 0.14) 54%, rgba(0, 28, 40, 0.78) 100%),
+    linear-gradient(0deg, rgba(0, 43, 52, 0.34), transparent 34%);
+}
+
+.founder-copy {
+  position: relative;
+  z-index: 1;
+  padding: 56px 58px;
+  background:
+    radial-gradient(circle at 92% 20%, rgba(82, 218, 224, 0.16), transparent 28%),
+    linear-gradient(90deg, rgba(0, 28, 40, 0.5), rgba(0, 43, 52, 0.28));
+}
+
+.founder-copy h3 {
+  max-width: 660px;
+  margin: 0 0 28px;
+  color: var(--white);
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+.founder-copy p:not(.pmq-kicker) {
+  max-width: 700px;
+  margin: 0;
+  color: rgba(245, 255, 253, 0.88);
+  font-size: 16px;
+  line-height: 2.05;
+}
+
+.founder-copy p + p {
+  margin-top: 16px;
+}
+
+.founder-copy .pmq-kicker {
+  color: #89edf0;
+}
+
 .pmq-text p,
 .pmq-head p,
 .pmq-lead {
@@ -1039,6 +1117,25 @@ h3 {
   margin: 0 auto 24px;
 }
 
+.ocean-industry-map {
+  max-width: 920px;
+  margin: 0 auto 28px;
+  padding: 12px;
+  overflow-x: auto;
+  background: rgba(251, 255, 253, 0.88);
+  border: 1px solid rgba(190, 236, 234, 0.56);
+  border-radius: 12px;
+  box-shadow: 0 20px 48px rgba(0, 63, 74, 0.12);
+  -webkit-overflow-scrolling: touch;
+}
+
+.ocean-industry-map img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
 .pmq-numbered-grid--four {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -1204,6 +1301,90 @@ h3 {
 .company-cta .section-kicker,
 .company-cta p {
   color: rgba(255, 255, 255, 0.78);
+}
+
+.profile-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  max-width: 980px;
+  margin: 48px auto 0;
+  padding: 18px 22px;
+  color: var(--ink);
+  background: rgba(251, 255, 253, 0.9);
+  border: 1px solid rgba(190, 236, 234, 0.42);
+  border-radius: 16px;
+  box-shadow: 0 14px 36px rgba(0, 24, 30, 0.1);
+  backdrop-filter: blur(12px);
+}
+
+.profile-cta-photo {
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--sky);
+}
+
+.profile-cta-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.profile-cta-copy {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.profile-cta-copy p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.profile-cta-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.profile-cta-points span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  color: var(--teal-dark);
+  background: rgba(226, 245, 243, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.profile-cta-points svg {
+  color: var(--coral);
+}
+
+.profile-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  gap: 10px;
+}
+
+.profile-cta-actions .primary-button,
+.profile-cta-actions .secondary-button {
+  min-height: 38px;
+  padding: 0 16px;
+  font-size: 13px;
 }
 
 .subpage-hero {
@@ -1890,6 +2071,7 @@ footer {
 
   .pmq-hero-grid,
   .pmq-two,
+  .founder-profile,
   .pmq-numbered-grid {
     grid-template-columns: 1fr;
     gap: 34px;
@@ -1908,6 +2090,11 @@ footer {
     margin-left: 0;
     margin-right: 0;
     text-align: left;
+  }
+
+  .founder-photo {
+    width: 100%;
+    min-height: 330px;
   }
 
   .photo-light .pmq-two > div,
@@ -1953,6 +2140,11 @@ footer {
   .company-cta {
     align-items: flex-start;
     flex-direction: column;
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+
+  .profile-cta {
     margin-left: 24px;
     margin-right: 24px;
   }
@@ -2032,6 +2224,42 @@ footer {
     padding: 20px;
   }
 
+  .founder-profile {
+    margin-top: 28px;
+    gap: 0;
+  }
+
+  .founder-photo {
+    min-height: 280px;
+  }
+
+  .founder-copy {
+    padding: 30px 24px 34px;
+  }
+
+  .founder-copy h3 {
+    font-size: 23px;
+    line-height: 1.55;
+  }
+
+  .profile-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 40px;
+    padding: 20px;
+  }
+
+  .profile-cta-actions {
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .profile-cta-actions .primary-button,
+  .profile-cta-actions .secondary-button {
+    width: 100%;
+  }
+
   .pmq-section h2,
   .pmq-final h2 {
     font-size: 29px;
@@ -2043,6 +2271,15 @@ footer {
 
   .pmq-content-item > svg:last-child {
     display: none;
+  }
+
+  .ocean-industry-map {
+    padding: 8px;
+  }
+
+  .ocean-industry-map img {
+    width: 720px;
+    max-width: none;
   }
 
   .pmq-final {
@@ -2106,5 +2343,53 @@ footer {
     align-items: flex-start;
     flex-direction: column;
     padding: 28px 24px;
+  }
+}
+
+.floating-cta {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 52px;
+  padding: 0 20px;
+  color: var(--white);
+  background: var(--primary);
+  border-radius: 999px;
+  box-shadow: 0 14px 32px rgba(0, 24, 30, 0.28);
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, filter 0.2s ease;
+}
+
+.floating-cta.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.floating-cta:hover {
+  filter: brightness(1.08);
+}
+
+@media (max-width: 640px) {
+  .floating-cta {
+    right: 16px;
+    bottom: 16px;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .floating-cta span {
+    display: none;
   }
 }

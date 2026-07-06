@@ -1,4 +1,5 @@
 import { ArrowUpRight, PlayCircle } from "lucide-react";
+import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { listYouTubeContents } from "@/lib/supabase";
@@ -13,13 +14,22 @@ export default async function VideosPage() {
       <SiteHeader solid />
       <section className="subpage-hero">
         <p className="section-kicker">Videos</p>
-        <h1>海洋産業を動画で学ぶ</h1>
+        <h1>海洋産業を、動画でわかりやすく。</h1>
         <p>
-          YouTubeに投稿した対談、業界解説、職種解説を取り込み、Ocean Questの動画ライブラリとして表示します。
+          海洋産業の仕事、技術、企業、キャリアの可能性を、対談や解説動画で届けます。まだ業界に詳しくない方でも、まずは興味のあるテーマから学べる動画ライブラリです。
         </p>
+        <div className="hero-actions subpage-actions">
+          <a className="primary-button" href="#videos">
+            動画を見る
+            <ArrowUpRight size={18} />
+          </a>
+          <a className="secondary-button light" href="/contact">
+            キャリア相談する
+          </a>
+        </div>
       </section>
 
-      <section className="section video-library" aria-label="動画一覧">
+      <section className="section video-library" id="videos" aria-label="動画一覧">
         {videos.length > 0 ? (
           videos.map((video) => (
             <article className="video-card" key={video.id}>
@@ -55,25 +65,13 @@ export default async function VideosPage() {
         ) : (
           <div className="empty-state">
             <PlayCircle size={28} />
-            <h2>動画連携の準備中です</h2>
-            <p>
-              SupabaseとYouTube APIの環境変数を設定し、Cronを実行すると、DBに保存された動画がここに表示されます。
-            </p>
+            <h2>To Be Continued</h2>
+            <p>海洋産業の仕事や技術をわかりやすく学べる動画を、順次公開していきます。</p>
           </div>
         )}
       </section>
 
-      <section className="company-cta">
-        <div>
-          <p className="section-kicker">Next Action</p>
-          <h2>動画から、海洋産業の理解を深める</h2>
-          <p>専門家対談や職種解説を蓄積し、求職者と企業の意思決定に使える知識に変えていきます。</p>
-        </div>
-        <a className="primary-button" href="/contact">
-          相談する
-          <ArrowUpRight size={18} />
-        </a>
-      </section>
+      <ProfileCta primaryLabel="無料でキャリア相談する" />
       <SiteFooter />
     </main>
   );

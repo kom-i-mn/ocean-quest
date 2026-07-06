@@ -8,6 +8,7 @@ import {
   SearchCheck,
   UsersRound,
 } from "lucide-react";
+import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
@@ -71,21 +72,21 @@ export default function CompaniesPage() {
         <p className="section-kicker">For Companies</p>
         <h1>海洋産業の採用を、専門理解から設計する。</h1>
         <p>
-          Ocean Questは、海洋産業に関わる企業の採用ブランディング、スカウト、母集団形成、候補者理解を支援します。
-          技術や事業の複雑さを候補者に伝わる言葉へ変換し、採用活動の前進を支えます。
+          技術や事業の魅力が伝わりにくい海洋産業だからこそ、候補者に届く言葉と接点設計が重要です。Ocean
+          Questは、採用ブランディング、スカウト、母集団形成、コンテンツ企画まで支援します。
         </p>
         <div className="hero-actions subpage-actions">
           <a className="primary-button" href="/contact">
             採用支援を相談する
             <ArrowRight size={18} />
           </a>
-          <a className="secondary-button light" href="/ebooks">
-            採用資料を見る
+          <a className="secondary-button light" href="#support">
+            支援内容を見る
           </a>
         </div>
       </section>
 
-      <section className="section support-section">
+      <section className="section support-section" id="support">
         <div className="section-heading">
           <div>
             <p className="section-kicker">Support</p>
@@ -147,19 +148,7 @@ export default function CompaniesPage() {
         </div>
       </section>
 
-      <section className="company-cta">
-        <div>
-          <p className="section-kicker">Contact</p>
-          <h2>海洋産業の採用について、まずは状況を聞かせてください。</h2>
-          <p>
-            採用計画が固まっていない段階でも大丈夫です。職種、候補者像、採用広報、スカウトのどこから着手すべきか一緒に整理します。
-          </p>
-        </div>
-        <a className="primary-button" href="/contact">
-          問い合わせる
-          <ArrowRight size={18} />
-        </a>
-      </section>
+      <ProfileCta primaryLabel="採用について無料相談する" />
       <SiteFooter />
     </main>
   );

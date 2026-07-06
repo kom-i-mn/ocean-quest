@@ -4,10 +4,13 @@ export default function DiagnosisPage() {
   return (
     <SimplePage
       kicker="Diagnosis"
-      title="海洋産業キャリア診断"
-      description="関心テーマ、経験職種、検討状況から、合いそうな領域や次の相談導線を返す診断ページです。"
+      title="あなたに合う海洋産業の入口を見つける。"
+      description="関心テーマ、経験職種、働き方の希望から、あなたに合いそうな海洋産業の領域や職種を診断します。まだ転職を決めていない方も、情報収集の第一歩として利用できます。"
       items={["関心テーマ診断", "職種適性", "採用課題診断", "相談導線"]}
-      cta="企業向け相談へ"
+      cta="診断をはじめる"
+      ctaHref="#contents"
+      secondaryCta="結果について相談する"
+      secondaryHref="/contact"
       backgroundClass="subpage-bg-sun-jellyfish"
     />
   );
