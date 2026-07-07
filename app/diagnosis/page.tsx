@@ -8,7 +8,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 export const metadata: Metadata = {
   title: "海洋産業キャリア診断 | Ocean Quest",
   description:
-    "5つの質問に答えるだけで、海運・造船・港湾、海洋資源・エネルギー、海洋テック・データの中から、あなたに合いそうな海洋産業の領域を診断します。結果をもとに無料キャリア相談もできます。",
+    "10の質問に答えるだけで、海運・造船・港湾、海洋資源・エネルギー、海洋テック・データの3領域それぞれとのマッチ度を診断します。結果をもとに無料キャリア相談もできます。",
 };
 
 export default function DiagnosisPage() {
@@ -19,7 +19,7 @@ export default function DiagnosisPage() {
         <p className="section-kicker">Diagnosis</p>
         <h1>あなたに合う海洋産業の入口を見つける。</h1>
         <p>
-          関心のあるテーマや活かしたい経験など、5つの質問に答えるだけで、あなたに合いそうな海洋産業の領域（海運・造船・港湾／海洋資源・エネルギー／海洋テック・データ）を診断します。まだ転職を決めていない方も、情報収集の第一歩として利用できます。
+          関心のあるテーマや活かしたい経験、働き方の志向など、10の質問から、海洋産業の3領域（海運・造船・港湾／海洋資源・エネルギー／海洋テック・データ）それぞれとのマッチ度を診断します。まだ転職を決めていない方も、情報収集の第一歩として利用できます。
         </p>
         <div className="hero-actions subpage-actions">
           <a className="primary-button" href="#diagnosis-form">
