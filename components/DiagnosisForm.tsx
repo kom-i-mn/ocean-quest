@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ArrowRight, ArrowUpRight, RotateCcw } from "lucide-react";
+import { useEffect, useState, type FormEvent } from "react";
+import { ArrowRight, ArrowUpRight, Download, RotateCcw } from "lucide-react";
 import {
   diagnosisQuestions,
   diagnosisResults,
@@ -20,6 +20,115 @@ const areaKeys = ["shipping", "energy", "tech"] as const;
 type DiagnosisScores = {
   ranked: { key: DiagnosisAreaKey; percent: number }[];
 };
+
+function ReportDownloadPanel({ scores }: { scores: DiagnosisScores }) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (status === "loading") return;
+    setStatus("loading");
+    setErrorMessage("");
+
+    const form = event.currentTarget;
+    const website =
+      (form.elements.namedItem("website") as HTMLInputElement | null)?.value ?? "";
+    const scorePayload = Object.fromEntries(
+      scores.ranked.map((entry) => [entry.key, entry.percent]),
+    );
+
+    try {
+      const response = await fetch("/api/diagnosis-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, website, scores: scorePayload }),
+      });
+
+      if (!response.ok) {
+        const data = (await response.json().catch(() => null)) as
+          | { error?: string }
+          | null;
+        throw new Error(
+          data?.error ?? "送信に失敗しました。時間をおいて再度お試しください。",
+        );
+      }
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = "ocean-quest-career-report.pdf";
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(url);
+
+      window.gtag?.("event", "report_download", {
+        result: scores.ranked[0].key,
+      });
+      setStatus("done");
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "送信に失敗しました。時間をおいて再度お試しください。",
+      );
+      setStatus("error");
+    }
+  }
+
+  return (
+    <div className="diagnosis-report-panel">
+      <p className="diagnosis-report-badge">FREE DOWNLOAD</p>
+      <strong className="diagnosis-report-heading">
+        詳細版レポート（PDF）を無料でダウンロード
+      </strong>
+      <p className="diagnosis-report-copy">
+        この画面の結果は概要版です。詳細版レポートでは、あなたの診断スコアに加えて、領域の全体像、いま起きている市場動向、職種別の仕事内容、活かせる経験、転職前に知っておきたいこと、最初の一歩までを約2ページにまとめています。メールアドレスを入力すると、その場でダウンロードできます。
+      </p>
+      {status === "done" ? (
+        <p className="diagnosis-report-success">
+          ダウンロードを開始しました。始まらない場合は、もう一度ボタンを押してください。
+        </p>
+      ) : null}
+      <form className="diagnosis-report-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          style={{ position: "absolute", left: "-9999px", height: 0, width: 0 }}
+        />
+        <input
+          className="diagnosis-report-input"
+          type="email"
+          required
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="メールアドレス（例: taro@example.com）"
+          aria-label="メールアドレス"
+        />
+        <button className="primary-button" type="submit" disabled={status === "loading"}>
+          {status === "loading" ? "レポートを作成中..." : "PDFをダウンロード"}
+          <Download size={18} />
+        </button>
+      </form>
+      {status === "error" ? (
+        <p className="diagnosis-report-error">{errorMessage}</p>
+      ) : null}
+      <p className="diagnosis-report-consent">
+        送信いただいたメールアドレスは、レポートのご提供とキャリアに関するご案内にのみ利用します。詳しくは
+        <a href="/privacy" target="_blank" rel="noopener noreferrer">
+          プライバシーポリシー
+        </a>
+        をご確認ください。
+      </p>
+    </div>
+  );
+}
 
 function computeScores(answers: DiagnosisOption[]): DiagnosisScores {
   const totals: Record<DiagnosisAreaKey, number> = {
@@ -107,6 +216,8 @@ export function DiagnosisForm() {
             ))}
           </ul>
         </div>
+
+        <ReportDownloadPanel scores={scores} />
 
         <p className="diagnosis-disclaimer">
           この診断は、興味・志向の傾向から情報収集の入口となる領域を提案するものであり、適性や合否を判定するものではありません。実際のキャリア選択は、これまでのご経験や各領域の求人動向を踏まえて、無料キャリア相談で一緒に整理していきます。

@@ -2613,6 +2613,86 @@ footer {
   }
 }
 
+.diagnosis-report-panel {
+  margin: 24px 0;
+  padding: 22px 24px;
+  background: linear-gradient(135deg, rgba(0, 88, 102, 0.06), rgba(255, 138, 42, 0.08));
+  border: 1.5px solid var(--teal);
+  border-radius: 8px;
+}
+
+.diagnosis-report-badge {
+  margin: 0 0 6px;
+  color: var(--accent, #ff8a2a);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.diagnosis-report-heading {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--teal-dark);
+  font-size: 19px;
+}
+
+.diagnosis-report-copy {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.diagnosis-report-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.diagnosis-report-input {
+  flex: 1 1 240px;
+  min-height: 48px;
+  padding: 10px 14px;
+  color: var(--navy);
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 15px;
+}
+
+.diagnosis-report-input:focus {
+  outline: 2px solid var(--teal);
+  outline-offset: 1px;
+}
+
+.diagnosis-report-success {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  color: var(--teal-dark);
+  background: var(--sky);
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.diagnosis-report-error {
+  margin: 10px 0 0;
+  color: #b3421f;
+  font-size: 13.5px;
+}
+
+.diagnosis-report-consent {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.diagnosis-report-consent a {
+  color: var(--teal-dark);
+  text-decoration: underline;
+}
+
 .diagnosis-result-actions {
   margin: 24px 0;
   flex-wrap: wrap;
