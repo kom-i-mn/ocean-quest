@@ -1,5 +1,12 @@
 import { SimplePage } from "@/components/SimplePage";
 
+export const metadata = {
+  title: "eBook | 海洋産業の採用・キャリア資料 | Ocean Quest",
+  description:
+    "海洋産業の業界理解・職種理解・採用市場・企業研究に使えるeBookを準備中。noteや動画で発信してきた知見を体系的な資料にまとめます。",
+  alternates: { canonical: "/ebooks" },
+};
+
 export default function EbooksPage() {
   return (
     <SimplePage

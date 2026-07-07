@@ -19,13 +19,13 @@ export const metadata: Metadata = {
     siteName: "Ocean Quest",
     title: siteTitle,
     description: siteDescription,
-    images: ["/images/ocean-quest-hero.png"],
+    images: ["/images/ocean-quest-hero.jpg"],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["/images/ocean-quest-hero.png"],
+    images: ["/images/ocean-quest-hero.jpg"],
   },
   verification: {
     google: "gSZ3B4blvKNrTKZyfRZegZJWCfsEEl6PxGb-UFU6Zmk",

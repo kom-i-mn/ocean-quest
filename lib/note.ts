@@ -80,7 +80,11 @@ function extractCdata(xml: string, tag: string) {
 function extractTagText(xml: string, tag: string) {
   const escapedTag = escapeRegExp(tag);
   const value = xml.match(new RegExp(`<${escapedTag}[^>]*>([\\s\\S]*?)<\\/${escapedTag}>`))?.[1];
-  return value ? cleanText(value) : null;
+  if (!value) {
+    return null;
+  }
+  const cdata = value.match(/^\s*<!\[CDATA\[([\s\S]*?)\]\]>\s*$/)?.[1];
+  return cleanText(cdata ?? value) || null;
 }
 
 function stripTags(value: string) {
@@ -93,11 +97,11 @@ function cleanText(value: string) {
 
 function decodeXmlEntities(value: string) {
   return value
-    .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&");
 }
 
 function escapeRegExp(value: string) {

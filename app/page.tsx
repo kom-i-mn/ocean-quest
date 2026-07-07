@@ -385,7 +385,7 @@ export default function Home() {
           </div>
           <figure className="ocean-industry-map">
             <Image
-              src="/images/ocean-industry-map.png"
+              src="/images/ocean-industry-map.jpg"
               alt="海洋産業を海洋空間活動型、素材・サービス等供給型、海洋資源活用型の3分類で整理した図"
               width={1536}
               height={1024}

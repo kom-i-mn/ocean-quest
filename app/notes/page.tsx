@@ -4,10 +4,17 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { listNoteContents } from "@/lib/supabase";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
+
+export const metadata = {
+  title: "海洋産業を読み解くnote記事 | Ocean Quest",
+  description:
+    "海洋産業の可能性、技術、職種、採用、キャリアをOcean Questの視点で解説するnote記事一覧。ニュースだけでは見えない業界の文脈をわかりやすく言語化します。",
+  alternates: { canonical: "/notes" },
+};
 
 export default async function NotesPage() {
-  const notes = await listNoteContents();
+  const notes = await listNoteContents().catch(() => []);
 
   return (
     <main className="subpage-shell subpage-bg-jellyfish-dark">

@@ -1,10 +1,19 @@
+import { Suspense } from "react";
 import { ArrowRight, Mail, MessageSquareText, Ship } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
+export const metadata = {
+  title: "相談する | 採用・転職・キャリア相談 | Ocean Quest",
+  description:
+    "海洋産業の採用相談、転職・キャリア相談、記事・動画・イベント連携のご相談はこちら。内容が固まっていない段階でも、状況を伺いながら一緒に整理します。",
+  alternates: { canonical: "/contact" },
+};
+
 const topics = [
+  "転職・キャリア相談",
   "海洋産業の採用相談",
   "採用ブランディング",
   "スカウト・母集団形成",
@@ -28,7 +37,7 @@ export default function ContactPage() {
           </a>
           <a
             className="secondary-button light"
-            href="mailto:hello@potentialight.co?subject=Ocean%20Quest%E3%81%B8%E3%81%AE%E7%9B%B8%E8%AB%87"
+            href="mailto:mine@potentialight.com?subject=Ocean%20Quest%E3%81%B8%E3%81%AE%E7%9B%B8%E8%AB%87"
           >
             メールで相談する
           </a>
@@ -41,7 +50,9 @@ export default function ContactPage() {
             <MessageSquareText size={22} />
           </div>
           <h2>相談内容</h2>
-          <ContactForm topics={topics} />
+          <Suspense fallback={null}>
+            <ContactForm topics={topics} />
+          </Suspense>
         </div>
 
         <aside className="contact-side">
@@ -53,7 +64,7 @@ export default function ContactPage() {
             </p>
             <a
               className="secondary-button light"
-              href="mailto:hello@potentialight.co?subject=Ocean%20Quest%E3%81%B8%E3%81%AE%E7%9B%B8%E8%AB%87"
+              href="mailto:mine@potentialight.com?subject=Ocean%20Quest%E3%81%B8%E3%81%AE%E7%9B%B8%E8%AB%87"
             >
               <Mail size={18} />
               メールで相談

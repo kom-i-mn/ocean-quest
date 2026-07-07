@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ocean-quest.example.com";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ocean-quest.jp";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "diagnosis",
     "companies",
     "contact",
-    "reports",
+    "privacy",
   ].map((path) => ({
     url: path ? `${baseUrl}/${path}` : baseUrl,
     lastModified: new Date(),

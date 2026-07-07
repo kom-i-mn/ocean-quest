@@ -1,5 +1,12 @@
 import { SimplePage } from "@/components/SimplePage";
 
+export const metadata = {
+  title: "イベント | 海洋産業の人と出会う | Ocean Quest",
+  description:
+    "海洋産業に関心のある人と企業・専門家がつながる勉強会、ウェビナー、対談、キャリア相談会を準備中。開催情報の案内を受け取れます。",
+  alternates: { canonical: "/events" },
+};
+
 export default function EventsPage() {
   return (
     <SimplePage

@@ -4,10 +4,15 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { getLatestAnalyticsReport } from "@/lib/supabase";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
+
+export const metadata = {
+  title: "成長ループレポート（社内用） | Ocean Quest",
+  robots: { index: false, follow: false },
+};
 
 export default async function ReportsPage() {
-  const report = await getLatestAnalyticsReport();
+  const report = await getLatestAnalyticsReport().catch(() => null);
 
   return (
     <main className="subpage-shell subpage-bg-blue-water">
