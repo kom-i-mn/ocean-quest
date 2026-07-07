@@ -83,7 +83,7 @@ export type DiagnosisAreaKey = "shipping" | "energy" | "tech";
 
 export type DiagnosisOption = {
   label: string;
-  area: DiagnosisAreaKey;
+  weights: Partial<Record<DiagnosisAreaKey, number>>;
 };
 
 export type DiagnosisQuestion = {
@@ -95,41 +95,81 @@ export const diagnosisQuestions: DiagnosisQuestion[] = [
   {
     question: "いま一番関心があるテーマは？",
     options: [
-      { label: "世界とつながる物流・大型の船や港のスケール", area: "shipping" },
-      { label: "洋上風力などのエネルギー・海洋資源の開発", area: "energy" },
-      { label: "ロボット・AI・海のデータ活用などの最新技術", area: "tech" },
+      { label: "世界とつながる物流・大型の船や港のスケール", weights: { shipping: 2 } },
+      { label: "洋上風力などのエネルギー・海洋資源の開発", weights: { energy: 2 } },
+      { label: "ロボット・AI・海のデータ活用などの最新技術", weights: { tech: 2 } },
     ],
   },
   {
-    question: "経験を活かしたい領域は？",
+    question: "これまでの経験に一番近いのは？",
     options: [
-      { label: "現場運営・オペレーション・プロジェクト推進", area: "shipping" },
-      { label: "事業開発・社会インフラづくり", area: "energy" },
-      { label: "エンジニアリング・研究開発・データ分析", area: "tech" },
+      { label: "現場運営・オペレーション・物流・品質管理", weights: { shipping: 2 } },
+      { label: "営業・事業開発・企画・プロジェクト推進", weights: { energy: 2, shipping: 1 } },
+      { label: "エンジニアリング・研究開発・データ分析", weights: { tech: 2 } },
     ],
   },
   {
     question: "働く環境のイメージに近いのは？",
     options: [
-      { label: "歴史ある産業を大きな組織・チームで支える", area: "shipping" },
-      { label: "成長市場で新しい事業を立ち上げていく", area: "energy" },
-      { label: "スタートアップや研究開発の現場で技術を磨く", area: "tech" },
+      { label: "歴史ある産業を大きな組織・チームで支える", weights: { shipping: 2 } },
+      { label: "成長市場で新しい事業を立ち上げていく", weights: { energy: 2 } },
+      { label: "スタートアップや研究開発の現場で技術を磨く", weights: { tech: 2 } },
     ],
   },
   {
     question: "心が動くのはどんな瞬間？",
     options: [
-      { label: "巨大な船や構造物が動き出すのを見たとき", area: "shipping" },
-      { label: "エネルギーや環境の課題解決に一歩近づいたとき", area: "energy" },
-      { label: "新しい技術やデータが目に見える形になったとき", area: "tech" },
+      { label: "巨大な船や構造物が動き出すのを見たとき", weights: { shipping: 2 } },
+      { label: "エネルギーや環境の課題解決に一歩近づいたとき", weights: { energy: 2 } },
+      { label: "新しい技術やデータが目に見える形になったとき", weights: { tech: 2 } },
+    ],
+  },
+  {
+    question: "仕事で大事にしたい価値観は？",
+    options: [
+      { label: "社会を止めない責任を、着実に果たしていく", weights: { shipping: 2 } },
+      { label: "変化の中で、新しい市場をつくる手応え", weights: { energy: 2, tech: 1 } },
+      { label: "専門性を深めて、誰にも負けない武器を持つ", weights: { tech: 2 } },
+    ],
+  },
+  {
+    question: "チームの中で自然と担うことが多い役割は？",
+    options: [
+      { label: "決められた品質・納期で、確実に仕事を回す", weights: { shipping: 2 } },
+      { label: "社内外の関係者を巻き込み、物事を前に進める", weights: { energy: 2 } },
+      { label: "課題を深く掘り下げて、解決策を見つけ出す", weights: { tech: 2 } },
+    ],
+  },
+  {
+    question: "前例のない仕事を任されたら？",
+    options: [
+      { label: "実績あるやり方をベースに、確実に改善して進める", weights: { shipping: 2 } },
+      { label: "正解がなくても、まず動いて形にしていく", weights: { energy: 2 } },
+      { label: "仮説を立てて検証を繰り返しながら精度を上げる", weights: { tech: 2, energy: 1 } },
+    ],
+  },
+  {
+    question: "つい読んでしまうニュースは？",
+    options: [
+      { label: "物流・貿易・港湾・造船など産業の動き", weights: { shipping: 2 } },
+      { label: "脱炭素・洋上風力・エネルギー政策の動き", weights: { energy: 2 } },
+      { label: "ロボット・AI・海洋観測などの技術の動き", weights: { tech: 2 } },
+    ],
+  },
+  {
+    question: "理想の働く場所のイメージは？",
+    options: [
+      { label: "船・港・工場など、現場の近くで働きたい", weights: { shipping: 2, energy: 1 } },
+      { label: "社外の人と会い、動き回る仕事がしたい", weights: { energy: 2 } },
+      { label: "腰を据えて、手を動かす仕事に集中したい", weights: { tech: 2 } },
     ],
   },
   {
     question: "5年後、どんな自分でいたい？",
     options: [
-      { label: "産業に欠かせない現場・事業のプロフェッショナル", area: "shipping" },
-      { label: "新しい市場を切り拓く事業リーダー", area: "energy" },
-      { label: "専門技術を持つエンジニア・スペシャリスト", area: "tech" },
+      { label: "産業に欠かせない現場・事業のプロフェッショナル", weights: { shipping: 2 } },
+      { label: "新しい市場を切り拓く事業リーダー", weights: { energy: 2 } },
+      { label: "専門技術を持つエンジニア・スペシャリスト", weights: { tech: 2 } },
     ],
   },
 ];
@@ -139,6 +179,7 @@ export type DiagnosisResult = {
   title: string;
   summary: string;
   reasons: string[];
+  roles: string[];
 };
 
 export const diagnosisResults: Record<DiagnosisAreaKey, DiagnosisResult> = {
@@ -152,6 +193,12 @@ export const diagnosisResults: Record<DiagnosisAreaKey, DiagnosisResult> = {
       "現場運営やプロジェクト推進など、実務を前に進める経験を活かせる",
       "船・港・物流といった、目に見えるスケールの大きさに心が動く",
     ],
+    roles: [
+      "運航管理・オペレーション",
+      "造船・舶用機器のプロジェクト管理",
+      "港湾・物流の企画/営業",
+      "海事関連の管理部門",
+    ],
   },
   energy: {
     key: "energy",
@@ -163,6 +210,12 @@ export const diagnosisResults: Record<DiagnosisAreaKey, DiagnosisResult> = {
       "成長市場で新しい事業やプロジェクトを立ち上げる側に回りたい",
       "事業開発やインフラづくりの経験・志向を活かせる",
     ],
+    roles: [
+      "洋上風力の開発（デベロッパー）",
+      "建設・O&M（運転保守）の管理",
+      "海洋土木の施工管理",
+      "事業開発・渉外・アライアンス",
+    ],
   },
   tech: {
     key: "tech",
@@ -173,6 +226,12 @@ export const diagnosisResults: Record<DiagnosisAreaKey, DiagnosisResult> = {
       "ロボット・AI・データ活用など、最新技術への関心が強い",
       "エンジニアリングや研究開発、データ分析の経験・志向を活かせる",
       "スタートアップや研究開発の現場で、専門性を磨く働き方に惹かれる",
+    ],
+    roles: [
+      "AUV/ROV・水中ロボットの開発",
+      "組込み・制御・メカトロエンジニア",
+      "海洋観測・海洋データの解析",
+      "フィールドエンジニア",
     ],
   },
 };

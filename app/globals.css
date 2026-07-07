@@ -1796,6 +1796,14 @@ h3 {
   background-position: center, center, center top;
 }
 
+.subpage-bg-blue-water {
+  background-image:
+    linear-gradient(120deg, rgba(0, 43, 52, 0.74), rgba(0, 88, 102, 0.34) 48%, rgba(251, 255, 253, 0.16)),
+    radial-gradient(circle at 80% 20%, rgba(82, 218, 224, 0.2), transparent 32%),
+    url("/images/backgrounds/blue-water.jpg");
+  background-position: center, center, center;
+}
+
 .subpage-bg-bubbles {
   background-image:
     linear-gradient(120deg, rgba(0, 43, 52, 0.74), rgba(0, 88, 102, 0.34) 48%, rgba(251, 255, 253, 0.16)),
@@ -2530,6 +2538,81 @@ footer {
   line-height: 1.9;
 }
 
+.diagnosis-scores {
+  margin: 20px 0;
+  padding: 18px 20px;
+  background: #fbfdfd;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.diagnosis-scores strong {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--navy);
+}
+
+.diagnosis-score-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 44px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.diagnosis-score-label {
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.diagnosis-score-bar {
+  display: block;
+  height: 10px;
+  background: var(--sky);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.diagnosis-score-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.diagnosis-score-percent {
+  color: var(--teal-dark);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.diagnosis-score-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.diagnosis-disclaimer {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+@media (max-width: 640px) {
+  .diagnosis-score-row {
+    grid-template-columns: 110px 1fr 40px;
+  }
+
+  .diagnosis-score-label {
+    font-size: 12.5px;
+  }
+}
+
 .diagnosis-result-actions {
   margin: 24px 0;
   flex-wrap: wrap;
@@ -2552,4 +2635,62 @@ footer {
   gap: 6px;
   color: var(--teal-dark);
   font-weight: 500;
+}
+
+.legal-panel {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 40px 44px 48px;
+  color: var(--navy);
+  background: rgba(251, 255, 253, 0.94);
+  border: 1px solid rgba(190, 236, 234, 0.42);
+  border-radius: 8px;
+  box-shadow: 0 22px 58px rgba(0, 24, 30, 0.14);
+  backdrop-filter: blur(12px);
+}
+
+.legal-panel p {
+  margin: 0 0 16px;
+  color: var(--navy);
+  line-height: 2;
+}
+
+.legal-panel h2 {
+  margin: 36px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--sky);
+  color: var(--teal-dark);
+  font-size: 20px;
+  letter-spacing: 0.04em;
+}
+
+.legal-panel h3 {
+  margin: 22px 0 8px;
+  color: var(--navy);
+  font-size: 16px;
+}
+
+.legal-panel ul {
+  margin: 0 0 16px;
+  padding-left: 22px;
+  color: var(--navy);
+  line-height: 2;
+}
+
+.legal-panel a {
+  color: var(--teal-dark);
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+.legal-panel .legal-note {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+@media (max-width: 640px) {
+  .legal-panel {
+    padding: 26px 20px 32px;
+  }
 }
