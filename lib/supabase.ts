@@ -93,7 +93,7 @@ export async function supabaseRequest<T>(
         ...(prefer ? { Prefer: prefer } : {}),
       },
       body: body ? JSON.stringify(body) : undefined,
-      cache: "no-store",
+      ...(method === "GET" ? { next: { revalidate: 300 } } : { cache: "no-store" as const }),
     },
   );
 

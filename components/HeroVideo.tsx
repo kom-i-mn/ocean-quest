@@ -23,7 +23,7 @@ export function HeroVideo() {
       muted
       loop
       playsInline
-      poster="/images/ocean-quest-hero.png"
+      poster="/images/ocean-quest-hero.jpg"
       aria-label="Ocean Questが扱う海洋産業と海洋技術の映像"
     >
       <source src="/videos/ocean-quest-hero.mp4" type="video/mp4" />

@@ -1,17 +1,43 @@
-import { SimplePage } from "@/components/SimplePage";
+import type { Metadata } from "next";
+import { ArrowRight } from "lucide-react";
+import { DiagnosisForm } from "@/components/DiagnosisForm";
+import { ProfileCta } from "@/components/ProfileCta";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
+
+export const metadata: Metadata = {
+  title: "海洋産業キャリア診断 | Ocean Quest",
+  description:
+    "5つの質問に答えるだけで、海運・造船・港湾、海洋資源・エネルギー、海洋テック・データの中から、あなたに合いそうな海洋産業の領域を診断します。結果をもとに無料キャリア相談もできます。",
+};
 
 export default function DiagnosisPage() {
   return (
-    <SimplePage
-      kicker="Diagnosis"
-      title="あなたに合う海洋産業の入口を見つける。"
-      description="関心テーマ、経験職種、働き方の希望から、あなたに合いそうな海洋産業の領域や職種を診断します。まだ転職を決めていない方も、情報収集の第一歩として利用できます。"
-      items={["関心テーマ診断", "職種適性", "採用課題診断", "相談導線"]}
-      cta="診断をはじめる"
-      ctaHref="#contents"
-      secondaryCta="結果について相談する"
-      secondaryHref="/contact"
-      backgroundClass="subpage-bg-sun-jellyfish"
-    />
+    <main className="subpage-shell subpage-bg-sun-jellyfish">
+      <SiteHeader solid />
+      <section className="subpage-hero">
+        <p className="section-kicker">Diagnosis</p>
+        <h1>あなたに合う海洋産業の入口を見つける。</h1>
+        <p>
+          関心のあるテーマや活かしたい経験など、5つの質問に答えるだけで、あなたに合いそうな海洋産業の領域（海運・造船・港湾／海洋資源・エネルギー／海洋テック・データ）を診断します。まだ転職を決めていない方も、情報収集の第一歩として利用できます。
+        </p>
+        <div className="hero-actions subpage-actions">
+          <a className="primary-button" href="#diagnosis-form">
+            診断をはじめる
+            <ArrowRight size={18} />
+          </a>
+          <a className="secondary-button light" href="/contact">
+            結果について相談する
+          </a>
+        </div>
+      </section>
+
+      <section className="section diagnosis-form-section" aria-label="海洋産業キャリア診断">
+        <DiagnosisForm />
+      </section>
+
+      <ProfileCta primaryLabel="無料でキャリア相談する" />
+      <SiteFooter />
+    </main>
   );
 }
