@@ -260,17 +260,17 @@ export default function PrivacyPage() {
           </p>
 
           <h2>個人情報に関する問い合わせ・開示等請求窓口</h2>
-          <p>開示等に関する詳細は、開示等請求窓口へお問い合わせください。</p>
           <p>
-            株式会社ポテンシャライト
-            <br />
-            東京都目黒区上目黒2-9-35 中目黒GS第2ビル 3F
-            <br />
-            個人情報保護管理者　小原　聡一
-            <br />
-            TEL: 03-6450-5604
-            <br />
-            E-Mail: kanri@potentialight.com
+            開示等のご請求や個人情報の取り扱いに関するお問い合わせの詳細は、株式会社ポテンシャライトの公式サイトに掲載のプライバシーポリシーをご確認ください。
+          </p>
+          <p>
+            <a
+              href="https://www.potentialight.co/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              株式会社ポテンシャライト プライバシーポリシー（公式サイト）
+            </a>
           </p>
         </div>
       </section>
