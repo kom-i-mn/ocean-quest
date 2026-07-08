@@ -37,26 +37,78 @@ const keyPoints = [
   "Ocean Questのキャリア診断で、水中ロボティクス領域との適性・想定職種・想定年収帯を無料で確認できます。",
 ];
 
+// 出典: 内閣府「自律型無人探査機(AUV)の社会実装に向けた戦略」、
+// AUV官民プラットフォーム第3回全体会議 資料2-2「AUV等海洋ロボティクス導入の効果」(2026年2月)
+const whyNowStats = [
+  {
+    value: 90,
+    prefix: "約",
+    suffix: "%",
+    label: "点検の人手を削減",
+    note: "洋上風力の日常点検。有人船＋ROV体制（736h・人/日）をAUVが75h・人/日に",
+  },
+  {
+    value: 81,
+    prefix: "約",
+    suffix: "%",
+    label: "点検コストを削減",
+    note: "1日あたり1,425万円 → 270万円（政府試算）",
+  },
+  {
+    value: 200,
+    prefix: "水深",
+    suffix: "m",
+    label: "人が潜れない現場",
+    note: "浮体式洋上風力の海底部はダイバー作業不可。届くのはロボットだけ",
+  },
+  {
+    value: 2030,
+    prefix: "",
+    suffix: "年",
+    label: "国のAUV産業化目標",
+    note: "内閣府「AUV戦略」。国主導・官民連携で産業育成、海外展開まで",
+    static: true,
+  },
+];
+
 const whyNow = [
   {
-    icon: Landmark,
-    title: "政策：AUVの社会実装が国家戦略に",
-    body: "内閣府は2023年に「AUVの社会実装に向けた戦略」を策定し、官民プラットフォームを設立。2030年に向けてAUV（自律型無人潜水機）の産業化・量産化を国を挙げて推進するフェーズに入りました。",
-  },
-  {
-    icon: TrendingUp,
-    title: "市場：洋上風力の水中点検需要",
-    body: "政府は洋上風力を2030年10GW、2040年30〜45GWの案件形成目標で拡大中。着床基礎や海底ケーブルの点検・保守は水中作業そのもので、ROV・AUVによる無人点検の需要が構造的に増えていきます。",
-  },
-  {
     icon: Waves,
-    title: "インフラ：海底ケーブルと海洋調査",
-    body: "国際通信のほぼすべては海底ケーブルが支えており、敷設・保守・監視の需要は増加の一途。加えて資源調査・海洋観測・防衛（無人水中航走体）でも、海中を担うロボットの役割が広がっています。",
+    title: "「人が潜れない海」が、どんどん増えている",
+    body: "浮体式洋上風力の現場は水深200m級。ダイバーが作業できるのは水深20m・1回1時間が限度で、錨鎖・アンカーや海底ケーブルの点検はそもそも人には不可能です。洋上風力は2030年10GW・2040年30〜45GWの政府目標で拡大が続き、「ロボットにしか点検できない海」が構造的に増え続けます。",
   },
   {
     icon: Bot,
-    title: "採用：担い手不足×技術の転換点",
-    body: "潜水士や調査船の人材不足を背景に「人が潜らない海」への転換が進む一方、国内で水中ロボットを開発できるエンジニアはまだ少数。隣接分野からの転身者が最初の主力になれるタイミングです。",
+    title: "現場29人の仕事が、ほぼ無人になる",
+    body: "政府試算では、風車5基の日常点検に有人船3隻・現場29人が必要だった体制が、AUV活用で現場ほぼ無人・中央制御室の少数チームに置き換わります（現場作業696h・人/日→3h・人/日）。この転換を実際につくるのが、機体・自律化・遠隔監視システムを担うエンジニアです。",
+  },
+  {
+    icon: Landmark,
+    title: "国家戦略の柱に「人材育成」が明記されている",
+    body: "内閣府のAUV戦略は、利用実証・標準化・制度整備と並んで「人材育成」を6本柱の1つに掲げています。実証も既に動いており、内閣府事業ではAUVによる浮体式洋上風力（水中部）の全自動周回点検に世界で初めて成功。足りないのは技術より、担う人です。",
+  },
+  {
+    icon: TrendingUp,
+    title: "洋上風力だけではない。用途は9分野に広がる",
+    body: "AUV戦略が挙げる利用分野は、海洋資源開発、洋上風力発電、海洋観測・監視、科学調査・研究、海洋環境保全、防災・減災、海洋安全保障など多岐にわたります。国際通信を支える海底ケーブルの敷設・保守・監視も含め、1つのスキルセットが複数の成長市場につながる領域です。",
+  },
+];
+
+const whyNowRoadmap = [
+  {
+    period: "現在",
+    title: "ダイバー＋一部ROV",
+    body: "人が潜れる範囲しか点検できない",
+  },
+  {
+    period: "2030年頃",
+    title: "人＋海洋ロボット",
+    body: "有人船＋ROVの遠隔操作が主役に",
+  },
+  {
+    period: "2040年頃",
+    title: "AUVによる省人化",
+    body: "現場無人化・完全自動点検へ",
   },
 ];
 
@@ -261,12 +313,25 @@ export default async function RoboticsQuestPage() {
           kicker="Why Now"
           title={
             <>
-              「海洋 転職」と検索しても、<em>水中ロボットの入り方</em>は出てこない。
+              国が、<em>2030年までのAUV産業化</em>を宣言している。
             </>
           }
-          lead="でも実際には、政策・市場・インフラ・採用の4つの追い風が同時に吹いている領域です。いま入る意味を、事実から整理します。"
+          lead="内閣府は「AUVの社会実装に向けた戦略」を掲げ、官民プラットフォームで産業育成を進めています。その公式試算が示すインパクトを、まず数字で見てください。"
         />
-        <div className="card-grid">
+        <div className="quest-stats-band rv">
+          {whyNowStats.map(({ value, prefix, suffix, label, note, static: isStatic }) => (
+            <div className="quest-stat" key={label}>
+              <b>
+                {prefix}
+                {isStatic ? <span>{value}</span> : <span data-count={value}>0</span>}
+                {suffix}
+              </b>
+              <strong>{label}</strong>
+              <small>{note}</small>
+            </div>
+          ))}
+        </div>
+        <div className="card-grid quest-why-grid">
           {whyNow.map(({ icon: Icon, title, body }, index) => (
             <article className="content-card rv" style={{ transitionDelay: `${index * 0.08}s` }} key={title}>
               <div className="card-icon">
@@ -277,6 +342,23 @@ export default async function RoboticsQuestPage() {
             </article>
           ))}
         </div>
+        <div className="quest-roadmap rv" aria-label="海洋ロボティクス導入の道筋">
+          {whyNowRoadmap.map(({ period, title, body }, index) => (
+            <div className="quest-roadmap-step" key={period}>
+              <span className="quest-roadmap-period">{period}</span>
+              <b>{title}</b>
+              <small>{body}</small>
+              {index < whyNowRoadmap.length - 1 ? (
+                <span className="quest-roadmap-arrow" aria-hidden="true">
+                  <ArrowRight size={18} />
+                </span>
+              ) : null}
+            </div>
+          ))}
+        </div>
+        <p className="quest-source rv">
+          出典: 内閣府「自律型無人探査機（AUV）の社会実装に向けた戦略」、AUV官民プラットフォーム「AUV等海洋ロボティクス導入の効果」（2026年2月）。削減率等は一定の条件設定に基づく政府試算の目安です。
+        </p>
       </section>
 
       <section className="section quest-sec quest-sec-alt" id="roles" aria-label="どんな仕事があるのか">

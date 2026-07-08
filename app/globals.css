@@ -4366,3 +4366,129 @@ a.ocean-map-list-title {
 .diagnosis-quest-link svg {
   flex-shrink: 0;
 }
+
+/* WHY NOW: 政府試算の数字バンド */
+.quest-stats-band {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0 0 34px;
+}
+
+.quest-stat {
+  padding: 26px 22px 22px;
+  border-radius: 18px;
+  background:
+    radial-gradient(130% 100% at 80% 0%, rgba(0, 139, 152, 0.45), transparent 55%),
+    linear-gradient(150deg, var(--navy), var(--teal-dark));
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quest-stat b {
+  color: #fff;
+  font-size: clamp(30px, 3.2vw, 40px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.quest-stat b span {
+  color: #ffb066;
+  font-variant-numeric: tabular-nums;
+}
+
+.quest-stat strong {
+  color: #8fe3dd;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.quest-stat small {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11.5px;
+  line-height: 1.75;
+}
+
+/* WHY NOW: 導入の道筋 */
+.quest-roadmap {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  margin: 34px 0 0;
+}
+
+.quest-roadmap-step {
+  position: relative;
+  padding: 20px 22px;
+  border-radius: 16px;
+  background: rgba(251, 255, 253, 0.92);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quest-roadmap-period {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.quest-roadmap-step b {
+  color: var(--ink);
+  font-size: 16px;
+}
+
+.quest-roadmap-step small {
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.7;
+}
+
+.quest-roadmap-arrow {
+  position: absolute;
+  top: 50%;
+  right: -24px;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  color: rgba(255, 255, 255, 0.85);
+  filter: drop-shadow(0 1px 4px rgba(0, 32, 40, 0.5));
+  z-index: 1;
+}
+
+.quest-source {
+  margin: 22px 0 0;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 11.5px;
+  line-height: 1.9;
+}
+
+@media (max-width: 960px) {
+  .quest-stats-band {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .quest-roadmap {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .quest-roadmap-arrow {
+    top: auto;
+    right: auto;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+  }
+}
