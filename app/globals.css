@@ -4492,3 +4492,34 @@ a.ocean-map-list-title {
     transform: translateX(-50%) rotate(90deg);
   }
 }
+
+/* プレイヤーマップ: 企業・機関の公式サイトリンク */
+.quest-player-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+}
+
+.quest-player-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--primary-lt);
+  color: var(--teal-dark);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.quest-player-links a:hover {
+  background: var(--teal-dark);
+  border-color: var(--teal-dark);
+  color: #fff;
+}

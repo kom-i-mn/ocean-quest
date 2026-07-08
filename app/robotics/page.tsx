@@ -12,8 +12,10 @@ import {
   GraduationCap,
   Landmark,
   Radar,
+  ShieldAlert,
   TrendingUp,
   Waves,
+  WifiOff,
   Wrench,
   Zap,
 } from "lucide-react";
@@ -78,9 +80,19 @@ const whyNow = [
     body: "浮体式洋上風力の現場は水深200m級。ダイバーが作業できるのは水深20m・1回1時間が限度で、錨鎖・アンカーや海底ケーブルの点検はそもそも人には不可能です。洋上風力は2030年10GW・2040年30〜45GWの政府目標で拡大が続き、「ロボットにしか点検できない海」が構造的に増え続けます。",
   },
   {
+    icon: WifiOff,
+    title: "海中は電波が届かない。だから「自律」が唯一解",
+    body: "海の中ではGPSも無線も使えません。遠隔操作のROVはテザーケーブルと母船・船上要員が必須で、深く広い海域では取り回しに限界があります。ケーブルなしで自ら判断して動けるAUVだけが、広大な海の無人点検を成立させられる——AUVが「あれば便利」ではなく「ないと成り立たない」理由です。",
+  },
+  {
     icon: Bot,
     title: "現場29人の仕事が、ほぼ無人になる",
     body: "政府試算では、風車5基の日常点検に有人船3隻・現場29人が必要だった体制が、AUV活用で現場ほぼ無人・中央制御室の少数チームに置き換わります（現場作業696h・人/日→3h・人/日）。この転換を実際につくるのが、機体・自律化・遠隔監視システムを担うエンジニアです。",
+  },
+  {
+    icon: ShieldAlert,
+    title: "危険な潜水作業と担い手不足を、同時に解決する",
+    body: "潜水作業は減圧症などのリスクと常に隣り合わせで、潜水士や船員の担い手は減り続けています。荒天の海では船を出すこと自体が危険。無人化は効率化の話であると同時に「人を危険な海に出さない」ための技術です。少子高齢化が進む日本にとって、AUVは選択肢ではなく必然です。",
   },
   {
     icon: Landmark,
@@ -210,22 +222,50 @@ const players = [
   {
     icon: Building2,
     category: "大手メーカー・重工",
-    body: "潜水艦・深海探査機で培った技術を持つ重工各社（三菱重工業、川崎重工業、IHIなど）や、ソナー・音響機器のメーカー（NEC、OKI、古野電気など）がAUV・水中音響の中核を担っています。",
+    body: "潜水艦・深海探査機で培った技術を持つ重工各社と、ソナー・音響機器のメーカーが、AUV・水中音響の中核を担っています。",
+    orgs: [
+      { name: "三菱重工業", url: "https://www.mhi.com/jp" },
+      { name: "川崎重工業", url: "https://www.khi.co.jp/" },
+      { name: "IHI", url: "https://www.ihi.co.jp/" },
+      { name: "NEC", url: "https://jpn.nec.com/" },
+      { name: "OKI", url: "https://www.oki.com/jp/" },
+      { name: "古野電気", url: "https://www.furuno.co.jp/" },
+    ],
   },
   {
     icon: Bot,
     category: "スタートアップ",
-    body: "産業用水中ドローンのFullDepthをはじめ、点検・調査サービスや機体開発のスタートアップが登場。海外ではSaab SeaeyeやKongsbergなどの専業メーカーが大きな市場を築いており、日本はこれからが本番です。",
+    body: "産業用水中ドローンのFullDepthをはじめ、点検・調査サービスや機体開発のスタートアップが登場。海外では専業メーカーが大きな市場を築いており、日本はこれからが本番です。",
+    orgs: [
+      { name: "FullDepth", url: "https://fulldepth.co.jp/" },
+      { name: "Saab Seaeye（英）", url: "https://www.saabseaeye.com/" },
+      { name: "Kongsberg（ノルウェー）", url: "https://www.kongsberg.com/" },
+    ],
   },
   {
     icon: FlaskConical,
     category: "研究機関",
-    body: "JAMSTEC（海洋研究開発機構）は「うらしま」など自律型探査機の開発・運用で世界的な実績を持ちます。海上技術安全研究所、港湾空港技術研究所、産総研なども要素技術の研究拠点です。",
+    body: "JAMSTECは「うらしま」など自律型探査機の開発・運用で世界的な実績を持ちます。船舶・港湾・要素技術の研究拠点も揃っています。",
+    orgs: [
+      { name: "JAMSTEC（海洋研究開発機構）", url: "https://www.jamstec.go.jp/" },
+      { name: "海上技術安全研究所", url: "https://www.nmri.go.jp/" },
+      { name: "港湾空港技術研究所", url: "https://www.pari.go.jp/" },
+      { name: "産業技術総合研究所", url: "https://www.aist.go.jp/" },
+    ],
   },
   {
     icon: GraduationCap,
     category: "大学・官公庁",
-    body: "東京大学生産技術研究所、東京海洋大学、九州工業大学などが水中ロボットの研究・人材輩出拠点。内閣府（海洋政策）、海上保安庁、防衛省・防衛装備庁、水産庁が需要側として市場を牽引します。",
+    body: "水中ロボットの研究・人材輩出拠点となる大学と、需要側として市場を牽引する官公庁です。",
+    orgs: [
+      { name: "東京大学生産技術研究所", url: "https://www.iis.u-tokyo.ac.jp/" },
+      { name: "東京海洋大学", url: "https://www.kaiyodai.ac.jp/" },
+      { name: "九州工業大学", url: "https://www.kyutech.ac.jp/" },
+      { name: "内閣府（海洋政策）", url: "https://www8.cao.go.jp/ocean/" },
+      { name: "海上保安庁", url: "https://www.kaiho.mlit.go.jp/" },
+      { name: "防衛装備庁", url: "https://www.mod.go.jp/atla/" },
+      { name: "水産庁", url: "https://www.jfa.maff.go.jp/" },
+    ],
   },
 ];
 
@@ -394,14 +434,14 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec" id="translate" aria-label="異業種からどうつながるか">
         <SectionHead
           no="03"
-          ghost="TRANSLATE"
-          kicker="Career Translation"
+          ghost="YOUR SKILLS"
+          kicker="Skill Bridge"
           title={
             <>
-              あなたの経験は、<em>翻訳</em>できる。
+              あなたの経験は、海で<em>武器になる</em>。
             </>
           }
-          lead="水中ロボティクスは「海の経験者」より「隣接分野の経験者」でできている領域です。いまの仕事からのつながり方を見てみてください。"
+          lead="水中ロボティクスは「海の経験者」より「隣接分野の経験者」でできている領域です。いまの仕事の経験がどこで武器になるのか、8つの入り口を用意しました。"
         />
         <div className="quest-translate-list">
           {translations.map(({ from, to, note }, index) => (
@@ -545,13 +585,21 @@ export default async function RoboticsQuestPage() {
           lead="大手からスタートアップ、研究機関まで。水中ロボティクスの見取り図です（社名は代表例で、網羅ではありません）。"
         />
         <div className="card-grid quest-player-grid">
-          {players.map(({ icon: Icon, category, body }, index) => (
+          {players.map(({ icon: Icon, category, body, orgs }, index) => (
             <article className="content-card rv" style={{ transitionDelay: `${index * 0.08}s` }} key={category}>
               <div className="card-icon">
                 <Icon size={22} />
               </div>
               <h3>{category}</h3>
               <p>{body}</p>
+              <div className="quest-player-links">
+                {orgs.map(({ name, url }) => (
+                  <a href={url} target="_blank" rel="noopener noreferrer" key={name}>
+                    {name}
+                    <ArrowUpRight size={13} />
+                  </a>
+                ))}
+              </div>
             </article>
           ))}
         </div>
