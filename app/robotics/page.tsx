@@ -323,27 +323,132 @@ export default async function RoboticsQuestPage() {
       <SiteHeader solid />
       <QuestFx />
 
-      <section className="subpage-hero quest-hero">
-        <p className="section-kicker">Ocean Quest Family</p>
-        <p className="quest-badge">水中ロボティクス Quest</p>
-        <h1>海の中で動くロボットを、仕事にする。</h1>
-        <p>
-          ROV・AUV・水中ドローンをつくる人、動かす人、事業にする人のためのキャリアサイトです。洋上風力・海底ケーブル・防衛・海洋調査——「人が潜らない海」への転換を担うエンジニアと仲間を、この領域につなぎます。
-        </p>
-        <div className="hero-actions subpage-actions">
-          <a className="primary-button" href="/diagnosis">
-            3分キャリア診断をする
-            <ArrowRight size={18} />
-          </a>
-          <a className="secondary-button light" href="/contact">
-            無料でキャリア相談する
-          </a>
+      <section className="quest-hero-v2" aria-label="水中ロボティクスQuest">
+        <div className="qhv-scene" aria-hidden="true">
+          <div className="qhv-rays" />
+          <div className="qhv-particles" />
+          <svg className="qhv-svg" viewBox="0 0 1440 810" preserveAspectRatio="xMidYMax slice">
+            <defs>
+              <linearGradient id="qhvHull" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#ffa15c" />
+                <stop offset="0.55" stopColor="#e56812" />
+                <stop offset="1" stopColor="#b34e0c" />
+              </linearGradient>
+              <linearGradient id="qhvBeam" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stopColor="rgba(255, 236, 190, 0.5)" />
+                <stop offset="1" stopColor="rgba(255, 236, 190, 0)" />
+              </linearGradient>
+              <linearGradient id="qhvScan" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="rgba(143, 227, 221, 0.45)" />
+                <stop offset="1" stopColor="rgba(143, 227, 221, 0)" />
+              </linearGradient>
+            </defs>
+
+            {/* AUVの巡航ルート */}
+            <path
+              className="qhv-route"
+              d="M-40 400 C 300 375, 620 435, 940 405 C 1160 385, 1320 410, 1480 395"
+              fill="none"
+              stroke="rgba(143, 227, 221, 0.3)"
+              strokeWidth="2"
+              strokeDasharray="1 16"
+              strokeLinecap="round"
+            />
+
+            {/* 海底と海底ケーブル */}
+            <path
+              d="M0 690 C 200 668, 380 712, 560 696 C 760 678, 900 724, 1090 704 C 1240 690, 1340 708, 1440 698 L1440 810 L0 810 Z"
+              fill="#04141f"
+            />
+            <path
+              className="qhv-cable"
+              d="M-20 710 C 240 692, 480 726, 720 708 C 960 690, 1200 722, 1460 704"
+              fill="none"
+              stroke="#12a4b4"
+              strokeWidth="3"
+              strokeDasharray="3 12"
+              strokeLinecap="round"
+              opacity="0.75"
+            />
+            <path
+              d="M0 748 C 260 730, 520 764, 780 748 C 1040 732, 1240 762, 1440 750 L1440 810 L0 810 Z"
+              fill="#020d15"
+            />
+
+            {/* AUV本体 */}
+            <g className="qhv-auv" transform="translate(880, 320)">
+              <path className="qhv-scan" d="M150 76 L40 400 L300 400 Z" fill="url(#qhvScan)" />
+              <path d="M300 26 L560 120 L470 216 L300 66 Z" fill="url(#qhvBeam)" opacity="0.55" />
+              <g className="qhv-ping-group">
+                <circle className="qhv-ping" cx="126" cy="-24" r="16" fill="none" stroke="rgba(143,227,221,0.8)" strokeWidth="2" />
+                <circle className="qhv-ping qhv-ping-2" cx="126" cy="-24" r="16" fill="none" stroke="rgba(143,227,221,0.8)" strokeWidth="2" />
+                <circle className="qhv-ping qhv-ping-3" cx="126" cy="-24" r="16" fill="none" stroke="rgba(143,227,221,0.8)" strokeWidth="2" />
+              </g>
+              <rect x="118" y="-20" width="10" height="36" rx="5" fill="#0a2e3f" />
+              <circle className="qhv-beacon" cx="123" cy="-24" r="5" fill="#8fe3dd" />
+              <path d="M70 8 L30 -16 L52 12 Z" fill="#0a2e3f" />
+              <path d="M70 76 L30 100 L52 72 Z" fill="#0a2e3f" />
+              <rect x="46" y="10" width="256" height="64" rx="32" fill="url(#qhvHull)" />
+              <ellipse cx="174" cy="66" rx="110" ry="9" fill="rgba(0, 0, 0, 0.22)" />
+              <rect x="258" y="18" width="26" height="48" rx="13" fill="#06222e" />
+              <circle className="qhv-sensor" cx="271" cy="42" r="6" fill="#9ff5ee" />
+              <circle cx="40" cy="42" r="27" fill="none" stroke="#0a2e3f" strokeWidth="9" />
+              <g className="qhv-prop">
+                <rect x="36" y="20" width="8" height="44" rx="4" fill="#8fe3dd" />
+                <rect x="18" y="38" width="44" height="8" rx="4" fill="#8fe3dd" />
+              </g>
+              <circle className="qhv-bubble" cx="4" cy="36" r="4" fill="rgba(255,255,255,0.4)" />
+              <circle className="qhv-bubble qhv-bubble-2" cx="-6" cy="48" r="3" fill="rgba(255,255,255,0.35)" />
+              <circle className="qhv-bubble qhv-bubble-3" cx="-14" cy="40" r="2.5" fill="rgba(255,255,255,0.3)" />
+            </g>
+          </svg>
+          <div className="qhv-depth">
+            <span className="qhv-depth-mark" style={{ ["--d" as string]: "6%" }}>
+              <i>0m</i>
+            </span>
+            <span className="qhv-depth-mark qhv-depth-diver" style={{ ["--d" as string]: "24%" }}>
+              <i>-20m</i>
+              <em>ダイバーの限界</em>
+            </span>
+            <span className="qhv-depth-mark" style={{ ["--d" as string]: "56%" }}>
+              <i>-100m</i>
+            </span>
+            <span className="qhv-depth-mark qhv-depth-auv" style={{ ["--d" as string]: "88%" }}>
+              <i>-200m</i>
+              <em>AUVの現場</em>
+            </span>
+          </div>
         </div>
-        <ul className="quest-points">
-          {keyPoints.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </ul>
+
+        <div className="qhv-content">
+          <p className="qhv-kicker">Ocean Quest Family</p>
+          <p className="quest-badge">水中ロボティクス Quest</p>
+          <h1>
+            海の中で動くロボットを、
+            <br />
+            仕事にする。
+          </h1>
+          <p className="qhv-lead">
+            ROV・AUV・水中ドローンをつくる人、動かす人、事業にする人のためのキャリアサイトです。洋上風力・海底ケーブル・防衛・海洋調査——「人が潜らない海」への転換を担うエンジニアと仲間を、この領域につなぎます。
+          </p>
+          <div className="hero-actions qhv-actions">
+            <a className="primary-button" href="/diagnosis">
+              3分キャリア診断をする
+              <ArrowRight size={18} />
+            </a>
+            <a className="secondary-button light" href="/contact">
+              無料でキャリア相談する
+            </a>
+          </div>
+          <ul className="quest-points qhv-points">
+            {keyPoints.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        </div>
+        <a className="qhv-scroll" href="#why-now">
+          <span>SCROLL</span>
+        </a>
       </section>
 
       <section className="section quest-sec" id="why-now" aria-label="なぜ今、水中ロボティクスなのか">
