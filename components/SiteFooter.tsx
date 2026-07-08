@@ -7,13 +7,17 @@ const footerColumns = [
       { label: "eBookライブラリ（無料DL）", href: "/ebooks" },
       { label: "イベント", href: "/events" },
       { label: "海の地図（β）", href: "/map" },
+      { label: "海洋キャリア診断", href: "/diagnosis" },
     ],
   },
   {
-    heading: "サービス",
+    // 領域別Questサイト。新しいQuestを公開したらここに追加する
+    heading: "領域別Quest",
+    links: [{ label: "水中ロボティクスQuest", href: "/robotics" }],
+  },
+  {
+    heading: "ご相談",
     links: [
-      { label: "海洋キャリア診断", href: "/diagnosis" },
-      { label: "水中ロボティクスQuest", href: "/robotics" },
       { label: "無料キャリア相談", href: "/contact" },
       { label: "企業の方へ", href: "/companies" },
     ],

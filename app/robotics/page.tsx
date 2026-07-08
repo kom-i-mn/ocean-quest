@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import {
   ArrowRight,
+  ArrowUpRight,
   Bot,
   Building2,
   Compass,
   Cpu,
+  FileText,
   FlaskConical,
   GraduationCap,
   Landmark,
@@ -14,8 +17,12 @@ import {
   Wrench,
   Zap,
 } from "lucide-react";
+import { QuestFx } from "@/components/QuestFx";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { listNoteContents } from "@/lib/supabase";
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "水中ロボティクスQuest | ROV・AUV・水中ドローンの転職・キャリア | Ocean Quest",
@@ -170,33 +177,6 @@ const players = [
   },
 ];
 
-const contents = [
-  {
-    title: "動画で学ぶ",
-    body: "海洋産業の仕事と企業をYouTubeで紹介。まずは現場の空気から。",
-    href: "/videos",
-    label: "動画ライブラリへ",
-  },
-  {
-    title: "note記事",
-    body: "海洋産業・海のしごとを読み解く記事。業界理解を深めたい人へ。",
-    href: "/notes",
-    label: "note記事一覧へ",
-  },
-  {
-    title: "eBook（無料）",
-    body: "キャリア・転職ノウハウを資料化したeBookをダウンロードできます。",
-    href: "/ebooks",
-    label: "eBookライブラリへ",
-  },
-  {
-    title: "海の地図（β）",
-    body: "海流・港湾・海底ケーブルを地図で探索。産業の現場を体感する。",
-    href: "/map",
-    label: "海の地図へ",
-  },
-];
-
 const faqItems = [
   {
     question: "水中ロボティクス業界への転職には、海洋の知識が必要ですか？",
@@ -215,10 +195,41 @@ const faqItems = [
   },
 ];
 
-export default function RoboticsQuestPage() {
+function SectionHead({
+  no,
+  ghost,
+  kicker,
+  title,
+  lead,
+}: {
+  no: string;
+  ghost: string;
+  kicker: string;
+  title: ReactNode;
+  lead?: ReactNode;
+}) {
   return (
-    <main className="subpage-shell subpage-bg-blue-water">
+    <div className="quest-sec-head rv">
+      <div className="quest-ghost" aria-hidden="true">
+        {ghost}
+      </div>
+      <p className="quest-kicker">
+        <span className="qno">{no}</span>
+        {kicker}
+      </p>
+      <h2>{title}</h2>
+      {lead ? <p className="quest-lead">{lead}</p> : null}
+    </div>
+  );
+}
+
+export default async function RoboticsQuestPage() {
+  const notes = await listNoteContents(3).catch(() => []);
+
+  return (
+    <main className="subpage-shell subpage-bg-blue-water quest-page">
       <SiteHeader solid />
+      <QuestFx />
 
       <section className="subpage-hero quest-hero">
         <p className="section-kicker">Ocean Quest Family</p>
@@ -243,19 +254,21 @@ export default function RoboticsQuestPage() {
         </ul>
       </section>
 
-      <section className="section" id="why-now" aria-label="なぜ今、水中ロボティクスなのか">
-        <div className="section-heading">
-          <div>
-            <p className="section-kicker">Why Now</p>
-            <h2>なぜ今、水中ロボティクスなのか</h2>
-          </div>
-          <p>
-            政策・市場・インフラ・採用の4つの追い風が同時に吹いている、いま入る意味のある領域です。
-          </p>
-        </div>
+      <section className="section quest-sec" id="why-now" aria-label="なぜ今、水中ロボティクスなのか">
+        <SectionHead
+          no="01"
+          ghost="WHY NOW"
+          kicker="Why Now"
+          title={
+            <>
+              「海洋 転職」と検索しても、<em>水中ロボットの入り方</em>は出てこない。
+            </>
+          }
+          lead="でも実際には、政策・市場・インフラ・採用の4つの追い風が同時に吹いている領域です。いま入る意味を、事実から整理します。"
+        />
         <div className="card-grid">
-          {whyNow.map(({ icon: Icon, title, body }) => (
-            <article className="content-card" key={title}>
+          {whyNow.map(({ icon: Icon, title, body }, index) => (
+            <article className="content-card rv" style={{ transitionDelay: `${index * 0.08}s` }} key={title}>
               <div className="card-icon">
                 <Icon size={22} />
               </div>
@@ -266,19 +279,25 @@ export default function RoboticsQuestPage() {
         </div>
       </section>
 
-      <section className="section" id="roles" aria-label="どんな仕事があるのか">
-        <div className="section-heading">
-          <div>
-            <p className="section-kicker">Job Map</p>
-            <h2>どんな仕事があるのか</h2>
-          </div>
-          <p>
-            機体をつくる開発職から、海で動かす現場職、事業を広げる企画職まで。水中ロボティクスの主な8職種です。
-          </p>
-        </div>
+      <section className="section quest-sec quest-sec-alt" id="roles" aria-label="どんな仕事があるのか">
+        <SectionHead
+          no="02"
+          ghost="JOB MAP"
+          kicker="Job Map"
+          title={
+            <>
+              機体を<em>つくる</em>人、海で<em>動かす</em>人、事業に<em>する</em>人。
+            </>
+          }
+          lead="開発職から現場職、企画職まで。水中ロボティクスの主な8職種と、それぞれに必要なスキルです。"
+        />
         <div className="card-grid quest-role-grid">
-          {roles.map(({ icon: Icon, title, body, skills }) => (
-            <article className="content-card quest-role-card" key={title}>
+          {roles.map(({ icon: Icon, title, body, skills }, index) => (
+            <article
+              className="content-card quest-role-card rv"
+              style={{ transitionDelay: `${(index % 4) * 0.08}s` }}
+              key={title}
+            >
               <div className="card-icon">
                 <Icon size={22} />
               </div>
@@ -290,19 +309,25 @@ export default function RoboticsQuestPage() {
         </div>
       </section>
 
-      <section className="section" id="translate" aria-label="異業種からどうつながるか">
-        <div className="section-heading">
-          <div>
-            <p className="section-kicker">Career Translation</p>
-            <h2>あなたの経験は、こう翻訳できる</h2>
-          </div>
-          <p>
-            水中ロボティクスは「海の経験者」より「隣接分野の経験者」でできている領域です。いまの仕事からのつながり方を見てみてください。
-          </p>
-        </div>
+      <section className="section quest-sec" id="translate" aria-label="異業種からどうつながるか">
+        <SectionHead
+          no="03"
+          ghost="TRANSLATE"
+          kicker="Career Translation"
+          title={
+            <>
+              あなたの経験は、<em>翻訳</em>できる。
+            </>
+          }
+          lead="水中ロボティクスは「海の経験者」より「隣接分野の経験者」でできている領域です。いまの仕事からのつながり方を見てみてください。"
+        />
         <div className="quest-translate-list">
-          {translations.map(({ from, to, note }) => (
-            <article className="quest-translate-row" key={from}>
+          {translations.map(({ from, to, note }, index) => (
+            <article
+              className="quest-translate-row rv"
+              style={{ transitionDelay: `${(index % 4) * 0.06}s` }}
+              key={from}
+            >
               <div className="quest-translate-pair">
                 <span className="quest-translate-from">{from}</span>
                 <span className="quest-translate-arrow" aria-hidden="true">
@@ -316,19 +341,130 @@ export default function RoboticsQuestPage() {
         </div>
       </section>
 
-      <section className="section" id="players" aria-label="企業・プレイヤーマップ">
-        <div className="section-heading">
-          <div>
-            <p className="section-kicker">Player Map</p>
-            <h2>企業・プレイヤーマップ</h2>
+      <section className="section quest-sec quest-sec-alt" id="self-check" aria-label="セルフチェック">
+        <SectionHead
+          no="04"
+          ghost="SELF CHECK"
+          kicker="Self Check"
+          title={
+            <>
+              まず、自分の<em>現在地</em>を知る。
+            </>
+          }
+          lead="経歴に合わせて質問が変わる分岐型のキャリア診断です。回答から、水中ロボティクスを含む9領域との相性と、あなたのタイプを判定します。"
+        />
+        <div className="sc-grid">
+          <div className="sc-left rv">
+            <div className="sc-road" aria-label="診断の流れ">
+              <svg className="sc-road-svg" viewBox="0 0 480 238" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="scRoadG" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#008b98" />
+                    <stop offset=".5" stopColor="#005866" />
+                    <stop offset="1" stopColor="#ff7a21" />
+                  </linearGradient>
+                </defs>
+                <path
+                  className="sc-road-bg"
+                  d="M 12 30 C 160 40, 330 26, 440 48 C 486 58, 486 96, 436 108 C 340 130, 150 106, 58 122 C -8 134, -12 176, 48 192 C 120 216, 210 228, 296 232"
+                />
+                <path
+                  className="sc-road-line"
+                  d="M 12 30 C 160 40, 330 26, 440 48 C 486 58, 486 96, 436 108 C 340 130, 150 106, 58 122 C -8 134, -12 176, 48 192 C 120 216, 210 228, 296 232"
+                  pathLength={1}
+                />
+                <circle className="sc-road-dot" cx="296" cy="232" r="4.5" />
+              </svg>
+              <ol className="sc-flow">
+                <li style={{ ["--fc" as string]: "#008b98" }}>
+                  <span className="fno">1</span>
+                  <span className="ftx">
+                    <b>11問に答える</b>
+                    <i>選ぶだけ・約3分。経歴の回答で次の質問が変わる分岐型</i>
+                  </span>
+                </li>
+                <li style={{ ["--fc" as string]: "#005866" }}>
+                  <span className="fno">2</span>
+                  <span className="ftx">
+                    <b>36タイプから判定</b>
+                    <i>9領域×4職種で、あなたのタイプ名を言語化</i>
+                  </span>
+                </li>
+                <li style={{ ["--fc" as string]: "#ff7a21" }}>
+                  <span className="fno">3</span>
+                  <span className="ftx">
+                    <b>想定職種・年収帯・次の一手へ</b>
+                    <i>強み・市場価値・おすすめ領域つきの読み物級の結果</i>
+                  </span>
+                </li>
+              </ol>
+            </div>
+            <div className="sc-stats" aria-hidden="true">
+              <div>
+                <b>
+                  <span data-count="11">0</span>問
+                </b>
+                <small>設問数</small>
+              </div>
+              <div>
+                <b>
+                  約<span data-count="3">0</span>分
+                </b>
+                <small>所要時間</small>
+              </div>
+              <div>
+                <b>
+                  <span data-count="36">0</span>タイプ
+                </b>
+                <small>判定結果</small>
+              </div>
+            </div>
+            <a className="primary-button sc-cta" href="/diagnosis">
+              無料でキャリア診断をはじめる
+              <ArrowRight size={18} />
+            </a>
+            <div className="cta-pills">
+              <span>無料</span>
+              <span>約3分</span>
+              <span>結果はその場で表示</span>
+            </div>
           </div>
-          <p>
-            大手からスタートアップ、研究機関まで。この領域を動かしている主なプレイヤーの見取り図です（社名は代表例で、網羅ではありません）。
-          </p>
+          <a className="sc-card rv" href="/diagnosis">
+            <div className="sc-card-inner">
+              <div className="sck">OCEAN QUEST SELF CHECK</div>
+              <h3>
+                あなたのタイプは、
+                <br />
+                36通りのどれか。
+              </h3>
+              <div className="sc-types">
+                <span>エンジニア</span>
+                <span>研究・R&D</span>
+                <span>事業開発</span>
+                <span>フィールド・現場</span>
+                <span>× 9領域</span>
+              </div>
+              <span className="sc-card-btn">診断をはじめる →</span>
+            </div>
+          </a>
         </div>
+      </section>
+
+      <section className="section quest-sec" id="players" aria-label="企業・プレイヤーマップ">
+        <SectionHead
+          no="05"
+          ghost="PLAYERS"
+          kicker="Player Map"
+          title={
+            <>
+              この領域を動かしている<em>プレイヤー</em>たち。
+            </>
+          }
+          lead="大手からスタートアップ、研究機関まで。水中ロボティクスの見取り図です（社名は代表例で、網羅ではありません）。"
+        />
         <div className="card-grid quest-player-grid">
-          {players.map(({ icon: Icon, category, body }) => (
-            <article className="content-card" key={category}>
+          {players.map(({ icon: Icon, category, body }, index) => (
+            <article className="content-card rv" style={{ transitionDelay: `${index * 0.08}s` }} key={category}>
               <div className="card-icon">
                 <Icon size={22} />
               </div>
@@ -339,49 +475,73 @@ export default function RoboticsQuestPage() {
         </div>
       </section>
 
-      <section className="section quest-diagnosis" aria-label="キャリア診断">
-        <div className="quest-diagnosis-inner">
-          <p className="section-kicker">Career Diagnosis</p>
-          <h2>自分は水中ロボティクスに向いている？</h2>
-          <p>
-            分岐型の質問（約3分・無料）で、9領域×4職種＝36タイプからあなたのタイプを判定。水中ロボティクスとの適性、想定職種、想定年収帯、次の一手までその場で表示します。
-          </p>
-          <a className="primary-button" href="/diagnosis">
-            無料でキャリア診断をする
-            <ArrowRight size={18} />
+      <section className="section quest-sec quest-sec-alt" id="blog" aria-label="ブログ・コンテンツ">
+        <SectionHead
+          no="06"
+          ghost="BLOG"
+          kicker="Blog & Contents"
+          title={
+            <>
+              海洋産業の<em>現実</em>から読む。
+            </>
+          }
+          lead="業界理解に役立つ最新の記事とコンテンツです。転職を考える前の情報収集から使ってください。"
+        />
+        {notes.length > 0 ? (
+          <div className="quest-blog-grid">
+            {notes.map((note, index) => (
+              <a
+                className="quest-blog-card rv"
+                style={{ transitionDelay: `${index * 0.08}s` }}
+                href={note.source_url}
+                target="_blank"
+                rel="noreferrer"
+                key={note.id}
+              >
+                <div className="quest-blog-thumb">
+                  {note.thumbnail_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={note.thumbnail_url} alt="" loading="lazy" />
+                  ) : (
+                    <FileText size={30} />
+                  )}
+                </div>
+                <div className="quest-blog-body">
+                  <time dateTime={note.published_at ?? note.created_at}>
+                    {formatDate(note.published_at ?? note.created_at)}
+                  </time>
+                  <h3>{note.title}</h3>
+                  <span className="quest-blog-more">
+                    読む
+                    <ArrowUpRight size={14} />
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        ) : null}
+        <div className="quest-content-links rv">
+          <a className="text-link" href="/notes">
+            note記事一覧
+            <ArrowRight size={16} />
+          </a>
+          <a className="text-link" href="/videos">
+            動画で学ぶ海洋産業
+            <ArrowRight size={16} />
+          </a>
+          <a className="text-link" href="/ebooks">
+            eBook（無料DL）
+            <ArrowRight size={16} />
+          </a>
+          <a className="text-link" href="/map">
+            海の地図（β）
+            <ArrowRight size={16} />
           </a>
         </div>
       </section>
 
-      <section className="section" id="contents" aria-label="コンテンツで理解を深める">
-        <div className="section-heading">
-          <div>
-            <p className="section-kicker">Contents</p>
-            <h2>コンテンツで理解を深める</h2>
-          </div>
-          <p>転職を考える前の情報収集から使えるコンテンツを揃えています。</p>
-        </div>
-        <div className="card-grid quest-content-grid">
-          {contents.map(({ title, body, href, label }) => (
-            <article className="content-card" key={title}>
-              <h3>{title}</h3>
-              <p>{body}</p>
-              <a className="text-link" href={href}>
-                {label}
-                <ArrowRight size={16} />
-              </a>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section" aria-label="よくある質問">
-        <div className="section-heading">
-          <div>
-            <p className="section-kicker">FAQ</p>
-            <h2>よくある質問</h2>
-          </div>
-        </div>
+      <section className="section quest-sec" aria-label="よくある質問">
+        <SectionHead no="07" ghost="FAQ" kicker="FAQ" title={<>よくある質問</>} />
         <div className="faq-list quest-faq">
           {faqItems.map(({ question, answer }) => (
             <details className="faq-item" key={question}>
@@ -400,7 +560,7 @@ export default function RoboticsQuestPage() {
 
       <section className="section quest-cta" aria-label="相談する">
         <div className="quest-cta-grid">
-          <article className="quest-cta-card">
+          <article className="quest-cta-card rv">
             <p className="section-kicker">For Candidates</p>
             <h2>キャリアの話を、まずは気軽に。</h2>
             <p>
@@ -411,7 +571,7 @@ export default function RoboticsQuestPage() {
               <ArrowRight size={18} />
             </a>
           </article>
-          <article className="quest-cta-card">
+          <article className="quest-cta-card rv" style={{ transitionDelay: "0.1s" }}>
             <p className="section-kicker">For Companies</p>
             <h2>水中ロボティクスの採用を支援します。</h2>
             <p>
@@ -459,4 +619,12 @@ export default function RoboticsQuestPage() {
       <SiteFooter />
     </main>
   );
+}
+
+function formatDate(value: string) {
+  return new Intl.DateTimeFormat("ja-JP", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date(value));
 }
