@@ -319,7 +319,7 @@ export default async function RoboticsQuestPage() {
   const notes = await listNoteContents(3).catch(() => []);
 
   return (
-    <main className="subpage-shell subpage-bg-blue-water quest-page">
+    <main className="subpage-shell subpage-bg-deep-wreck quest-page">
       <SiteHeader solid />
       <QuestFx />
 
