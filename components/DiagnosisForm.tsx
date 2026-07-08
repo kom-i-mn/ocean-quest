@@ -21,8 +21,134 @@ type DiagnosisScores = {
   ranked: { key: DiagnosisAreaKey; percent: number }[];
 };
 
-function ReportDownloadPanel({ scores }: { scores: DiagnosisScores }) {
+type DiagnosisLead = {
+  name: string;
+  email: string;
+};
+
+function LeadGatePanel({ onStart }: { onStart: (lead: DiagnosisLead) => void }) {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (status === "loading") return;
+    setStatus("loading");
+    setErrorMessage("");
+
+    const form = event.currentTarget;
+    const website =
+      (form.elements.namedItem("website") as HTMLInputElement | null)?.value ?? "";
+
+    try {
+      const response = await fetch("/api/diagnosis-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, website }),
+      });
+
+      if (!response.ok) {
+        const data = (await response.json().catch(() => null)) as
+          | { error?: string }
+          | null;
+        throw new Error(
+          data?.error ?? "登録に失敗しました。時間をおいて再度お試しください。",
+        );
+      }
+
+      window.gtag?.("event", "diagnosis_start");
+      onStart({ name: name.trim(), email: email.trim() });
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "登録に失敗しました。時間をおいて再度お試しください。",
+      );
+      setStatus("error");
+    }
+  }
+
+  return (
+    <div className="contact-panel diagnosis-panel" id="diagnosis-form">
+      <p className="content-type">無料キャリア診断</p>
+      <h2 className="diagnosis-gate-heading">
+        10の質問で、あなたに合う海洋産業の入口がわかる。
+      </h2>
+      <ul className="diagnosis-gate-points">
+        <li>全10問・所要時間は約3分。結果はその場で表示されます</li>
+        <li>海運・造船・港湾 / 海洋資源・エネルギー / 海洋テック・データの3領域とのマッチ度を%で診断</li>
+        <li>職種例・市場動向まで入った詳細版レポート(PDF)を無料でダウンロードできます</li>
+      </ul>
+      <p className="diagnosis-gate-copy">
+        お名前とメールアドレスをご登録のうえ、診断をはじめてください。診断後、Ocean
+        Questから海洋産業のキャリアに関する情報をお送りすることがあります。
+      </p>
+      <form className="diagnosis-gate-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          style={{ position: "absolute", left: "-9999px", height: 0, width: 0 }}
+        />
+        <label className="diagnosis-gate-field">
+          <span>お名前</span>
+          <input
+            className="diagnosis-report-input"
+            type="text"
+            required
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            placeholder="山田 太郎"
+            autoComplete="name"
+          />
+        </label>
+        <label className="diagnosis-gate-field">
+          <span>メールアドレス</span>
+          <input
+            className="diagnosis-report-input"
+            type="email"
+            required
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="example@company.com"
+            autoComplete="email"
+          />
+        </label>
+        <button
+          className="primary-button diagnosis-gate-submit"
+          type="submit"
+          disabled={status === "loading"}
+        >
+          {status === "loading" ? "登録しています..." : "診断をはじめる"}
+          <ArrowRight size={18} />
+        </button>
+      </form>
+      {status === "error" ? (
+        <p className="diagnosis-report-error">{errorMessage}</p>
+      ) : null}
+      <p className="diagnosis-report-consent">
+        ご入力いただいた情報は、
+        <a href="/privacy" target="_blank" rel="noopener noreferrer">
+          プライバシーポリシー
+        </a>
+        に基づき適切に管理します。配信はいつでも停止できます。
+      </p>
+    </div>
+  );
+}
+
+function ReportDownloadPanel({
+  scores,
+  initialEmail,
+}: {
+  scores: DiagnosisScores;
+  initialEmail?: string;
+}) {
+  const [email, setEmail] = useState(initialEmail ?? "");
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -152,6 +278,7 @@ function computeScores(answers: DiagnosisOption[]): DiagnosisScores {
 }
 
 export function DiagnosisForm() {
+  const [lead, setLead] = useState<DiagnosisLead | null>(null);
   const [answers, setAnswers] = useState<DiagnosisOption[]>([]);
   const total = diagnosisQuestions.length;
   const scores = answers.length === total ? computeScores(answers) : null;
@@ -164,6 +291,10 @@ export function DiagnosisForm() {
       second: scores.ranked[1].key,
     });
   }, [scores]);
+
+  if (!lead) {
+    return <LeadGatePanel onStart={setLead} />;
+  }
 
   if (scores) {
     const top = scores.ranked[0];
@@ -217,7 +348,7 @@ export function DiagnosisForm() {
           </ul>
         </div>
 
-        <ReportDownloadPanel scores={scores} />
+        <ReportDownloadPanel scores={scores} initialEmail={lead.email} />
 
         <p className="diagnosis-disclaimer">
           この診断は、興味・志向の傾向から情報収集の入口となる領域を提案するものであり、適性や合否を判定するものではありません。実際のキャリア選択は、これまでのご経験や各領域の求人動向を踏まえて、無料キャリア相談で一緒に整理していきます。
