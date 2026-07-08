@@ -3,6 +3,7 @@ import type { DailyAnalyticsReportInput } from "@/lib/analytics";
 import { generateDailyAnalyticsReport } from "@/lib/analytics";
 import { hasResendConfig, sendDailyMaintenanceEmail } from "@/lib/email";
 import { hasGoogleAnalyticsConfig } from "@/lib/google-auth";
+import { processEbookGeneration } from "@/lib/ebook";
 import { fetchNoteRssContents } from "@/lib/note";
 import {
   hasSupabaseWriteConfig,
@@ -12,6 +13,7 @@ import {
 import { fetchYouTubePlaylistContents } from "@/lib/youtube";
 
 export const runtime = "nodejs";
+export const maxDuration = 300;
 
 export async function GET(request: Request) {
   const authHeader = request.headers.get("authorization");
@@ -58,6 +60,16 @@ export async function GET(request: Request) {
     results.note = {
       skipped: true,
       error: error instanceof Error ? error.message : "note ingest failed.",
+    };
+  }
+
+  try {
+    const ebookLimit = Number(process.env.EBOOK_DAILY_LIMIT ?? "1");
+    results.ebook = await processEbookGeneration(ebookLimit);
+  } catch (error) {
+    results.ebook = {
+      skipped: true,
+      error: error instanceof Error ? error.message : "eBook generation failed.",
     };
   }
 
