@@ -2613,6 +2613,74 @@ footer {
   }
 }
 
+.diagnosis-hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0 14px;
+}
+
+.diagnosis-hero-badges span {
+  padding: 4px 14px;
+  background: rgba(0, 88, 102, 0.1);
+  border: 1px solid rgba(0, 88, 102, 0.25);
+  border-radius: 999px;
+  color: var(--teal-dark);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.diagnosis-hero-points {
+  margin: 0 0 6px;
+  padding-left: 22px;
+  line-height: 2;
+}
+
+.diagnosis-gate-heading {
+  margin: 0 0 14px;
+  font-size: 24px;
+  letter-spacing: 0.03em;
+}
+
+.diagnosis-gate-points {
+  margin: 0 0 14px;
+  padding: 16px 20px 16px 38px;
+  background: var(--sky);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--navy);
+  line-height: 2;
+}
+
+.diagnosis-gate-copy {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.diagnosis-gate-form {
+  display: grid;
+  gap: 14px;
+  max-width: 460px;
+}
+
+.diagnosis-gate-field {
+  display: grid;
+  gap: 6px;
+}
+
+.diagnosis-gate-field span {
+  color: var(--navy);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.diagnosis-gate-submit {
+  justify-content: center;
+  margin-top: 4px;
+}
+
 .diagnosis-report-panel {
   margin: 24px 0;
   padding: 22px 24px;
@@ -2789,6 +2857,125 @@ footer {
 .ocean-map-popup a {
   color: var(--teal-dark);
   text-decoration: underline;
+}
+
+.ocean-map-abouts {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.ocean-map-about {
+  padding: 14px 18px;
+  background: var(--sky);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.ocean-map-about h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  color: var(--teal-dark);
+  font-size: 14.5px;
+}
+
+.ocean-map-about p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.9;
+}
+
+.ocean-map-list {
+  margin-top: 18px;
+  padding: 16px 18px;
+  background: #fbfdfd;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.ocean-map-list h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  color: var(--navy);
+  font-size: 15px;
+}
+
+.ocean-map-list-count {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.ocean-map-list ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.ocean-map-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 9px 12px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+}
+
+.ocean-map-list-locate {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-top: 1px;
+  color: var(--teal-dark);
+  background: var(--sky);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.ocean-map-list-locate:hover {
+  background: var(--teal);
+  color: #ffffff;
+}
+
+.ocean-map-list-body {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ocean-map-list-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--navy);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+a.ocean-map-list-title {
+  color: var(--teal-dark);
+  text-decoration: underline;
+}
+
+.ocean-map-list-meta {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
 }
 
 .ocean-map-highlights {

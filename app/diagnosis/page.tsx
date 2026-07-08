@@ -18,9 +18,20 @@ export default function DiagnosisPage() {
       <section className="subpage-hero">
         <p className="section-kicker">Diagnosis</p>
         <h1>あなたに合う海洋産業の入口を見つける。</h1>
+        <div className="diagnosis-hero-badges" aria-label="診断の概要">
+          <span>全10問</span>
+          <span>約3分</span>
+          <span>無料</span>
+          <span>結果はその場で表示</span>
+        </div>
         <p>
           関心のあるテーマや活かしたい経験、働き方の志向など、10の質問から、海洋産業の3領域（海運・造船・港湾／海洋資源・エネルギー／海洋テック・データ）それぞれとのマッチ度を診断します。まだ転職を決めていない方も、情報収集の第一歩として利用できます。
         </p>
+        <ul className="diagnosis-hero-points">
+          <li>3領域それぞれとのマッチ度が%でわかる</li>
+          <li>あなたに合う領域の職種例と、その理由がわかる</li>
+          <li>市場動向・活かせる経験まで入った詳細版レポート(PDF)を無料でダウンロードできる</li>
+        </ul>
         <div className="hero-actions subpage-actions">
           <a className="primary-button" href="#diagnosis-form">
             診断をはじめる

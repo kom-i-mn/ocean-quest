@@ -29,6 +29,12 @@ export type MsilLayerDef = {
   linkField?: string;
   // サーバー側キャッシュ秒数
   revalidate: number;
+  // ライン系の間引き(度)。ArcGISのmaxAllowableOffsetに渡す
+  simplify?: number;
+  // 地図下に一覧を表示するか(ポイント系の少量レイヤーのみ)
+  listable?: boolean;
+  // レイヤー有効時に表示する「これはなに?」の解説
+  about?: string;
 };
 
 export const msilLayers: Record<MsilLayerKey, MsilLayerDef> = {
@@ -43,6 +49,9 @@ export const msilLayers: Record<MsilLayerKey, MsilLayerDef> = {
     titleField: "海流の種別",
     fields: ["解析対象日", "速報号数"],
     revalidate: 21600,
+    simplify: 0.005,
+    about:
+      "オレンジの線は、海上保安庁「海洋速報」の最新解析による海流の中心線(流軸)です。黒潮は日本の南岸を流れる世界有数の暖流で、蛇行の仕方が海運の燃費、漁場の位置、沿岸の気候にまで影響します。親潮は栄養豊富な寒流で、三陸沖の豊かな漁場を支えています。線をクリックすると、どの海流か・いつの解析かを確認できます。",
   },
   aquarium: {
     key: "aquarium",
@@ -56,6 +65,9 @@ export const msilLayers: Record<MsilLayerKey, MsilLayerDef> = {
     fields: ["住所", "主な内容"],
     linkField: "リンク",
     revalidate: 86400,
+    listable: true,
+    about:
+      "海の生き物に出会える全国の水族館です。飼育員・獣医師だけでなく、展示企画・教育普及・広報など、海の面白さを伝える多様な仕事の現場でもあります。",
   },
   museum: {
     key: "museum",
@@ -69,6 +81,9 @@ export const msilLayers: Record<MsilLayerKey, MsilLayerDef> = {
     fields: ["住所", "主な内容"],
     linkField: "リンク",
     revalidate: 86400,
+    listable: true,
+    about:
+      "海・船・港をテーマにした博物館や資料館です。造船の歴史、海運のしくみ、海の環境など、海洋産業の背景知識を体系的に学べる場所です。",
   },
   experience: {
     key: "experience",
@@ -82,6 +97,9 @@ export const msilLayers: Record<MsilLayerKey, MsilLayerDef> = {
     fields: ["住所", "主な内容"],
     linkField: "リンク",
     revalidate: 86400,
+    listable: true,
+    about:
+      "海に親しむ体験学習ができる施設です。マリンスポーツや水辺の安全教室など、まず「海を好きになる」入口としておすすめです。",
   },
   port: {
     key: "port",
@@ -94,6 +112,8 @@ export const msilLayers: Record<MsilLayerKey, MsilLayerDef> = {
     titleField: "港湾名",
     fields: ["港湾種類", "所在地"],
     revalidate: 86400,
+    about:
+      "全国の港湾です。港湾には法律上の区分があり、国際コンテナ輸送の中枢となる「国際戦略港湾」(京浜・阪神など)、地域の国際輸送を担う「国際拠点港湾」、国の利害に重大な関係を持つ「重要港湾」、地域の「地方港湾」に分かれます。点をクリックすると区分と所在地を確認できます。",
   },
   lighthouse: {
     key: "lighthouse",
@@ -107,6 +127,9 @@ export const msilLayers: Record<MsilLayerKey, MsilLayerDef> = {
     titleField: "名称",
     fields: ["読み"],
     revalidate: 86400,
+    listable: true,
+    about:
+      "灯台は、船が自分の位置を確かめるための「航路標識」のひとつです。全国に3,000基以上あり、それぞれに航路標識番号が振られています。今も海上保安庁が維持管理しており、船の安全を支える現役のインフラです。地図を拡大すると表示され、一覧には表示範囲内の灯台が並びます。",
   },
   cable: {
     key: "cable",
@@ -118,6 +141,9 @@ export const msilLayers: Record<MsilLayerKey, MsilLayerDef> = {
     minZoom: 6,
     color: "#6b5b95",
     revalidate: 86400,
+    simplify: 0.005,
+    about:
+      "紫の線は海底に敷設された通信ケーブルです。国際通信の大部分は衛星ではなく海底ケーブルで運ばれており、インターネットを物理的に支える「海の通信インフラ」です。敷設・保守には専用のケーブル敷設船と海洋の専門人材が関わっています。個々のケーブル名は海しるAPIでは公開されていません。",
   },
 };
 

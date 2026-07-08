@@ -49,6 +49,10 @@ export async function GET(
     geometryPrecision: "5",
   });
 
+  if (def.simplify) {
+    base.set("maxAllowableOffset", String(def.simplify));
+  }
+
   if (def.load === "bbox") {
     if (!bbox || !isValidBbox(bbox)) {
       return NextResponse.json(
