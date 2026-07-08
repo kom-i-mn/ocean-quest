@@ -3607,3 +3607,241 @@ a.ocean-map-list-title {
     display: none;
   }
 }
+
+/* 領域Quest（子サイト）ページ */
+.quest-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 2px 0 14px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: linear-gradient(120deg, var(--teal), var(--teal-dark));
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  box-shadow: var(--shadow-md);
+}
+
+.quest-points {
+  margin: 26px auto 0;
+  padding: 18px 22px;
+  max-width: 720px;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.quest-points li {
+  position: relative;
+  padding-left: 22px;
+  color: var(--ink);
+  font-size: 13.5px;
+  line-height: 1.8;
+}
+
+.quest-points li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.quest-role-skills {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+  color: var(--teal-dark);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.quest-translate-list {
+  display: grid;
+  gap: 14px;
+}
+
+.quest-translate-row {
+  padding: 18px 22px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.quest-translate-pair {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.quest-translate-from {
+  color: var(--muted);
+}
+
+.quest-translate-arrow {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent);
+}
+
+.quest-translate-to {
+  color: var(--teal-dark);
+}
+
+.quest-translate-note {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.8;
+}
+
+.quest-diagnosis {
+  text-align: center;
+}
+
+.quest-diagnosis-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 44px 32px;
+  background: linear-gradient(140deg, var(--navy), var(--teal-dark));
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+}
+
+.quest-diagnosis-inner h2 {
+  color: #fff;
+  margin: 8px 0 14px;
+}
+
+.quest-diagnosis-inner p {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 14.5px;
+  line-height: 2;
+  margin: 0 0 22px;
+}
+
+.quest-diagnosis-inner .section-kicker {
+  color: #7fd8d2;
+}
+
+.quest-cta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.quest-cta-card {
+  padding: 34px 30px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.quest-cta-card h2 {
+  font-size: 22px;
+  margin: 4px 0 8px;
+}
+
+.quest-cta-card p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.95;
+  margin: 0 0 18px;
+}
+
+.quest-cta-card .primary-button,
+.quest-cta-card .secondary-button {
+  margin-top: auto;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--teal-dark);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: 2px solid rgba(0, 139, 152, 0.35);
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.text-link:hover {
+  color: var(--teal);
+  border-color: var(--teal);
+}
+
+@media (max-width: 720px) {
+  .quest-translate-pair {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .quest-translate-arrow {
+    transform: rotate(90deg);
+  }
+
+  .quest-diagnosis-inner {
+    padding: 34px 22px;
+  }
+}
+
+/* 診断結果→領域Questサイト導線 */
+.diagnosis-quest-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 18px 0;
+  padding: 18px 22px;
+  border-radius: 14px;
+  background: linear-gradient(120deg, var(--teal-dark), var(--navy));
+  color: #fff;
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.diagnosis-quest-link:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.diagnosis-quest-link span {
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.diagnosis-quest-link b {
+  display: block;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.diagnosis-quest-link svg {
+  flex-shrink: 0;
+}

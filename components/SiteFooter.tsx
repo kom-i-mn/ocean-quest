@@ -13,6 +13,7 @@ const footerColumns = [
     heading: "サービス",
     links: [
       { label: "海洋キャリア診断", href: "/diagnosis" },
+      { label: "水中ロボティクスQuest", href: "/robotics" },
       { label: "無料キャリア相談", href: "/contact" },
       { label: "企業の方へ", href: "/companies" },
     ],

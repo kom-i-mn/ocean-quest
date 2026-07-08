@@ -385,3 +385,6 @@ export const diagnosisResults: Record<DiagnosisAreaKey, DiagnosisResult> = {
     ],
   },
 };
+
+// 公開済みの領域別Questサイト。ページ公開時にここへ追加すると診断結果からリンクされる。
+export const publishedQuestAreas = new Set<DiagnosisAreaKey>(["robotics"]);

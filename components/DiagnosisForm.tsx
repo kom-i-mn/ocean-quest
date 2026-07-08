@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowRight, ArrowUpRight, Download, Mail, RotateCcw } from "lucide-react";
-import { diagnosisResults } from "@/lib/content";
+import { diagnosisResults, publishedQuestAreas } from "@/lib/content";
 import {
   buildDiagnosisOutcome,
   flowStartId,
@@ -371,6 +371,20 @@ function ResultPanel({
           ))}
         </ul>
       </div>
+
+      {publishedQuestAreas.has(outcome.topArea) ? (
+        <a
+          className="diagnosis-quest-link"
+          href={diagnosisResults[outcome.topArea].questPath}
+        >
+          <span>
+            <b>{diagnosisResults[outcome.topArea].questName}</b>
+            {outcome.areaTitle}
+            専門サイトで、職種マップと異業種からの入り方を詳しく見る
+          </span>
+          <ArrowRight size={18} />
+        </a>
+      ) : null}
 
       <p className="diagnosis-email-note">
         <Mail size={15} />
