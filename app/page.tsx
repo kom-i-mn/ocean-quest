@@ -246,6 +246,21 @@ export default function Home() {
             </a>
           </div>
         </div>
+        <div className="hero-partner-lockup" aria-label="Ocean Quest × POTENTIALIGHT">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="hero-lockup-oq"
+            src="/images/brand/ocean-quest-logo.png"
+            alt="Ocean Quest"
+          />
+          <span aria-hidden="true">×</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="hero-lockup-pl"
+            src="/images/brand/potentialight-logo-white.png"
+            alt="POTENTIALIGHT"
+          />
+        </div>
       </section>
 
       <section className="section audience-intro" aria-label="Ocean Questを使う3つの立場">

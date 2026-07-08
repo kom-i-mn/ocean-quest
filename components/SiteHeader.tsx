@@ -1,5 +1,3 @@
-import { Anchor } from "lucide-react";
-
 const navigation = [
   { label: "動画", href: "/videos" },
   { label: "eBook", href: "/ebooks" },
@@ -15,10 +13,12 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
   return (
     <header className={solid ? "site-header solid" : "site-header"}>
       <a className="brand" href="/">
-        <span className="brand-mark">
-          <Anchor size={20} />
-        </span>
-        <span>Ocean Quest</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="brand-logo"
+          src="/images/brand/ocean-quest-logo.png"
+          alt="Ocean Quest"
+        />
       </a>
       <nav aria-label="Primary navigation">
         {navigation.map((item) => (

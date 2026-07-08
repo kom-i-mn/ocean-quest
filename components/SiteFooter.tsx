@@ -35,7 +35,12 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="site-footer-inner">
         <div className="site-footer-brand">
-          <span className="site-footer-logo">Ocean Quest</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="site-footer-logo"
+            src="/images/brand/ocean-quest-logo.png"
+            alt="Ocean Quest"
+          />
           <span className="site-footer-company">株式会社ポテンシャライト</span>
           <p>
             海洋産業に特化した人材支援・採用支援。
