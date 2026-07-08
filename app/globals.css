@@ -2111,9 +2111,27 @@ h3 {
 
 .site-footer-nav {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
   align-items: start;
+}
+
+.site-footer-brand-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 12.5px;
+  color: rgba(251, 255, 253, 0.4);
+}
+
+.site-footer-brand-links a {
+  color: rgba(251, 255, 253, 0.65);
+  white-space: nowrap;
+}
+
+.site-footer-brand-links a:hover {
+  color: var(--white);
 }
 
 .site-footer-heading {
@@ -2137,6 +2155,13 @@ h3 {
 .site-footer-column a {
   font-size: 13.5px;
   line-height: 1.7;
+  white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+  .site-footer-column a {
+    white-space: normal;
+  }
 }
 
 .site-footer-bottom {
@@ -3715,6 +3740,20 @@ a.ocean-map-list-title {
   position: relative;
 }
 
+/* .sectionの既定(上96px・下0)を上下対称のリズムに上書き */
+.quest-page .quest-sec {
+  padding: 84px 24px;
+}
+
+.quest-page .quest-sec-alt {
+  margin: 40px auto;
+  padding: 76px 48px;
+}
+
+.quest-page .quest-cta {
+  padding: 84px 24px 110px;
+}
+
 .quest-sec-alt {
   background: rgba(251, 255, 253, 0.82);
   border-radius: 24px;
@@ -4270,6 +4309,19 @@ a.ocean-map-list-title {
 
   .quest-sec-alt {
     border-radius: 18px;
+  }
+
+  .quest-page .quest-sec {
+    padding: 56px 20px;
+  }
+
+  .quest-page .quest-sec-alt {
+    margin: 24px auto;
+    padding: 48px 24px;
+  }
+
+  .quest-page .quest-cta {
+    padding: 56px 20px 80px;
   }
 
   .sc-stats {

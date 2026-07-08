@@ -4,7 +4,7 @@ const footerColumns = [
     links: [
       { label: "動画", href: "/videos" },
       { label: "note記事", href: "/notes" },
-      { label: "eBookライブラリ（無料DL）", href: "/ebooks" },
+      { label: "eBook（無料DL）", href: "/ebooks" },
       { label: "イベント", href: "/events" },
       { label: "海の地図（β）", href: "/map" },
       { label: "海洋キャリア診断", href: "/diagnosis" },
@@ -20,17 +20,6 @@ const footerColumns = [
     links: [
       { label: "無料キャリア相談", href: "/contact" },
       { label: "企業の方へ", href: "/companies" },
-    ],
-  },
-  {
-    heading: "サイト情報",
-    links: [
-      { label: "プライバシーポリシー", href: "/privacy" },
-      {
-        label: "運営会社（ポテンシャライト）",
-        href: "https://www.potentialight.co",
-        external: true,
-      },
     ],
   },
 ];
@@ -52,6 +41,17 @@ export function SiteFooter() {
             <br />
             海のしごとの面白さを、キャリアの選択肢に。
           </p>
+          <div className="site-footer-brand-links">
+            <a href="/privacy">プライバシーポリシー</a>
+            <span aria-hidden="true">・</span>
+            <a
+              href="https://www.potentialight.co"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              運営会社
+            </a>
+          </div>
         </div>
         <nav className="site-footer-nav" aria-label="サイト目次">
           {footerColumns.map((column) => (
