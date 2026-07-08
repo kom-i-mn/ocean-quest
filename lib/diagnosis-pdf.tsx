@@ -271,7 +271,7 @@ function DiagnosisReportDocument({
         <Text style={styles.tagline}>{content.tagline}</Text>
 
         <View style={styles.scoreBox}>
-          <Text style={styles.scoreHeading}>あなたの回答から見た3領域のマッチ度</Text>
+          <Text style={styles.scoreHeading}>あなたの回答から見た9領域のマッチ度</Text>
           {ranked.map((entry) => (
             <View style={styles.scoreRow} key={entry.key}>
               <Text style={styles.scoreLabel}>{diagnosisReportContents[entry.key].title}</Text>

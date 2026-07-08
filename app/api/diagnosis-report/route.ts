@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import type { DiagnosisAreaKey } from "@/lib/content";
+import { diagnosisAreaKeys, diagnosisResults, type DiagnosisAreaKey } from "@/lib/content";
 import { renderDiagnosisReportPdf } from "@/lib/diagnosis-pdf";
 import type { DiagnosisAreaScores } from "@/lib/diagnosis-report";
 import { hasResendConfig, sendContactNotificationEmail } from "@/lib/email";
@@ -8,20 +8,13 @@ import { hasSupabaseWriteConfig, insertContactSubmission } from "@/lib/supabase"
 export const runtime = "nodejs";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const areaKeys: DiagnosisAreaKey[] = ["shipping", "energy", "tech"];
-const areaLabels: Record<DiagnosisAreaKey, string> = {
-  shipping: "海運・造船・港湾",
-  energy: "海洋資源・エネルギー",
-  tech: "海洋テック・データ",
-};
-
 function parseScores(value: unknown): DiagnosisAreaScores | null {
   if (!value || typeof value !== "object") {
     return null;
   }
   const record = value as Record<string, unknown>;
   const scores = {} as DiagnosisAreaScores;
-  for (const key of areaKeys) {
+  for (const key of diagnosisAreaKeys) {
     const percent = record[key];
     if (typeof percent !== "number" || !Number.isFinite(percent) || percent < 0 || percent > 100) {
       return null;
@@ -56,16 +49,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "診断結果が不正です。もう一度診断からお試しください。" }, { status: 400 });
   }
 
-  const topKey = areaKeys.reduce((best, key) => (scores[key] > scores[best] ? key : best), areaKeys[0]);
-  const scoreSummary = areaKeys
-    .map((key) => `${areaLabels[key]} ${scores[key]}%`)
+  const topKey = diagnosisAreaKeys.reduce((best, key) => (scores[key] > scores[best] ? key : best), diagnosisAreaKeys[0]);
+  const scoreSummary = diagnosisAreaKeys
+    .map((key) => `${diagnosisResults[key].title} ${scores[key]}%`)
     .join(" / ");
   const submission = {
     name: null,
     company: null,
     email,
     topic: "diagnosis_report",
-    message: `診断レポート(詳細版PDF)をダウンロード\n1位領域: ${areaLabels[topKey]}\nスコア: ${scoreSummary}`,
+    message: `診断レポート(詳細版PDF)をダウンロード\n1位領域: ${diagnosisResults[topKey].title}\nスコア: ${scoreSummary}`,
   };
 
   let saved = false;

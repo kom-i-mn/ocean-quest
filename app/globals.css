@@ -2554,7 +2554,7 @@ footer {
 
 .diagnosis-score-row {
   display: grid;
-  grid-template-columns: 150px 1fr 44px;
+  grid-template-columns: 170px 1fr 44px;
   align-items: center;
   gap: 12px;
   margin-bottom: 10px;
@@ -2605,10 +2605,12 @@ footer {
 
 @media (max-width: 640px) {
   .diagnosis-score-row {
-    grid-template-columns: 110px 1fr 40px;
+    grid-template-columns: 1fr 40px;
+    gap: 6px 10px;
   }
 
   .diagnosis-score-label {
+    grid-column: 1 / -1;
     font-size: 12.5px;
   }
 }
@@ -2634,6 +2636,108 @@ footer {
   margin: 0 0 6px;
   padding-left: 22px;
   line-height: 2;
+}
+
+.diagnosis-preview-section {
+  padding-top: 34px;
+}
+
+.diagnosis-preview-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  gap: 24px;
+  padding: 26px;
+  background: #fbfdfd;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.diagnosis-preview-label {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.diagnosis-preview-card h3 {
+  margin: 0 0 10px;
+  color: var(--teal-dark);
+  font-size: 28px;
+}
+
+.diagnosis-preview-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.diagnosis-preview-metrics {
+  display: grid;
+  gap: 10px;
+}
+
+.diagnosis-preview-metrics span {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--sky);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.diagnosis-preview-metrics strong {
+  color: var(--navy);
+  font-size: 13.5px;
+}
+
+.diagnosis-axis-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.diagnosis-axis-grid div {
+  padding: 18px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.diagnosis-axis-grid span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.diagnosis-axis-grid strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--teal-dark);
+  font-size: 17px;
+}
+
+.diagnosis-axis-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+@media (max-width: 760px) {
+  .diagnosis-preview-card,
+  .diagnosis-axis-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .diagnosis-gate-heading {
