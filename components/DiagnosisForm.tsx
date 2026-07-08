@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { ArrowRight, ArrowUpRight, Download, RotateCcw } from "lucide-react";
 import {
+  diagnosisAreaKeys,
   diagnosisQuestions,
   diagnosisResults,
   type DiagnosisAreaKey,
@@ -14,8 +15,6 @@ declare global {
     gtag?: (...args: unknown[]) => void;
   }
 }
-
-const areaKeys = ["shipping", "energy", "tech"] as const;
 
 type DiagnosisScores = {
   ranked: { key: DiagnosisAreaKey; percent: number }[];
@@ -74,11 +73,11 @@ function LeadGatePanel({ onStart }: { onStart: (lead: DiagnosisLead) => void }) 
     <div className="contact-panel diagnosis-panel" id="diagnosis-form">
       <p className="content-type">無料キャリア診断</p>
       <h2 className="diagnosis-gate-heading">
-        10の質問で、あなたに合う海洋産業の入口がわかる。
+        12の質問で、あなたに合う海洋産業の入口がわかる。
       </h2>
       <ul className="diagnosis-gate-points">
-        <li>全10問・所要時間は約3分。結果はその場で表示されます</li>
-        <li>海運・造船・港湾 / 海洋資源・エネルギー / 海洋テック・データの3領域とのマッチ度を%で診断</li>
+        <li>全12問・所要時間は約3分。結果はその場で表示されます</li>
+        <li>水中ロボティクス、洋上風力、海洋インフラなど9領域とのマッチ度を%で診断</li>
         <li>職種例・市場動向まで入った詳細版レポート(PDF)を無料でダウンロードできます</li>
       </ul>
       <p className="diagnosis-gate-copy">
@@ -257,18 +256,16 @@ function ReportDownloadPanel({
 }
 
 function computeScores(answers: DiagnosisOption[]): DiagnosisScores {
-  const totals: Record<DiagnosisAreaKey, number> = {
-    shipping: 0,
-    energy: 0,
-    tech: 0,
-  };
+  const totals = Object.fromEntries(
+    diagnosisAreaKeys.map((key) => [key, 0]),
+  ) as Record<DiagnosisAreaKey, number>;
   for (const option of answers) {
-    for (const key of areaKeys) {
+    for (const key of diagnosisAreaKeys) {
       totals[key] += option.weights[key] ?? 0;
     }
   }
-  const sum = totals.shipping + totals.energy + totals.tech;
-  const ranked = areaKeys
+  const sum = diagnosisAreaKeys.reduce((acc, key) => acc + totals[key], 0);
+  const ranked = diagnosisAreaKeys
     .map((key) => ({
       key,
       percent: sum > 0 ? Math.round((totals[key] / sum) * 100) : 0,
@@ -311,7 +308,7 @@ export function DiagnosisForm() {
         <p className="diagnosis-result-summary">{result.summary}</p>
 
         <div className="diagnosis-scores" aria-label="領域ごとのマッチ度">
-          <strong>あなたの回答から見た3領域のマッチ度</strong>
+          <strong>あなたの回答から見た9領域のマッチ度</strong>
           {scores.ranked.map((entry) => (
             <div className="diagnosis-score-row" key={entry.key}>
               <span className="diagnosis-score-label">
@@ -365,6 +362,10 @@ export function DiagnosisForm() {
         </div>
         <div className="diagnosis-recommends">
           <strong>おすすめコンテンツ</strong>
+          <a href="/contact">
+            {result.questName}の公開準備について相談する
+            <ArrowUpRight size={15} />
+          </a>
           <a href="/videos">
             動画で{result.title}の仕事を知る
             <ArrowUpRight size={15} />

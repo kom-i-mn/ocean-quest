@@ -79,7 +79,19 @@ export const featuredContents: ContentItem[] = [
   },
 ];
 
-export type DiagnosisAreaKey = "shipping" | "energy" | "tech";
+export const diagnosisAreaKeys = [
+  "robotics",
+  "offshoreWind",
+  "infrastructure",
+  "resources",
+  "defense",
+  "data",
+  "bio",
+  "shipDx",
+  "portDx",
+] as const;
+
+export type DiagnosisAreaKey = (typeof diagnosisAreaKeys)[number];
 
 export type DiagnosisOption = {
   label: string;
@@ -95,81 +107,97 @@ export const diagnosisQuestions: DiagnosisQuestion[] = [
   {
     question: "いま一番関心があるテーマは？",
     options: [
-      { label: "世界とつながる物流・大型の船や港のスケール", weights: { shipping: 2 } },
-      { label: "洋上風力などのエネルギー・海洋資源の開発", weights: { energy: 2 } },
-      { label: "ロボット・AI・海のデータ活用などの最新技術", weights: { tech: 2 } },
+      { label: "AUV・ROV・水中ドローンなど、海の中で動くロボット", weights: { robotics: 3, data: 1 } },
+      { label: "洋上風力・海底資源など、海を使ったエネルギー/資源開発", weights: { offshoreWind: 2, resources: 2 } },
+      { label: "海底ケーブル・港湾・海運など、社会を支える海のインフラ", weights: { infrastructure: 2, portDx: 2, defense: 1 } },
     ],
   },
   {
     question: "これまでの経験に一番近いのは？",
     options: [
-      { label: "現場運営・オペレーション・物流・品質管理", weights: { shipping: 2 } },
-      { label: "営業・事業開発・企画・プロジェクト推進", weights: { energy: 2, shipping: 1 } },
-      { label: "エンジニアリング・研究開発・データ分析", weights: { tech: 2 } },
+      { label: "機械・電気・制御・組込み・ロボティクスなどの開発経験", weights: { robotics: 3, shipDx: 1 } },
+      { label: "事業開発・営業・企画・渉外・プロジェクト推進", weights: { offshoreWind: 2, resources: 1, portDx: 1 } },
+      { label: "データ分析・AI・研究開発・バイオ/素材・理系研究", weights: { data: 2, bio: 2, robotics: 1 } },
     ],
   },
   {
     question: "働く環境のイメージに近いのは？",
     options: [
-      { label: "歴史ある産業を大きな組織・チームで支える", weights: { shipping: 2 } },
-      { label: "成長市場で新しい事業を立ち上げていく", weights: { energy: 2 } },
-      { label: "スタートアップや研究開発の現場で技術を磨く", weights: { tech: 2 } },
+      { label: "研究開発やスタートアップで、試作・実証を重ねる環境", weights: { robotics: 2, data: 2, bio: 1 } },
+      { label: "大手・官公庁・地域を巻き込み、大型PJを進める環境", weights: { offshoreWind: 2, infrastructure: 1, defense: 1 } },
+      { label: "造船所・港湾・船会社など、現場に近い産業のDX環境", weights: { shipDx: 2, portDx: 2, infrastructure: 1 } },
     ],
   },
   {
     question: "心が動くのはどんな瞬間？",
     options: [
-      { label: "巨大な船や構造物が動き出すのを見たとき", weights: { shipping: 2 } },
-      { label: "エネルギーや環境の課題解決に一歩近づいたとき", weights: { energy: 2 } },
-      { label: "新しい技術やデータが目に見える形になったとき", weights: { tech: 2 } },
+      { label: "自分が関わった機体・装置・システムが海で動いたとき", weights: { robotics: 2, shipDx: 1, data: 1 } },
+      { label: "脱炭素・資源・食料など、大きな社会課題に前進が見えたとき", weights: { offshoreWind: 2, resources: 1, bio: 1 } },
+      { label: "通信・物流・安全保障など、止められない基盤を守れたとき", weights: { infrastructure: 2, defense: 2, portDx: 1 } },
     ],
   },
   {
     question: "仕事で大事にしたい価値観は？",
     options: [
-      { label: "社会を止めない責任を、着実に果たしていく", weights: { shipping: 2 } },
-      { label: "変化の中で、新しい市場をつくる手応え", weights: { energy: 2, tech: 1 } },
-      { label: "専門性を深めて、誰にも負けない武器を持つ", weights: { tech: 2 } },
+      { label: "専門技術を深め、難しい制約条件を突破すること", weights: { robotics: 2, data: 1, shipDx: 1 } },
+      { label: "新しい市場や事業を、関係者を巻き込んでつくること", weights: { offshoreWind: 2, resources: 1, bio: 1 } },
+      { label: "社会インフラと安全を、地道に強くしていくこと", weights: { infrastructure: 2, defense: 2, portDx: 1 } },
     ],
   },
   {
     question: "チームの中で自然と担うことが多い役割は？",
     options: [
-      { label: "決められた品質・納期で、確実に仕事を回す", weights: { shipping: 2 } },
-      { label: "社内外の関係者を巻き込み、物事を前に進める", weights: { energy: 2 } },
-      { label: "課題を深く掘り下げて、解決策を見つけ出す", weights: { tech: 2 } },
+      { label: "技術課題を分解し、仕様・実装・検証を詰める役割", weights: { robotics: 2, data: 2, shipDx: 1 } },
+      { label: "社内外の関係者をつなぎ、プロジェクトを前に進める役割", weights: { offshoreWind: 2, portDx: 1, infrastructure: 1 } },
+      { label: "リスクを読み、ルール・安全・品質を守る役割", weights: { defense: 2, infrastructure: 1, resources: 1 } },
     ],
   },
   {
     question: "前例のない仕事を任されたら？",
     options: [
-      { label: "実績あるやり方をベースに、確実に改善して進める", weights: { shipping: 2 } },
-      { label: "正解がなくても、まず動いて形にしていく", weights: { energy: 2 } },
-      { label: "仮説を立てて検証を繰り返しながら精度を上げる", weights: { tech: 2, energy: 1 } },
+      { label: "仮説を立て、データや実験で検証しながら精度を上げる", weights: { data: 2, bio: 1, robotics: 1 } },
+      { label: "関係者を集め、まず小さく事業や実証の形にする", weights: { offshoreWind: 1, resources: 2, bio: 1 } },
+      { label: "既存の安全基準・運用を押さえ、確実に改善して進める", weights: { defense: 2, infrastructure: 1, portDx: 1 } },
     ],
   },
   {
     question: "つい読んでしまうニュースは？",
     options: [
-      { label: "物流・貿易・港湾・造船など産業の動き", weights: { shipping: 2 } },
-      { label: "脱炭素・洋上風力・エネルギー政策の動き", weights: { energy: 2 } },
-      { label: "ロボット・AI・海洋観測などの技術の動き", weights: { tech: 2 } },
+      { label: "ロボット、ドローン、自動運転、センサー、宇宙・深海技術", weights: { robotics: 2, data: 1 } },
+      { label: "再エネ、資源開発、脱炭素、エネルギー安全保障", weights: { offshoreWind: 2, resources: 2, defense: 1 } },
+      { label: "物流、造船、港湾、海底ケーブル、船舶の自動化/DX", weights: { portDx: 2, shipDx: 2, infrastructure: 1 } },
     ],
   },
   {
     question: "理想の働く場所のイメージは？",
     options: [
-      { label: "船・港・工場など、現場の近くで働きたい", weights: { shipping: 2, energy: 1 } },
-      { label: "社外の人と会い、動き回る仕事がしたい", weights: { energy: 2 } },
-      { label: "腰を据えて、手を動かす仕事に集中したい", weights: { tech: 2 } },
+      { label: "研究室・開発拠点・実証フィールドを行き来したい", weights: { robotics: 2, data: 1, bio: 1 } },
+      { label: "地域・海域・建設現場など、大型プロジェクトの現場に関わりたい", weights: { offshoreWind: 2, resources: 1, infrastructure: 1 } },
+      { label: "港・船・造船所・管制/運航の現場に近い場所で働きたい", weights: { portDx: 2, shipDx: 2 } },
     ],
   },
   {
     question: "5年後、どんな自分でいたい？",
     options: [
-      { label: "産業に欠かせない現場・事業のプロフェッショナル", weights: { shipping: 2 } },
-      { label: "新しい市場を切り拓く事業リーダー", weights: { energy: 2 } },
-      { label: "専門技術を持つエンジニア・スペシャリスト", weights: { tech: 2 } },
+      { label: "海洋ロボットや海洋データを扱える専門人材", weights: { robotics: 2, data: 2 } },
+      { label: "海の成長市場を立ち上げる事業開発/プロジェクトリーダー", weights: { offshoreWind: 2, resources: 1, bio: 1 } },
+      { label: "海上交通・造船・港湾・安全保障を支えるDX人材", weights: { portDx: 2, shipDx: 1, defense: 1 } },
+    ],
+  },
+  {
+    question: "海洋産業の中で、特に解きたい課題は？",
+    options: [
+      { label: "人が行けない海中を、機械やデータで見えるようにする", weights: { robotics: 2, data: 2 } },
+      { label: "エネルギー・資源・食料の制約を、海から解決する", weights: { offshoreWind: 1, resources: 2, bio: 2 } },
+      { label: "海の物流・通信・安全保障を、強く効率的にする", weights: { infrastructure: 2, defense: 1, portDx: 2 } },
+    ],
+  },
+  {
+    question: "一番ワクワクする職種名に近いのは？",
+    options: [
+      { label: "水中ロボットエンジニア / 海洋データサイエンティスト", weights: { robotics: 2, data: 2 } },
+      { label: "洋上風力の事業開発 / 海底資源プロジェクト推進", weights: { offshoreWind: 2, resources: 2 } },
+      { label: "船舶DX・港湾DX・海洋インフラのプロジェクトマネージャー", weights: { shipDx: 2, portDx: 2, infrastructure: 1 } },
     ],
   },
 ];
@@ -177,61 +205,183 @@ export const diagnosisQuestions: DiagnosisQuestion[] = [
 export type DiagnosisResult = {
   key: DiagnosisAreaKey;
   title: string;
+  questName: string;
+  questPath: string;
   summary: string;
   reasons: string[];
   roles: string[];
 };
 
 export const diagnosisResults: Record<DiagnosisAreaKey, DiagnosisResult> = {
-  shipping: {
-    key: "shipping",
-    title: "海運・造船・港湾",
+  robotics: {
+    key: "robotics",
+    title: "水中ロボティクス",
+    questName: "水中ロボティクス Quest",
+    questPath: "/robotics",
     summary:
-      "日本の貿易の99%以上を支える、海洋産業の背骨ともいえる領域です。外航・内航海運、造船、港湾・物流など、社会を止めないスケールの大きな仕事が集まっています。",
+      "AUV・ROV・水中ドローン、センサー、制御、耐圧・防水設計など、海の中で動く機械をつくる領域です。ロボティクスや組込み、機械・電気の経験を海洋分野に接続しやすい入口です。",
     reasons: [
-      "大きな組織やチームで、社会インフラを着実に支える働き方に関心がある",
-      "現場運営やプロジェクト推進など、実務を前に進める経験を活かせる",
-      "船・港・物流といった、目に見えるスケールの大きさに心が動く",
+      "機械・電気・制御・組込みなど、技術で難しい制約を突破する志向がある",
+      "研究開発や実証を重ねながら、目に見えるプロダクトをつくることに惹かれる",
+      "宇宙・ドローン・自動運転・FAなどの近接経験を海中に展開できる",
     ],
     roles: [
-      "運航管理・オペレーション",
-      "造船・舶用機器のプロジェクト管理",
-      "港湾・物流の企画/営業",
-      "海事関連の管理部門",
+      "AUV/ROV開発エンジニア",
+      "組込み・制御・メカトロエンジニア",
+      "フィールドテスト/実証エンジニア",
+      "水中センサー・音響機器エンジニア",
     ],
   },
-  energy: {
-    key: "energy",
-    title: "海洋資源・エネルギー",
+  offshoreWind: {
+    key: "offshoreWind",
+    title: "洋上風力",
+    questName: "洋上風力 Quest",
+    questPath: "/offshore-wind",
     summary:
-      "洋上風力、海底資源、海洋土木など、脱炭素とエネルギー安全保障を背景に急成長している領域です。新しい市場の立ち上げ期だからこそ、事業開発や体制づくりの担い手が求められています。",
+      "脱炭素とエネルギー安全保障を背景に、開発・建設・O&M・地域調整まで人材需要が広がる成長領域です。事業開発、建設、電力、プラント、渉外経験を活かしやすい分野です。",
     reasons: [
-      "エネルギーや環境などの社会課題を、事業を通じて解決したい思いがある",
-      "成長市場で新しい事業やプロジェクトを立ち上げる側に回りたい",
-      "事業開発やインフラづくりの経験・志向を活かせる",
+      "大型プロジェクトを、地域・行政・企業を巻き込んで進める志向がある",
+      "再エネ・電力・建設・プラントなどの近接経験を海に広げられる",
+      "市場の立ち上げ期に入り、事業づくり側で挑戦したい",
     ],
     roles: [
       "洋上風力の開発（デベロッパー）",
-      "建設・O&M（運転保守）の管理",
-      "海洋土木の施工管理",
+      "建設・O&Mプロジェクト管理",
+      "地域共生・渉外・許認可対応",
       "事業開発・渉外・アライアンス",
     ],
   },
-  tech: {
-    key: "tech",
-    title: "海洋テック・データ",
+  infrastructure: {
+    key: "infrastructure",
+    title: "海洋インフラ",
+    questName: "海洋インフラ Quest",
+    questPath: "/infrastructure",
     summary:
-      "AUV・ROV・水中ロボット、海洋観測・海洋データ、海洋バイオなど、技術で海の可能性を広げる領域です。研究機関発のスタートアップも多く、専門性を深めながら新しい産業をつくれるフィールドです。",
+      "海底ケーブル、海洋土木、港湾設備、海洋調査など、通信・物流・エネルギーを海から支える領域です。インフラを止めない責任感と、現場を動かすプロジェクト推進力が活きます。",
     reasons: [
-      "ロボット・AI・データ活用など、最新技術への関心が強い",
-      "エンジニアリングや研究開発、データ分析の経験・志向を活かせる",
-      "スタートアップや研究開発の現場で、専門性を磨く働き方に惹かれる",
+      "社会基盤を支える仕事に関心があり、地道な安全・品質管理を大切にできる",
+      "土木・通信・設備・施工管理・保守などの経験を海洋領域に接続できる",
+      "海底ケーブルや港湾など、目に見えにくい重要インフラに惹かれる",
     ],
     roles: [
-      "AUV/ROV・水中ロボットの開発",
-      "組込み・制御・メカトロエンジニア",
-      "海洋観測・海洋データの解析",
-      "フィールドエンジニア",
+      "海底ケーブル敷設/保守プロジェクト管理",
+      "海洋土木・海洋調査の施工/運用管理",
+      "インフラ保守・アセットマネジメント",
+      "通信/電力インフラの事業企画",
+    ],
+  },
+  resources: {
+    key: "resources",
+    title: "海底資源",
+    questName: "海底資源 Quest",
+    questPath: "/resources",
+    summary:
+      "海底鉱物資源、CCS、海洋調査、資源探査など、海を資源開発と地球環境のフィールドとして扱う領域です。技術・政策・事業性が絡むため、研究開発と事業推進の両方にチャンスがあります。",
+    reasons: [
+      "資源・エネルギー・地質・環境など、長期テーマに腰を据えて関わりたい",
+      "研究開発、調査、プロジェクト推進を横断する仕事に向いている",
+      "不確実性の高い領域でも、仮説検証しながら前に進める志向がある",
+    ],
+    roles: [
+      "海洋資源調査・探査プロジェクト担当",
+      "CCS/海底貯留関連の事業開発",
+      "地質・環境調査エンジニア",
+      "資源開発の政策/渉外/アライアンス",
+    ],
+  },
+  defense: {
+    key: "defense",
+    title: "海洋防衛・安全保障",
+    questName: "海洋防衛・安全保障 Quest",
+    questPath: "/defense",
+    summary:
+      "海上交通、海底ケーブル、港湾、監視・観測、サイバー/通信など、海の安全保障に関わる領域です。民間インフラと防衛・政策の接点が増え、技術・運用・リスク管理人材の重要性が高まっています。",
+    reasons: [
+      "社会の安全や重要インフラを守る仕事に強い意味を感じる",
+      "ルール、リスク、品質、セキュリティを丁寧に扱う志向がある",
+      "通信・サイバー・インフラ・行政/公共領域の経験を活かせる",
+    ],
+    roles: [
+      "海洋監視・観測システム企画",
+      "重要インフラのリスク管理/セキュリティ",
+      "防衛・公共向けプロジェクトマネージャー",
+      "海洋政策・渉外・調査担当",
+    ],
+  },
+  data: {
+    key: "data",
+    title: "海洋データ",
+    questName: "海洋データ Quest",
+    questPath: "/data",
+    summary:
+      "海況、気象、音響、画像、衛星、センサーなどのデータを使い、海を予測・可視化・意思決定につなげる領域です。AI、データサイエンス、GIS、解析基盤の経験を活かせます。",
+    reasons: [
+      "データやモデルで、見えにくい海の状態を読み解くことに興味がある",
+      "AI・機械学習・画像/信号処理・GISなどの経験を活かせる",
+      "研究と事業、プロダクト開発の間に立つ仕事に向いている",
+    ],
+    roles: [
+      "海洋データサイエンティスト",
+      "海況予測・観測データ解析エンジニア",
+      "GIS/衛星データ活用担当",
+      "海洋データプロダクトマネージャー",
+    ],
+  },
+  bio: {
+    key: "bio",
+    title: "海洋バイオ",
+    questName: "海洋バイオ Quest",
+    questPath: "/bio",
+    summary:
+      "藻類、海洋微生物、ブルーカーボン、食品・素材・創薬など、海の生物資源を活用する領域です。研究開発、事業化、サステナビリティの接点で新しい市場が生まれています。",
+    reasons: [
+      "食料・環境・素材など、海の生物資源を社会実装するテーマに惹かれる",
+      "バイオ、化学、食品、素材、サステナビリティ領域の経験を活かせる",
+      "研究成果を事業やプロダクトに変えるプロセスに関わりたい",
+    ],
+    roles: [
+      "海洋バイオ研究開発",
+      "藻類/微生物活用の事業開発",
+      "ブルーカーボン関連プロジェクト担当",
+      "食品・素材・化学領域の企画/技術営業",
+    ],
+  },
+  shipDx: {
+    key: "shipDx",
+    title: "造船・船舶DX",
+    questName: "造船・船舶DX Quest",
+    questPath: "/ship-dx",
+    summary:
+      "造船、舶用機器、船舶管理、自動運航、省エネ運航など、船をつくり動かす現場をデジタルと技術で変える領域です。製造業、機械、IT、プロジェクト管理の経験と相性が良い分野です。",
+    reasons: [
+      "大きなモノづくりとデジタル化の両方に関心がある",
+      "製造業・機械・IT・品質/生産管理の経験を船舶領域に展開できる",
+      "歴史ある産業の変革に、現場に近いところから関わりたい",
+    ],
+    roles: [
+      "造船/舶用機器のプロジェクト管理",
+      "船舶IoT・運航データ活用担当",
+      "自動運航/省エネ運航システム企画",
+      "生産管理・品質管理・DX推進",
+    ],
+  },
+  portDx: {
+    key: "portDx",
+    title: "港湾・海運DX",
+    questName: "港湾・海運DX Quest",
+    questPath: "/port-dx",
+    summary:
+      "港湾、海運、物流、通関、ターミナル運営など、海上物流をデジタルとオペレーションで進化させる領域です。物流、SaaS、業務改善、現場オペレーション経験を活かせます。",
+    reasons: [
+      "物流・貿易・港湾など、世界とつながる産業インフラに関心がある",
+      "現場運営、業務改善、システム導入、法人営業の経験を活かせる",
+      "既存産業の非効率を、データやプロセス設計で改善したい",
+    ],
+    roles: [
+      "港湾/物流DXプロジェクトマネージャー",
+      "海運・物流オペレーション企画",
+      "貿易/通関SaaSの事業開発",
+      "ターミナル運営・業務改善担当",
     ],
   },
 };

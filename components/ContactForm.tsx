@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Send } from "lucide-react";
+import { diagnosisResults } from "@/lib/content";
 
 type ContactFormProps = {
   topics: string[];
@@ -15,11 +16,9 @@ type WindowWithGtag = Window & {
   gtag?: (...args: unknown[]) => void;
 };
 
-const diagnosisResultLabels: Record<string, string> = {
-  shipping: "海運・造船・港湾",
-  energy: "海洋資源・エネルギー",
-  tech: "海洋テック・データ",
-};
+const diagnosisResultLabels = Object.fromEntries(
+  Object.entries(diagnosisResults).map(([key, result]) => [key, result.title]),
+);
 
 export function ContactForm({ topics }: ContactFormProps) {
   const router = useRouter();
