@@ -388,3 +388,9 @@ export const diagnosisResults: Record<DiagnosisAreaKey, DiagnosisResult> = {
 
 // 公開済みの領域別Questサイト。ページ公開時にここへ追加すると診断結果からリンクされる。
 export const publishedQuestAreas = new Set<DiagnosisAreaKey>(["robotics"]);
+
+// 公開済みQuestのリンク一覧(ヘッダー/フッター共用)。publishedQuestAreasが単一ソース。
+export const publishedQuestLinks = [...publishedQuestAreas].map((key) => ({
+  label: diagnosisResults[key].questName,
+  href: diagnosisResults[key].questPath,
+}));
