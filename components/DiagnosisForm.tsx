@@ -1,24 +1,23 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
-import { ArrowRight, ArrowUpRight, Download, RotateCcw } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { ArrowRight, ArrowUpRight, Download, Mail, RotateCcw } from "lucide-react";
+import { diagnosisResults } from "@/lib/content";
 import {
-  diagnosisAreaKeys,
-  diagnosisQuestions,
-  diagnosisResults,
-  type DiagnosisAreaKey,
-  type DiagnosisOption,
-} from "@/lib/content";
+  buildDiagnosisOutcome,
+  flowStartId,
+  flowTotalSteps,
+  getFlowQuestion,
+  nextFlowQuestionId,
+  type DiagnosisOutcome,
+  type FlowAnswer,
+} from "@/lib/diagnosis-flow";
 
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
   }
 }
-
-type DiagnosisScores = {
-  ranked: { key: DiagnosisAreaKey; percent: number }[];
-};
 
 type DiagnosisLead = {
   name: string;
@@ -73,16 +72,15 @@ function LeadGatePanel({ onStart }: { onStart: (lead: DiagnosisLead) => void }) 
     <div className="contact-panel diagnosis-panel" id="diagnosis-form">
       <p className="content-type">無料キャリア診断</p>
       <h2 className="diagnosis-gate-heading">
-        12の質問で、あなたに合う海洋産業の入口がわかる。
+        11の質問で、あなた専用の海洋キャリア診断。
       </h2>
       <ul className="diagnosis-gate-points">
-        <li>全12問・所要時間は約3分。結果はその場で表示されます</li>
-        <li>水中ロボティクス、洋上風力、海洋インフラなど9領域とのマッチ度を%で診断</li>
-        <li>職種例・市場動向まで入った詳細版レポート(PDF)を無料でダウンロードできます</li>
+        <li>回答に応じて次の質問が変わる、あなた専用の診断フローです</li>
+        <li>9領域×4つの職種タイプから、あなたのタイプ・想定職種・想定年収帯まで診断</li>
+        <li>結果はその場で全文表示。メールでも同じ内容をお届けします</li>
       </ul>
       <p className="diagnosis-gate-copy">
-        お名前とメールアドレスをご登録のうえ、診断をはじめてください。診断後、Ocean
-        Questから海洋産業のキャリアに関する情報をお送りすることがあります。
+        お名前とメールアドレスをご登録のうえ、診断をはじめてください。診断結果のお届けと、海洋産業のキャリアに関する情報のご案内に利用します。
       </p>
       <form className="diagnosis-gate-form" onSubmit={handleSubmit}>
         <input
@@ -141,34 +139,29 @@ function LeadGatePanel({ onStart }: { onStart: (lead: DiagnosisLead) => void }) 
 }
 
 function ReportDownloadPanel({
-  scores,
-  initialEmail,
+  outcome,
+  email,
 }: {
-  scores: DiagnosisScores;
-  initialEmail?: string;
+  outcome: DiagnosisOutcome;
+  email: string;
 }) {
-  const [email, setEmail] = useState(initialEmail ?? "");
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function handleDownload() {
     if (status === "loading") return;
     setStatus("loading");
     setErrorMessage("");
 
-    const form = event.currentTarget;
-    const website =
-      (form.elements.namedItem("website") as HTMLInputElement | null)?.value ?? "";
     const scorePayload = Object.fromEntries(
-      scores.ranked.map((entry) => [entry.key, entry.percent]),
+      outcome.ranked.map((entry) => [entry.key, entry.percent]),
     );
 
     try {
       const response = await fetch("/api/diagnosis-report", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, website, scores: scorePayload }),
+        body: JSON.stringify({ email, scores: scorePayload, role: outcome.role }),
       });
 
       if (!response.ok) {
@@ -176,7 +169,7 @@ function ReportDownloadPanel({
           | { error?: string }
           | null;
         throw new Error(
-          data?.error ?? "送信に失敗しました。時間をおいて再度お試しください。",
+          data?.error ?? "作成に失敗しました。時間をおいて再度お試しください。",
         );
       }
 
@@ -191,14 +184,14 @@ function ReportDownloadPanel({
       URL.revokeObjectURL(url);
 
       window.gtag?.("event", "report_download", {
-        result: scores.ranked[0].key,
+        result: outcome.topArea,
       });
       setStatus("done");
     } catch (error) {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : "送信に失敗しました。時間をおいて再度お試しください。",
+          : "作成に失敗しました。時間をおいて再度お試しください。",
       );
       setStatus("error");
     }
@@ -206,206 +199,299 @@ function ReportDownloadPanel({
 
   return (
     <div className="diagnosis-report-panel">
-      <p className="diagnosis-report-badge">FREE DOWNLOAD</p>
+      <p className="diagnosis-report-badge">保存版PDF</p>
       <strong className="diagnosis-report-heading">
-        詳細版レポート（PDF）を無料でダウンロード
+        この結果を保存版レポート（PDF）で持ち歩く
       </strong>
       <p className="diagnosis-report-copy">
-        この画面の結果は概要版です。詳細版レポートでは、あなたの診断スコアに加えて、領域の全体像、いま起きている市場動向、職種別の仕事内容、活かせる経験、転職前に知っておきたいこと、最初の一歩までを約2ページにまとめています。メールアドレスを入力すると、その場でダウンロードできます。
+        タイプ判定・想定職種・年収帯に加えて、領域の全体像、市場動向、活かせる経験、転職前に知っておきたいこと、最初の一歩までを1冊にまとめたPDFを無料でダウンロードできます。
       </p>
       {status === "done" ? (
         <p className="diagnosis-report-success">
           ダウンロードを開始しました。始まらない場合は、もう一度ボタンを押してください。
         </p>
       ) : null}
-      <form className="diagnosis-report-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="website"
-          tabIndex={-1}
-          autoComplete="off"
-          aria-hidden="true"
-          style={{ position: "absolute", left: "-9999px", height: 0, width: 0 }}
-        />
-        <input
-          className="diagnosis-report-input"
-          type="email"
-          required
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          placeholder="メールアドレス（例: taro@example.com）"
-          aria-label="メールアドレス"
-        />
-        <button className="primary-button" type="submit" disabled={status === "loading"}>
-          {status === "loading" ? "レポートを作成中..." : "PDFをダウンロード"}
-          <Download size={18} />
-        </button>
-      </form>
+      <button
+        className="primary-button"
+        type="button"
+        onClick={handleDownload}
+        disabled={status === "loading"}
+      >
+        {status === "loading" ? "レポートを作成中..." : "PDFをダウンロード"}
+        <Download size={18} />
+      </button>
       {status === "error" ? (
         <p className="diagnosis-report-error">{errorMessage}</p>
       ) : null}
-      <p className="diagnosis-report-consent">
-        送信いただいたメールアドレスは、レポートのご提供とキャリアに関するご案内にのみ利用します。詳しくは
-        <a href="/privacy" target="_blank" rel="noopener noreferrer">
-          プライバシーポリシー
-        </a>
-        をご確認ください。
-      </p>
     </div>
   );
 }
 
-function computeScores(answers: DiagnosisOption[]): DiagnosisScores {
-  const totals = Object.fromEntries(
-    diagnosisAreaKeys.map((key) => [key, 0]),
-  ) as Record<DiagnosisAreaKey, number>;
-  for (const option of answers) {
-    for (const key of diagnosisAreaKeys) {
-      totals[key] += option.weights[key] ?? 0;
-    }
-  }
-  const sum = diagnosisAreaKeys.reduce((acc, key) => acc + totals[key], 0);
-  const ranked = diagnosisAreaKeys
-    .map((key) => ({
-      key,
-      percent: sum > 0 ? Math.round((totals[key] / sum) * 100) : 0,
-    }))
-    .sort((a, b) => b.percent - a.percent);
-  return { ranked };
+function ResultPanel({
+  outcome,
+  lead,
+  onRetry,
+}: {
+  outcome: DiagnosisOutcome;
+  lead: DiagnosisLead;
+  onRetry: () => void;
+}) {
+  const [emailStatus, setEmailStatus] = useState<"sending" | "sent" | "failed">("sending");
+  const sentRef = useRef(false);
+
+  useEffect(() => {
+    window.gtag?.("event", "diagnosis_complete", {
+      result: outcome.topArea,
+      result_percent: outcome.ranked[0].percent,
+      role: outcome.role,
+      second: outcome.secondArea,
+    });
+  }, [outcome]);
+
+  useEffect(() => {
+    if (sentRef.current) return;
+    sentRef.current = true;
+
+    const scorePayload = Object.fromEntries(
+      outcome.ranked.map((entry) => [entry.key, entry.percent]),
+    );
+
+    fetch("/api/diagnosis-result", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: lead.name,
+        email: lead.email,
+        scores: scorePayload,
+        topArea: outcome.topArea,
+        secondArea: outcome.secondArea,
+        role: outcome.role,
+        profile: outcome.profile,
+      }),
+    })
+      .then((response) => {
+        setEmailStatus(response.ok ? "sent" : "failed");
+      })
+      .catch(() => {
+        setEmailStatus("failed");
+      });
+  }, [outcome, lead]);
+
+  const secondResult = diagnosisResults[outcome.secondArea];
+
+  return (
+    <div className="contact-panel diagnosis-panel" id="diagnosis-form">
+      <p className="content-type">診断結果</p>
+      <p className="diagnosis-result-lead">あなたの海洋キャリアタイプは</p>
+      <h2 className="diagnosis-result-title">{outcome.typeName}</h2>
+      <p className="diagnosis-result-sub">{outcome.typeSub}</p>
+      <p className="diagnosis-result-summary">{outcome.summary}</p>
+
+      <div className="diagnosis-stat-grid" aria-label="診断サマリー">
+        <div>
+          <span>想定職種</span>
+          <strong>{outcome.recommendedRole.name}</strong>
+        </div>
+        <div>
+          <span>想定年収帯（目安）</span>
+          <strong>{outcome.recommendedRole.salary}</strong>
+        </div>
+        <div>
+          <span>市場価値</span>
+          <strong>{outcome.marketValue.rank}</strong>
+        </div>
+      </div>
+      <p className="diagnosis-market-note">{outcome.marketValue.note}</p>
+
+      <div className="diagnosis-scores" aria-label="領域ごとのマッチ度">
+        <strong>あなたの回答から見た9領域のマッチ度</strong>
+        {outcome.ranked.map((entry) => (
+          <div className="diagnosis-score-row" key={entry.key}>
+            <span className="diagnosis-score-label">
+              {diagnosisResults[entry.key].title}
+            </span>
+            <span className="diagnosis-score-bar">
+              <span style={{ width: `${entry.percent}%` }} />
+            </span>
+            <span className="diagnosis-score-percent">{entry.percent}%</span>
+          </div>
+        ))}
+        {outcome.isClose ? (
+          <p className="diagnosis-score-note">
+            2位の「{secondResult.title}」とのスコア差はわずかです。両方の領域を視野に入れて情報収集するのがおすすめです。
+          </p>
+        ) : null}
+      </div>
+
+      <div className="diagnosis-reasons">
+        <strong>あなたはこんなタイプ</strong>
+        <p className="diagnosis-type-text">{outcome.excites}</p>
+        <p className="diagnosis-type-text">
+          <em>ウキウキする環境:</em> {outcome.environment}
+        </p>
+      </div>
+
+      <div className="diagnosis-reasons">
+        <strong>あなたの強み</strong>
+        <ul>
+          {outcome.strengths.map((strength) => (
+            <li key={strength}>{strength}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="diagnosis-reasons">
+        <strong>おすすめの入口職種</strong>
+        <p className="diagnosis-type-text">
+          <b>{outcome.recommendedRole.name}</b> — {outcome.recommendedRole.description}
+        </p>
+        <p className="diagnosis-type-text">
+          この領域のその他の職種: {diagnosisResults[outcome.topArea].roles.join(" / ")}
+        </p>
+      </div>
+
+      {outcome.insights.length > 0 ? (
+        <div className="diagnosis-insights">
+          <strong>あなたの回答への解説</strong>
+          {outcome.insights.map((item) => (
+            <div className="diagnosis-insight-item" key={item.question}>
+              <p className="diagnosis-insight-q">{item.question}</p>
+              <p className="diagnosis-insight-a">あなたの回答: {item.answer}</p>
+              <p className="diagnosis-insight-text">{item.insight}</p>
+            </div>
+          ))}
+        </div>
+      ) : null}
+
+      <div className="diagnosis-reasons">
+        <strong>次に広げるべき領域</strong>
+        <ul>
+          {outcome.nextSteps.map((step) => (
+            <li key={step}>{step}</li>
+          ))}
+        </ul>
+      </div>
+
+      <p className="diagnosis-email-note">
+        <Mail size={15} />
+        {emailStatus === "sent"
+          ? `診断結果を ${lead.email} 宛にお送りしました。届かない場合は迷惑メールフォルダもご確認ください。`
+          : emailStatus === "failed"
+            ? "診断結果メールの送信に失敗しました。この画面をスクリーンショット等で保存してください。"
+            : `診断結果を ${lead.email} 宛に送信しています...`}
+      </p>
+
+      <ReportDownloadPanel outcome={outcome} email={lead.email} />
+
+      <p className="diagnosis-disclaimer">
+        この診断は、興味・志向の傾向から情報収集の入口となる領域・職種タイプを提案するものであり、適性や合否を判定するものではありません。想定年収帯は公開求人情報などをもとにした推定の目安です。実際のキャリア選択は、これまでのご経験や各領域の求人動向を踏まえて、無料キャリア相談で一緒に整理していきます。
+      </p>
+
+      {outcome.profile.age || outcome.profile.salaryNow || outcome.profile.salaryHope ? (
+        <p className="diagnosis-profile-echo">
+          ご回答情報:
+          {outcome.profile.age ? ` 年齢 ${outcome.profile.age}` : ""}
+          {outcome.profile.salaryNow ? ` ／ 現年収 ${outcome.profile.salaryNow}` : ""}
+          {outcome.profile.salaryHope ? ` ／ 目標年収 ${outcome.profile.salaryHope}` : ""}
+        </p>
+      ) : null}
+
+      <div className="hero-actions diagnosis-result-actions">
+        <a
+          className="primary-button"
+          href={`/contact?topic=diagnosis&result=${outcome.topArea}`}
+        >
+          この結果をもとに無料キャリア相談する
+          <ArrowRight size={18} />
+        </a>
+      </div>
+      <div className="diagnosis-recommends">
+        <strong>おすすめコンテンツ</strong>
+        <a href="/videos">
+          動画で{outcome.areaTitle}の仕事を知る
+          <ArrowUpRight size={15} />
+        </a>
+        <a href="/notes">
+          noteで海洋産業の解説を読む
+          <ArrowUpRight size={15} />
+        </a>
+        <a href="/map">
+          海の地図で産業の現場を探索する
+          <ArrowUpRight size={15} />
+        </a>
+      </div>
+      <button className="diagnosis-text-button" type="button" onClick={onRetry}>
+        <RotateCcw size={15} />
+        もう一度診断する
+      </button>
+    </div>
+  );
 }
 
 export function DiagnosisForm() {
   const [lead, setLead] = useState<DiagnosisLead | null>(null);
-  const [answers, setAnswers] = useState<DiagnosisOption[]>([]);
-  const total = diagnosisQuestions.length;
-  const scores = answers.length === total ? computeScores(answers) : null;
-
-  useEffect(() => {
-    if (!scores) return;
-    window.gtag?.("event", "diagnosis_complete", {
-      result: scores.ranked[0].key,
-      result_percent: scores.ranked[0].percent,
-      second: scores.ranked[1].key,
-    });
-  }, [scores]);
+  const [answers, setAnswers] = useState<FlowAnswer[]>([]);
+  const [currentId, setCurrentId] = useState<string>(flowStartId);
+  const [outcome, setOutcome] = useState<DiagnosisOutcome | null>(null);
 
   if (!lead) {
     return <LeadGatePanel onStart={setLead} />;
   }
 
-  if (scores) {
-    const top = scores.ranked[0];
-    const second = scores.ranked[1];
-    const result = diagnosisResults[top.key];
-    const secondResult = diagnosisResults[second.key];
-    const isClose = top.percent - second.percent <= 10;
-
+  if (outcome) {
     return (
-      <div className="contact-panel diagnosis-panel" id="diagnosis-form">
-        <p className="content-type">診断結果</p>
-        <p className="diagnosis-result-lead">あなたの興味・志向に近い海洋産業の入口は</p>
-        <h2 className="diagnosis-result-title">{result.title}</h2>
-        <p className="diagnosis-result-summary">{result.summary}</p>
-
-        <div className="diagnosis-scores" aria-label="領域ごとのマッチ度">
-          <strong>あなたの回答から見た9領域のマッチ度</strong>
-          {scores.ranked.map((entry) => (
-            <div className="diagnosis-score-row" key={entry.key}>
-              <span className="diagnosis-score-label">
-                {diagnosisResults[entry.key].title}
-              </span>
-              <span className="diagnosis-score-bar">
-                <span style={{ width: `${entry.percent}%` }} />
-              </span>
-              <span className="diagnosis-score-percent">{entry.percent}%</span>
-            </div>
-          ))}
-          {isClose ? (
-            <p className="diagnosis-score-note">
-              2位の「{secondResult.title}」とのスコア差はわずかです。両方の領域を視野に入れて情報収集するのがおすすめです。
-            </p>
-          ) : null}
-        </div>
-
-        <div className="diagnosis-reasons">
-          <strong>この領域を提案する理由</strong>
-          <ul>
-            {result.reasons.map((reason) => (
-              <li key={reason}>{reason}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="diagnosis-reasons">
-          <strong>この領域の職種の例</strong>
-          <ul>
-            {result.roles.map((role) => (
-              <li key={role}>{role}</li>
-            ))}
-          </ul>
-        </div>
-
-        <ReportDownloadPanel scores={scores} initialEmail={lead.email} />
-
-        <p className="diagnosis-disclaimer">
-          この診断は、興味・志向の傾向から情報収集の入口となる領域を提案するものであり、適性や合否を判定するものではありません。実際のキャリア選択は、これまでのご経験や各領域の求人動向を踏まえて、無料キャリア相談で一緒に整理していきます。
-        </p>
-
-        <div className="hero-actions diagnosis-result-actions">
-          <a
-            className="primary-button"
-            href={`/contact?topic=diagnosis&result=${top.key}`}
-          >
-            この結果をもとに無料キャリア相談する
-            <ArrowRight size={18} />
-          </a>
-        </div>
-        <div className="diagnosis-recommends">
-          <strong>おすすめコンテンツ</strong>
-          <a href="/contact">
-            {result.questName}の公開準備について相談する
-            <ArrowUpRight size={15} />
-          </a>
-          <a href="/videos">
-            動画で{result.title}の仕事を知る
-            <ArrowUpRight size={15} />
-          </a>
-          <a href="/notes">
-            noteで海洋産業の解説を読む
-            <ArrowUpRight size={15} />
-          </a>
-        </div>
-        <button
-          className="diagnosis-text-button"
-          type="button"
-          onClick={() => setAnswers([])}
-        >
-          <RotateCcw size={15} />
-          もう一度診断する
-        </button>
-      </div>
+      <ResultPanel
+        outcome={outcome}
+        lead={lead}
+        onRetry={() => {
+          setAnswers([]);
+          setCurrentId(flowStartId);
+          setOutcome(null);
+        }}
+      />
     );
   }
 
+  const current = getFlowQuestion(currentId);
   const step = answers.length;
-  const current = diagnosisQuestions[step];
+
+  function handleSelect(optionIndex: number) {
+    const option = current.options[optionIndex];
+    const nextAnswers = [...answers, { questionId: current.id, optionIndex }];
+    const nextId = nextFlowQuestionId(current, option);
+
+    if (nextId) {
+      setAnswers(nextAnswers);
+      setCurrentId(nextId);
+    } else {
+      setOutcome(buildDiagnosisOutcome(nextAnswers));
+    }
+  }
+
+  function handleBack() {
+    if (answers.length === 0) return;
+    const previous = answers[answers.length - 1];
+    setAnswers(answers.slice(0, -1));
+    setCurrentId(previous.questionId);
+  }
 
   return (
     <div className="contact-panel diagnosis-panel" id="diagnosis-form">
       <p className="content-type">
-        Q{step + 1} / {total}
+        Q{step + 1} / {flowTotalSteps}
       </p>
       <div className="diagnosis-progress" aria-hidden="true">
-        <span style={{ width: `${(step / total) * 100}%` }} />
+        <span style={{ width: `${(step / flowTotalSteps) * 100}%` }} />
       </div>
       <h2 className="diagnosis-question">{current.question}</h2>
+      {current.hint ? <p className="diagnosis-question-hint">{current.hint}</p> : null}
       <div className="diagnosis-options">
-        {current.options.map((option) => (
+        {current.options.map((option, index) => (
           <button
             key={option.label}
             className="diagnosis-option"
             type="button"
-            onClick={() => setAnswers((prev) => [...prev, option])}
+            onClick={() => handleSelect(index)}
           >
             {option.label}
             <ArrowRight size={16} />
@@ -413,11 +499,7 @@ export function DiagnosisForm() {
         ))}
       </div>
       {step > 0 ? (
-        <button
-          className="diagnosis-text-button"
-          type="button"
-          onClick={() => setAnswers((prev) => prev.slice(0, -1))}
-        >
+        <button className="diagnosis-text-button" type="button" onClick={handleBack}>
           ひとつ前の質問に戻る
         </button>
       ) : null}

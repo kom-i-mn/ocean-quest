@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { diagnosisAreaKeys, diagnosisResults, type DiagnosisAreaKey } from "@/lib/content";
+import { roleKeys, type RoleKey } from "@/lib/diagnosis-flow";
 import { renderDiagnosisReportPdf } from "@/lib/diagnosis-pdf";
 import type { DiagnosisAreaScores } from "@/lib/diagnosis-report";
 import { hasResendConfig, sendContactNotificationEmail } from "@/lib/email";
@@ -49,6 +50,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "診断結果が不正です。もう一度診断からお試しください。" }, { status: 400 });
   }
 
+  const role =
+    typeof body.role === "string" && (roleKeys as readonly string[]).includes(body.role)
+      ? (body.role as RoleKey)
+      : null;
+
   const topKey = diagnosisAreaKeys.reduce((best, key) => (scores[key] > scores[best] ? key : best), diagnosisAreaKeys[0]);
   const scoreSummary = diagnosisAreaKeys
     .map((key) => `${diagnosisResults[key].title} ${scores[key]}%`)
@@ -93,7 +99,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const pdf = await renderDiagnosisReportPdf(scores);
+    const pdf = await renderDiagnosisReportPdf(scores, role);
     return new NextResponse(new Uint8Array(pdf), {
       headers: {
         "Content-Type": "application/pdf",
