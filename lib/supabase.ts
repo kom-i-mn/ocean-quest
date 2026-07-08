@@ -117,6 +117,45 @@ export async function listNoteContents(limit = 24) {
   return listExternalContents("note", limit);
 }
 
+export async function listEbookContents(limit = 24) {
+  return listExternalContents("ebook", limit);
+}
+
+/** eBookレコードを全ステータスで取得(生成済み判定用。archived=eBook化対象外も含む) */
+export async function listAllEbookRecords(limit = 200) {
+  if (!hasSupabaseReadConfig()) {
+    return [];
+  }
+
+  const query = new URLSearchParams({
+    source: "eq.ebook",
+    select: "id,source_id,source_content_id,status",
+    limit: String(limit),
+  });
+
+  return supabaseRequest<
+    Array<Pick<ExternalContent, "id" | "source_id" | "source_content_id" | "status">>
+  >("external_contents", { query: query.toString() });
+}
+
+export async function getExternalContentById(id: string) {
+  if (!hasSupabaseReadConfig()) {
+    return null;
+  }
+
+  const query = new URLSearchParams({
+    id: `eq.${id}`,
+    select:
+      "id,source,source_id,source_url,title,description,thumbnail_url,published_at,status,category,audience,metadata,source_content_id,created_at,updated_at",
+    limit: "1",
+  });
+
+  const rows = await supabaseRequest<ExternalContent[]>("external_contents", {
+    query: query.toString(),
+  });
+  return rows[0] ?? null;
+}
+
 async function listExternalContents(source: ContentSource, limit: number) {
   if (!hasSupabaseReadConfig()) {
     return [];

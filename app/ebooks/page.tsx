@@ -1,25 +1,68 @@
-import { SimplePage } from "@/components/SimplePage";
+import { ArrowUpRight } from "lucide-react";
+import { EbookCard } from "@/components/EbookCard";
+import { ProfileCta } from "@/components/ProfileCta";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
+import { listEbookContents } from "@/lib/supabase";
+
+export const revalidate = 300;
 
 export const metadata = {
   title: "eBook | 海洋産業の採用・キャリア資料 | Ocean Quest",
   description:
-    "海洋産業の業界理解・職種理解・採用市場・企業研究に使えるeBookを準備中。noteや動画で発信してきた知見を体系的な資料にまとめます。",
+    "海洋産業の業界理解・職種理解・転職ノウハウ・市場データを体系的にまとめた無料eBookライブラリ。noteの発信を資料化し、メールアドレスのみでダウンロードできます。",
   alternates: { canonical: "/ebooks" },
 };
 
-export default function EbooksPage() {
+export default async function EbooksPage() {
+  const ebooks = await listEbookContents(48).catch(() => []);
+
   return (
-    <SimplePage
-      kicker="eBooks"
-      title="海洋産業の採用・キャリアを、体系的に学ぶ。"
-      description="noteや動画で発信してきた知見を、業界理解・職種理解・採用市場・企業研究に使える資料としてまとめています。求職者の情報収集にも、企業の採用設計にも活用できます。"
-      items={["海洋産業採用の教科書", "業態別解体新書", "職種マップ", "採用市場レポート"]}
-      cta="eBookを読む"
-      ctaHref="#contents"
-      secondaryCta="資料をダウンロード"
-      secondaryHref="/contact"
-      comingSoon
-      backgroundClass="subpage-bg-bubbles"
-    />
+    <main className="subpage-shell subpage-bg-bubbles">
+      <SiteHeader solid />
+      <section className="subpage-hero">
+        <p className="section-kicker">eBooks</p>
+        <h1>海洋産業の採用・キャリアを、体系的に学ぶ。</h1>
+        <p>
+          noteで発信してきた知見を、保存して読み返せる資料(eBook)にまとめています。すべてメールアドレスのご登録のみ・無料でダウンロードできます。noteの新着記事も、順次eBook化していきます。
+        </p>
+        <div className="hero-actions subpage-actions">
+          <a className="primary-button" href="#ebooks">
+            eBookを見る
+            <ArrowUpRight size={18} />
+          </a>
+          <a className="secondary-button light" href="/notes">
+            noteの記事一覧へ
+          </a>
+        </div>
+      </section>
+
+      <section className="section ebook-library" id="ebooks" aria-label="eBook一覧">
+        {ebooks.length > 0 ? (
+          <div className="ebook-grid">
+            {ebooks.map((ebook) => (
+              <EbookCard
+                key={ebook.id}
+                id={ebook.id}
+                title={ebook.title}
+                summary={ebook.description ?? ""}
+                category={ebook.category}
+                coverUrl={ebook.thumbnail_url}
+                sourceUrl={ebook.source_url}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="ebook-empty">
+            <p>
+              最初のeBookを準備中です。それまでは<a href="/notes">noteの記事一覧</a>をご覧ください。
+            </p>
+          </div>
+        )}
+      </section>
+
+      <ProfileCta primaryLabel="無料でキャリア相談する" />
+      <SiteFooter />
+    </main>
   );
 }
