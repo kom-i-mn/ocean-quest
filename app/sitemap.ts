@@ -5,6 +5,7 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ocean-quest.jp";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     "",
+    "robotics",
     "videos",
     "ebooks",
     "notes",
