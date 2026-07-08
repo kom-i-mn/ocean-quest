@@ -50,6 +50,13 @@ export default function MapPage() {
 
       <section className="section" id="ocean-map" aria-label="海の地図">
         <OceanMap />
+        <p className="map-attribution">
+          本ページでは海上保安庁「
+          <a href="https://www.msil.go.jp/" target="_blank" rel="noopener noreferrer">
+            海しる（海洋状況表示システム）
+          </a>
+          」公開APIを利用しています。掲載データは海上保安庁が提供する情報に基づき表示しています。
+        </p>
       </section>
 
       <section className="section" aria-label="この地図でできること">
