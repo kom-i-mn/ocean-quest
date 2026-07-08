@@ -793,6 +793,55 @@ export default async function RoboticsQuestPage() {
         </div>
       </section>
 
+      <section className="section quest-sec quest-dive" aria-label="ロボットはどこまで潜れるのか">
+        <div className="quest-dive-head rv">
+          <div className="quest-ghost" aria-hidden="true">
+            HOW DEEP?
+          </div>
+          <p className="quest-kicker">Deep Dive</p>
+          <h2>
+            ロボットは、どこまで<em>深く</em>潜れるのか。
+          </h2>
+          <p className="quest-lead">
+            日本のAUVの潜航能力は8,000m級。富士山を逆さに沈めても半分にも届かず、エベレストを沈めてもまだ余裕があります。地球でいちばん深い海の底、チャレンジャー海淵（約10,920m）には、日本のROV「かいこう」が1995年に到達済み——人類より先に、ロボットが海の最深部を知っています。
+          </p>
+        </div>
+        <div className="qdive-chart rv" role="img" aria-label="潜航深度の比較チャート">
+          {[
+            { depth: 20, label: "ダイバー", sub: "日常的な作業潜水", cls: "qdive-diver" },
+            { depth: 3776, label: "富士山（逆さ）", sub: "3,776m", cls: "qdive-fuji" },
+            { depth: 6500, label: "しんかい6500", sub: "有人潜水調査船（日本）", cls: "qdive-shinkai" },
+            { depth: 8000, label: "日本のAUV", sub: "8,000m級（JAMSTEC）", cls: "qdive-auv" },
+            { depth: 8849, label: "エベレスト（逆さ）", sub: "8,849m", cls: "qdive-everest" },
+            {
+              depth: 10920,
+              label: "チャレンジャー海淵",
+              sub: "地球最深部 約10,920m",
+              cls: "qdive-deepest",
+            },
+          ].map(({ depth, label, sub, cls }, index) => (
+            <div className={`qdive-col ${cls}`} key={label}>
+              <span className="qdive-label">
+                <b>{label}</b>
+                <i>{sub}</i>
+              </span>
+              <span
+                className="qdive-fill"
+                style={{
+                  ["--h" as string]: `${(depth / 10920) * 100}%`,
+                  ["--delay" as string]: `${index * 0.16}s`,
+                }}
+              >
+                <em>-{depth.toLocaleString()}m</em>
+              </span>
+            </div>
+          ))}
+        </div>
+        <p className="qdive-note rv">
+          ※ 深さは実寸比。ダイバーのバーが見えないのは、間違いではありません。それくらい、海は深い——だからロボットの出番です。
+        </p>
+      </section>
+
       <section className="section quest-cta" aria-label="相談する">
         <div className="quest-cta-grid">
           <article className="quest-cta-card rv">
@@ -810,7 +859,7 @@ export default async function RoboticsQuestPage() {
             <p className="section-kicker">For Companies</p>
             <h2>水中ロボティクスの採用を支援します。</h2>
             <p>
-              制御・組込み・機械設計などの希少人材採用を、隣接業界からの「経験の翻訳」を軸に設計します。採用戦略からスカウト・広報まで。
+              制御・組込み・機械設計などの希少人材採用を、「隣接業界の経験を武器に変える」発想で設計します。採用戦略からスカウト・広報まで。
             </p>
             <a className="secondary-button light" href="/companies">
               企業向け採用支援を見る
