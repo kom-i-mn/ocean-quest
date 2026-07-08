@@ -2717,6 +2717,114 @@ footer {
   font-weight: 500;
 }
 
+.ocean-map-shell {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 22px;
+  background: rgba(251, 255, 253, 0.92);
+  border: 1px solid rgba(190, 236, 234, 0.42);
+  border-radius: 8px;
+  box-shadow: 0 22px 58px rgba(0, 24, 30, 0.14);
+  backdrop-filter: blur(12px);
+}
+
+.ocean-map-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-bottom: 14px;
+}
+
+.ocean-map-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--navy);
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+.ocean-map-toggle input {
+  accent-color: var(--teal);
+}
+
+.ocean-map-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.ocean-map-toggle-label em {
+  color: var(--muted);
+  font-style: normal;
+  font-size: 12px;
+}
+
+.ocean-map-toggle-label em.is-error {
+  color: #b3421f;
+}
+
+.ocean-map-canvas {
+  height: 560px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  z-index: 0;
+}
+
+.ocean-map-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.ocean-map-popup {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--navy);
+}
+
+.ocean-map-popup a {
+  color: var(--teal-dark);
+  text-decoration: underline;
+}
+
+.ocean-map-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+.ocean-map-highlight {
+  padding: 24px 26px;
+  background: rgba(251, 255, 253, 0.88);
+  border: 1px solid rgba(190, 236, 234, 0.42);
+  border-radius: 8px;
+  box-shadow: 0 22px 58px rgba(0, 24, 30, 0.14);
+}
+
+.ocean-map-highlight h2 {
+  margin: 0 0 8px;
+  color: var(--teal-dark);
+  font-size: 18px;
+}
+
+.ocean-map-highlight p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+@media (max-width: 640px) {
+  .ocean-map-canvas {
+    height: 420px;
+  }
+}
+
 .legal-panel {
   max-width: 820px;
   margin: 0 auto;

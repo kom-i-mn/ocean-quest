@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "ebooks",
     "notes",
     "events",
+    "map",
     "diagnosis",
     "companies",
     "contact",
