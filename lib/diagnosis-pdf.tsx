@@ -10,6 +10,14 @@ import {
 } from "@react-pdf/renderer";
 import type { DiagnosisAreaKey } from "./content";
 import {
+  areaMarketValue,
+  areaRolePlans,
+  areaTypeCatch,
+  roleLabels,
+  roleTypeCatch,
+  type RoleKey,
+} from "./diagnosis-flow";
+import {
   diagnosisReportContents,
   reportCommonNotes,
   type DiagnosisAreaScores,
@@ -232,11 +240,32 @@ function SectionHeading({ children }: { children: string }) {
   return <Text style={styles.sectionHeading}>{children}</Text>;
 }
 
+function TypeStat({ label, value }: { label: string; value: string }) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#f4faf9",
+        border: `1 solid ${colors.tealLight}`,
+        borderRadius: 4,
+        padding: 8,
+      }}
+    >
+      <Text style={{ fontSize: 7.5, color: colors.muted, marginBottom: 3 }}>{label}</Text>
+      <Text style={{ fontSize: 9.5, color: colors.navy, fontWeight: 700, lineHeight: 1.4 }}>
+        {value}
+      </Text>
+    </View>
+  );
+}
+
 function DiagnosisReportDocument({
   scores,
+  role,
   generatedAt,
 }: {
   scores: DiagnosisAreaScores;
+  role: RoleKey | null;
   generatedAt: string;
 }) {
   const ranked = (Object.keys(scores) as DiagnosisAreaKey[])
@@ -247,6 +276,7 @@ function DiagnosisReportDocument({
   const content = diagnosisReportContents[top.key];
   const secondContent = diagnosisReportContents[second.key];
   const isClose = top.percent - second.percent <= 10;
+  const rolePlan = role ? areaRolePlans[top.key][role] : null;
 
   return (
     <Document
@@ -266,9 +296,23 @@ function DiagnosisReportDocument({
           <Text style={styles.reportSub}>作成日: {generatedAt} ／ 発行: Ocean Quest（株式会社ポテンシャライト）</Text>
         </View>
 
-        <Text style={styles.resultLead}>あなたの興味・志向に最も近い海洋産業の入口は</Text>
-        <Text style={styles.resultTitle}>{content.title}</Text>
-        <Text style={styles.tagline}>{content.tagline}</Text>
+        <Text style={styles.resultLead}>
+          {role ? "あなたの海洋キャリアタイプは" : "あなたの興味・志向に最も近い海洋産業の入口は"}
+        </Text>
+        <Text style={styles.resultTitle}>
+          {role ? `${areaTypeCatch[top.key]}、${roleTypeCatch[role]}` : content.title}
+        </Text>
+        <Text style={styles.tagline}>
+          {role ? `${content.title} × ${roleLabels[role]} ─ ${content.tagline}` : content.tagline}
+        </Text>
+
+        {role && rolePlan ? (
+          <View style={{ flexDirection: "row", gap: 6, marginBottom: 12 }}>
+            <TypeStat label="想定職種" value={rolePlan.name} />
+            <TypeStat label="想定年収帯（目安）" value={rolePlan.salary} />
+            <TypeStat label="市場価値" value={areaMarketValue[top.key].rank} />
+          </View>
+        ) : null}
 
         <View style={styles.scoreBox}>
           <Text style={styles.scoreHeading}>あなたの回答から見た9領域のマッチ度</Text>
@@ -353,7 +397,10 @@ function DiagnosisReportDocument({
   );
 }
 
-export async function renderDiagnosisReportPdf(scores: DiagnosisAreaScores) {
+export async function renderDiagnosisReportPdf(
+  scores: DiagnosisAreaScores,
+  role: RoleKey | null = null,
+) {
   const generatedAt = new Date().toLocaleDateString("ja-JP", {
     timeZone: "Asia/Tokyo",
     year: "numeric",
@@ -362,6 +409,6 @@ export async function renderDiagnosisReportPdf(scores: DiagnosisAreaScores) {
   });
 
   return renderToBuffer(
-    <DiagnosisReportDocument scores={scores} generatedAt={generatedAt} />,
+    <DiagnosisReportDocument scores={scores} role={role} generatedAt={generatedAt} />,
   );
 }

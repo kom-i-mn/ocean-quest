@@ -79,6 +79,163 @@ export async function sendDailyMaintenanceEmail({
   }
 }
 
+export async function sendDiagnosisResultEmail({
+  name,
+  email,
+  outcome,
+}: {
+  name: string;
+  email: string;
+  outcome: {
+    typeName: string;
+    typeSub: string;
+    summary: string;
+    ranked: { title: string; percent: number }[];
+    recommendedRole: { name: string; description: string; salary: string };
+    marketValue: { rank: string; note: string };
+    strengths: string[];
+    nextSteps: string[];
+  };
+}) {
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY is not configured.");
+  }
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: fromEmail,
+      to: email,
+      subject: `【Ocean Quest】${name}さんの海洋キャリア診断結果`,
+      html: buildDiagnosisResultEmailHtml({ name, outcome }),
+    }),
+  });
+
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(`Resend request failed: ${response.status} ${message}`);
+  }
+}
+
+function buildDiagnosisResultEmailHtml({
+  name,
+  outcome,
+}: {
+  name: string;
+  outcome: {
+    typeName: string;
+    typeSub: string;
+    summary: string;
+    ranked: { title: string; percent: number }[];
+    recommendedRole: { name: string; description: string; salary: string };
+    marketValue: { rank: string; note: string };
+    strengths: string[];
+    nextSteps: string[];
+  };
+}) {
+  const scoreRows = outcome.ranked
+    .slice(0, 5)
+    .map(
+      (entry) => `
+        <tr>
+          <td style="padding:8px 0;border-bottom:1px solid #e2f5f3;font-size:13px;color:#003f4a;">${escapeHtml(entry.title)}</td>
+          <td style="padding:8px 0;border-bottom:1px solid #e2f5f3;width:120px;">
+            <div style="background:#e2f5f3;border-radius:4px;height:8px;overflow:hidden;">
+              <div style="background:#0a8a7d;height:8px;width:${Math.min(100, Math.max(0, entry.percent))}%;"></div>
+            </div>
+          </td>
+          <td style="padding:8px 0 8px 10px;border-bottom:1px solid #e2f5f3;font-size:13px;color:#003f4a;font-weight:700;width:44px;text-align:right;">${entry.percent}%</td>
+        </tr>
+      `,
+    )
+    .join("");
+
+  const listItems = (items: string[]) =>
+    items
+      .map(
+        (item) =>
+          `<li style="margin:0 0 8px;color:#003f4a;font-size:14px;line-height:1.8;">${escapeHtml(item)}</li>`,
+      )
+      .join("");
+
+  const statCell = (label: string, value: string) => `
+    <td style="padding:14px 12px;background:#f4faf9;border:1px solid #e2f5f3;border-radius:8px;vertical-align:top;">
+      <div style="font-size:11px;color:#4b7075;letter-spacing:0.06em;">${escapeHtml(label)}</div>
+      <div style="font-size:15px;color:#003f4a;font-weight:700;margin-top:6px;line-height:1.5;">${escapeHtml(value)}</div>
+    </td>
+  `;
+
+  return `
+    <div style="background:#eef8f7;padding:32px 16px;font-family:'Hiragino Sans','Yu Gothic',Arial,sans-serif;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#fbfffd;border-radius:12px;overflow:hidden;border:1px solid #e2f5f3;">
+        <tr>
+          <td style="background:#005866;padding:28px 32px;">
+            <div style="color:#fbfffd;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.8;">Ocean Quest 海洋キャリア診断</div>
+            <div style="color:#d7f4ef;font-size:14px;margin-top:14px;">${escapeHtml(name)}さんの海洋キャリアタイプは</div>
+            <div style="color:#fbfffd;font-size:24px;font-weight:700;margin-top:6px;line-height:1.5;">${escapeHtml(outcome.typeName)}</div>
+            <div style="color:#d7f4ef;font-size:13px;margin-top:8px;">${escapeHtml(outcome.typeSub)}</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:26px 32px 6px;">
+            <div style="font-size:14px;color:#003f4a;line-height:1.9;">${escapeHtml(outcome.summary)}</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:18px 32px 6px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-spacing:8px;border-collapse:separate;">
+              <tr>
+                ${statCell("想定職種", outcome.recommendedRole.name)}
+                ${statCell("想定年収帯（目安）", outcome.recommendedRole.salary)}
+                ${statCell("市場価値", outcome.marketValue.rank)}
+              </tr>
+            </table>
+            <div style="font-size:13px;color:#4b7075;line-height:1.8;margin-top:8px;">${escapeHtml(outcome.marketValue.note)}</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:18px 32px 6px;">
+            <div style="font-size:15px;color:#003f4a;font-weight:700;margin-bottom:8px;">マッチ度の高い領域 TOP5</div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${scoreRows}</table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:18px 32px 6px;">
+            <div style="font-size:15px;color:#003f4a;font-weight:700;margin-bottom:8px;">あなたの強み</div>
+            <ul style="padding-left:20px;margin:0;">${listItems(outcome.strengths)}</ul>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:18px 32px 10px;">
+            <div style="font-size:15px;color:#003f4a;font-weight:700;margin-bottom:8px;">次に広げるべき領域</div>
+            <ul style="padding-left:20px;margin:0;">${listItems(outcome.nextSteps)}</ul>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:20px 32px 28px;">
+            <a href="https://ocean-quest.jp/contact?topic=diagnosis" style="display:inline-block;background:#ff8a2a;color:#ffffff;text-decoration:none;border-radius:6px;padding:12px 20px;font-weight:700;font-size:14px;">この結果をもとに無料キャリア相談する</a>
+            <a href="https://ocean-quest.jp/diagnosis" style="display:inline-block;margin-left:12px;color:#005866;text-decoration:none;font-weight:700;font-size:13px;">診断ページに戻る</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:20px 32px;background:#f4faf9;border-top:1px solid #e2f5f3;">
+            <div style="font-size:12px;color:#8eaaa9;line-height:1.7;">
+              この診断は興味・志向の傾向から情報収集の入口を提案するもので、適性や合否を判定するものではありません。想定年収帯は公開求人情報などをもとにした推定の目安です。<br>
+              このメールはOcean Quest（株式会社ポテンシャライト）の海洋キャリア診断から自動送信されています。
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  `;
+}
+
 function buildNotificationEmailHtml(submission: {
   name: string | null;
   company: string | null;
