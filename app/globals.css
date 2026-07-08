@@ -3557,13 +3557,13 @@ a.ocean-map-list-title {
 /* 海しる出典表記 */
 .map-attribution {
   margin: 14px 0 0;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.92);
   font-size: 12.5px;
   line-height: 1.9;
 }
 
 .map-attribution a {
-  color: var(--teal-dark);
+  color: #fff;
   text-decoration: underline;
 }
 
