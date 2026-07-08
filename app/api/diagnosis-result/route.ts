@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { diagnosisAreaKeys, diagnosisResults, type DiagnosisAreaKey } from "@/lib/content";
 import { composeOutcome, roleKeys, roleLabels, type RoleKey } from "@/lib/diagnosis-flow";
+import { renderDiagnosisReportPdf } from "@/lib/diagnosis-pdf";
+import type { DiagnosisAreaScores } from "@/lib/diagnosis-report";
 import {
   hasResendConfig,
   sendContactNotificationEmail,
@@ -115,8 +117,21 @@ export async function POST(request: Request) {
 
   let resultEmailSent = false;
   if (hasResendConfig()) {
+    // 詳細レポートPDFを生成してメールに添付する(失敗しても本文のみで送信を続行)
+    let reportPdfBase64: string | undefined;
+    try {
+      const scoresRecord = Object.fromEntries(
+        ranked.map((entry) => [entry.key, entry.percent]),
+      ) as DiagnosisAreaScores;
+      const pdf = await renderDiagnosisReportPdf(scoresRecord, outcome.role);
+      reportPdfBase64 = Buffer.from(pdf).toString("base64");
+    } catch (error) {
+      console.error("Failed to render diagnosis report PDF for email:", error);
+    }
+
     try {
       await sendDiagnosisResultEmail({
+        reportPdfBase64,
         name: name || "ゲスト",
         email,
         outcome: {

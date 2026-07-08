@@ -204,7 +204,7 @@ function ReportDownloadPanel({
         この結果を保存版レポート（PDF）で持ち歩く
       </strong>
       <p className="diagnosis-report-copy">
-        タイプ判定・想定職種・年収帯に加えて、領域の全体像、市場動向、活かせる経験、転職前に知っておきたいこと、最初の一歩までを1冊にまとめたPDFを無料でダウンロードできます。
+        タイプ判定・想定職種・年収帯に加えて、領域の全体像、市場動向、活かせる経験、転職前に知っておきたいこと、最初の一歩までを1冊にまとめたPDFです。結果メールにも同じPDFを添付していますが、今すぐ手元に保存したい方はこちらからどうぞ。
       </p>
       {status === "done" ? (
         <p className="diagnosis-report-success">
@@ -375,9 +375,9 @@ function ResultPanel({
       <p className="diagnosis-email-note">
         <Mail size={15} />
         {emailStatus === "sent"
-          ? `診断結果を ${lead.email} 宛にお送りしました。届かない場合は迷惑メールフォルダもご確認ください。`
+          ? `診断結果を ${lead.email} 宛にお送りしました（詳細レポートPDF付き）。届かない場合は迷惑メールフォルダもご確認ください。`
           : emailStatus === "failed"
-            ? "診断結果メールの送信に失敗しました。この画面をスクリーンショット等で保存してください。"
+            ? "診断結果メールの送信に失敗しました。下のボタンからPDFをダウンロードして保存してください。"
             : `診断結果を ${lead.email} 宛に送信しています...`}
       </p>
 
