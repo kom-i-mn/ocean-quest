@@ -2061,14 +2061,102 @@ h3 {
   font-size: 18px;
 }
 
-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 28px 40px;
+.site-footer {
   color: var(--white);
   background: #0b1d28;
   font-weight: 400;
+}
+
+.site-footer a {
+  color: rgba(251, 255, 253, 0.78);
+  transition: color 0.2s ease;
+}
+
+.site-footer a:hover {
+  color: var(--white);
+}
+
+.site-footer-inner {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(0, 2fr);
+  gap: 48px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 48px 40px 36px;
+}
+
+.site-footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.site-footer-logo {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.site-footer-company {
+  color: rgba(251, 255, 253, 0.7);
+  font-size: 13px;
+}
+
+.site-footer-brand p {
+  margin: 10px 0 0;
+  color: rgba(251, 255, 253, 0.6);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.site-footer-nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.site-footer-heading {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--white);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.site-footer-column ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.site-footer-column a {
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.site-footer-bottom {
+  border-top: 1px solid rgba(251, 255, 253, 0.12);
+  padding: 16px 40px;
+  text-align: center;
+  color: rgba(251, 255, 253, 0.5);
+  font-size: 12px;
+}
+
+@media (max-width: 860px) {
+  .site-footer-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px 24px 28px;
+  }
+
+  .site-footer-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
 }
 
 @media (max-width: 980px) {
@@ -2368,17 +2456,12 @@ footer {
     padding: 20px;
   }
 
-  footer {
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 28px 24px;
-  }
 }
 
 .floating-cta {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
+  right: 20px;
+  top: 50%;
   z-index: 60;
   display: inline-flex;
   align-items: center;
@@ -2393,14 +2476,14 @@ footer {
   font-size: 14px;
   white-space: nowrap;
   opacity: 0;
-  transform: translateY(12px);
+  transform: translate(12px, -50%);
   pointer-events: none;
   transition: opacity 0.25s ease, transform 0.25s ease, filter 0.2s ease;
 }
 
 .floating-cta.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(0, -50%);
   pointer-events: auto;
 }
 
@@ -2410,8 +2493,7 @@ footer {
 
 @media (max-width: 640px) {
   .floating-cta {
-    right: 16px;
-    bottom: 16px;
+    right: 12px;
     width: 52px;
     height: 52px;
     padding: 0;
@@ -3467,6 +3549,19 @@ a.ocean-map-list-title {
 }
 
 .ebook-empty a {
+  color: var(--teal-dark);
+  text-decoration: underline;
+}
+
+/* 海しる出典表記 */
+.map-attribution {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.9;
+}
+
+.map-attribution a {
   color: var(--teal-dark);
   text-decoration: underline;
 }
