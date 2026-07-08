@@ -1,3 +1,5 @@
+import { publishedQuestLinks } from "@/lib/content";
+
 const footerColumns = [
   {
     heading: "コンテンツ",
@@ -11,9 +13,9 @@ const footerColumns = [
     ],
   },
   {
-    // 領域別Questサイト。新しいQuestを公開したらここに追加する
+    // 領域別Questサイト。lib/content.tsのpublishedQuestAreasが単一ソース
     heading: "領域別Quest",
-    links: [{ label: "水中ロボティクスQuest", href: "/robotics" }],
+    links: publishedQuestLinks,
   },
   {
     heading: "ご相談",
