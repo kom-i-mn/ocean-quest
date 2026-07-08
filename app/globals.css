@@ -2092,9 +2092,9 @@ h3 {
 }
 
 .site-footer-logo {
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  height: 34px;
+  width: auto;
+  align-self: flex-start;
 }
 
 .site-footer-company {
@@ -2113,6 +2113,7 @@ h3 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
+  align-items: start;
 }
 
 .site-footer-heading {
@@ -3564,4 +3565,45 @@ a.ocean-map-list-title {
 .map-attribution a {
   color: var(--teal-dark);
   text-decoration: underline;
+}
+
+/* ブランドロゴ */
+.brand-logo {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
+/* ヒーロー右側の Ocean Quest × POTENTIALIGHT ロックアップ */
+.hero-partner-lockup {
+  position: absolute;
+  right: 56px;
+  top: 52%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  filter: drop-shadow(0 4px 14px rgba(0, 20, 26, 0.45));
+}
+
+.hero-partner-lockup span {
+  color: rgba(251, 255, 253, 0.85);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.hero-lockup-oq {
+  height: 34px;
+  width: auto;
+}
+
+.hero-lockup-pl {
+  height: 26px;
+  width: auto;
+}
+
+@media (max-width: 1180px) {
+  .hero-partner-lockup {
+    display: none;
+  }
 }
