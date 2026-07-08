@@ -83,6 +83,7 @@ export async function sendDiagnosisResultEmail({
   name,
   email,
   outcome,
+  reportPdfBase64,
 }: {
   name: string;
   email: string;
@@ -96,6 +97,7 @@ export async function sendDiagnosisResultEmail({
     strengths: string[];
     nextSteps: string[];
   };
+  reportPdfBase64?: string;
 }) {
   const apiKey = process.env.RESEND_API_KEY;
 
@@ -113,7 +115,21 @@ export async function sendDiagnosisResultEmail({
       from: fromEmail,
       to: email,
       subject: `【Ocean Quest】${name}さんの海洋キャリア診断結果`,
-      html: buildDiagnosisResultEmailHtml({ name, outcome }),
+      html: buildDiagnosisResultEmailHtml({
+        name,
+        outcome,
+        hasAttachment: Boolean(reportPdfBase64),
+      }),
+      ...(reportPdfBase64
+        ? {
+            attachments: [
+              {
+                filename: "ocean-quest-career-report.pdf",
+                content: reportPdfBase64,
+              },
+            ],
+          }
+        : {}),
     }),
   });
 
@@ -126,6 +142,7 @@ export async function sendDiagnosisResultEmail({
 function buildDiagnosisResultEmailHtml({
   name,
   outcome,
+  hasAttachment,
 }: {
   name: string;
   outcome: {
@@ -138,38 +155,29 @@ function buildDiagnosisResultEmailHtml({
     strengths: string[];
     nextSteps: string[];
   };
+  hasAttachment: boolean;
 }) {
-  const scoreRows = outcome.ranked
-    .slice(0, 5)
-    .map(
-      (entry) => `
-        <tr>
-          <td style="padding:8px 0;border-bottom:1px solid #e2f5f3;font-size:13px;color:#003f4a;">${escapeHtml(entry.title)}</td>
-          <td style="padding:8px 0;border-bottom:1px solid #e2f5f3;width:120px;">
-            <div style="background:#e2f5f3;border-radius:4px;height:8px;overflow:hidden;">
-              <div style="background:#0a8a7d;height:8px;width:${Math.min(100, Math.max(0, entry.percent))}%;"></div>
-            </div>
-          </td>
-          <td style="padding:8px 0 8px 10px;border-bottom:1px solid #e2f5f3;font-size:13px;color:#003f4a;font-weight:700;width:44px;text-align:right;">${entry.percent}%</td>
-        </tr>
-      `,
-    )
-    .join("");
-
-  const listItems = (items: string[]) =>
-    items
-      .map(
-        (item) =>
-          `<li style="margin:0 0 8px;color:#003f4a;font-size:14px;line-height:1.8;">${escapeHtml(item)}</li>`,
-      )
-      .join("");
-
   const statCell = (label: string, value: string) => `
     <td style="padding:14px 12px;background:#f4faf9;border:1px solid #e2f5f3;border-radius:8px;vertical-align:top;">
       <div style="font-size:11px;color:#4b7075;letter-spacing:0.06em;">${escapeHtml(label)}</div>
       <div style="font-size:15px;color:#003f4a;font-weight:700;margin-top:6px;line-height:1.5;">${escapeHtml(value)}</div>
     </td>
   `;
+
+  const attachmentBlock = hasAttachment
+    ? `
+        <tr>
+          <td style="padding:18px 32px 6px;">
+            <div style="background:#e7f6f4;border:1px solid #bfe6e1;border-radius:8px;padding:16px 18px;">
+              <div style="font-size:14px;color:#003f4a;font-weight:700;">📎 詳細レポート（PDF）を添付しています</div>
+              <div style="font-size:13px;color:#4b7075;line-height:1.8;margin-top:6px;">
+                9領域のマッチ度、領域の全体像、市場動向、代表的な職種と仕事内容、活かせる経験、転職前に知っておきたいこと、最初の一歩までを1冊にまとめました。添付の「ocean-quest-career-report.pdf」をご覧ください。
+              </div>
+            </div>
+          </td>
+        </tr>
+      `
+    : "";
 
   return `
     <div style="background:#eef8f7;padding:32px 16px;font-family:'Hiragino Sans','Yu Gothic',Arial,sans-serif;">
@@ -199,26 +207,9 @@ function buildDiagnosisResultEmailHtml({
             <div style="font-size:13px;color:#4b7075;line-height:1.8;margin-top:8px;">${escapeHtml(outcome.marketValue.note)}</div>
           </td>
         </tr>
+        ${attachmentBlock}
         <tr>
-          <td style="padding:18px 32px 6px;">
-            <div style="font-size:15px;color:#003f4a;font-weight:700;margin-bottom:8px;">マッチ度の高い領域 TOP5</div>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${scoreRows}</table>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:18px 32px 6px;">
-            <div style="font-size:15px;color:#003f4a;font-weight:700;margin-bottom:8px;">あなたの強み</div>
-            <ul style="padding-left:20px;margin:0;">${listItems(outcome.strengths)}</ul>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:18px 32px 10px;">
-            <div style="font-size:15px;color:#003f4a;font-weight:700;margin-bottom:8px;">次に広げるべき領域</div>
-            <ul style="padding-left:20px;margin:0;">${listItems(outcome.nextSteps)}</ul>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:20px 32px 28px;">
+          <td style="padding:22px 32px 28px;">
             <a href="https://ocean-quest.jp/contact?topic=diagnosis" style="display:inline-block;background:#ff8a2a;color:#ffffff;text-decoration:none;border-radius:6px;padding:12px 20px;font-weight:700;font-size:14px;">この結果をもとに無料キャリア相談する</a>
             <a href="https://ocean-quest.jp/diagnosis" style="display:inline-block;margin-left:12px;color:#005866;text-decoration:none;font-weight:700;font-size:13px;">診断ページに戻る</a>
           </td>
