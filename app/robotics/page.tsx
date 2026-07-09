@@ -5,15 +5,9 @@ import {
   ArrowUpRight,
   Bot,
   Building2,
-  Compass,
-  Cpu,
   FileText,
   FlaskConical,
   GraduationCap,
-  Radar,
-  Waves,
-  Wrench,
-  Zap,
 } from "lucide-react";
 import { QuestFx } from "@/components/QuestFx";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -58,7 +52,7 @@ const whyNowStats = [
     prefix: "水深",
     suffix: "m",
     label: "人が潜れない現場",
-    note: "浮体式洋上風力の海底部はダイバー作業不可。届くのはロボットだけ",
+    note: "浮体式洋上風力の海底部はダイバー作業不可。届くのは水中ロボットだけ",
   },
   {
     value: 2030,
@@ -101,7 +95,7 @@ const whyNowReasons = [
     tag: "産業化後の世界",
     value: "29人",
     title: "点検船の29人が、制御室の数人になる。",
-    body: "政府試算では、風車5基の日常点検に有人船3隻・現場29人が必要だった体制が、AUVでほぼ無人に（現場作業696h・人/日→3h・人/日）。人は海に出る側から、ロボットを設計し運用する側へ回ります。",
+    body: "政府試算では、風車5基の日常点検に有人船3隻・現場29人が必要だった体制が、AUVでほぼ無人に（現場作業696h・人/日→3h・人/日）。人は海に出る側から、水中ロボットを設計し運用する側へ回ります。",
   },
   {
     tag: "産業化後の世界",
@@ -119,7 +113,7 @@ const whyNowRoadmap = [
   },
   {
     period: "2030年頃",
-    title: "人＋海洋ロボット",
+    title: "人＋水中ロボット",
     body: "有人船＋ROVの遠隔操作が主役に",
   },
   {
@@ -129,51 +123,60 @@ const whyNowRoadmap = [
   },
 ];
 
+// 写真はUnsplash(権利クリア)。出典IDは public/images/roles/README.md 参照
 const roles = [
   {
-    icon: Compass,
+    photo: "/images/roles/control-autonomy.jpg",
+    photoAlt: "ロボット開発オフィスで複数のモニターに向かって開発するエンジニアたち",
     title: "制御・自律化エンジニア",
     body: "AUVの航法・誘導・姿勢制御、自己位置推定（SLAM）、障害物回避などの自律化を担う中核職種。",
     skills: "制御工学 / ROS / C++・Python / センサフュージョン",
   },
   {
-    icon: Wrench,
+    photo: "/images/roles/mechanical.jpg",
+    photoAlt: "工場で装置を調整するエンジニア",
     title: "機械設計エンジニア",
     body: "水深数百〜数千mの水圧に耐える耐圧容器、シーリング、推進系、フレームの設計。海水・腐食との戦い。",
     skills: "機械設計・CAD / 材料力学 / 流体 / 防水・シール設計",
   },
   {
-    icon: Zap,
+    photo: "/images/roles/electronics.jpg",
+    photoAlt: "作業台に固定された基板のクローズアップ",
     title: "電気・電子エンジニア",
     body: "バッテリー・電源系、モータドライバ、水中コネクタ、基板設計。限られた電力と空間で信頼性を出す仕事。",
     skills: "回路・基板設計 / 電源設計 / EMC / ハーネス設計",
   },
   {
-    icon: Cpu,
+    photo: "/images/roles/embedded.jpg",
+    photoAlt: "暗い部屋で複数モニターに向かいコードを書くエンジニア",
     title: "組込みソフトウェアエンジニア",
     body: "機体のファームウェア、リアルタイム制御、機器間通信、フェイルセーフ。海中では再起動しに行けない前提の設計。",
     skills: "組込みC・RTOS / 通信プロトコル / テスト設計",
   },
   {
-    icon: Radar,
+    photo: "/images/roles/sensor.jpg",
+    photoAlt: "海図と計測データを表示する航海計器の画面",
     title: "音響・センサーエンジニア",
     body: "電波が届かない海中の目と耳＝ソナー・音響測位・音響通信を担う専門職。信号処理の腕が活きる領域。",
     skills: "信号処理 / 音響工学 / ソナー / 画像認識",
   },
   {
-    icon: Waves,
+    photo: "/images/roles/field.jpg",
+    photoAlt: "ヘルメットを持って船のデッキで作業する作業員たち",
     title: "フィールド・実証エンジニア／オペレーター",
     body: "海上試験、ROVの操縦（パイロット）、船上オペレーション、点検業務の実行。現場からこの産業に入る入口。",
     skills: "現場運用 / 船上作業 / 機体整備 / 安全管理",
   },
   {
-    icon: Bot,
+    photo: "/images/roles/data.jpg",
+    photoAlt: "グラフが並ぶデータ分析ダッシュボードの画面",
     title: "データ・解析エンジニア",
-    body: "ロボットが取得した海中の画像・点群・観測データの処理と解析。点検レポートや海底地形図の自動化を担う。",
+    body: "水中ロボットが取得した海中の画像・点群・観測データの処理と解析。点検レポートや海底地形図の自動化を担う。",
     skills: "画像処理 / 点群処理 / 機械学習 / GIS",
   },
   {
-    icon: Building2,
+    photo: "/images/roles/bizdev.jpg",
+    photoAlt: "ホワイトボードを囲んで議論するチーム",
     title: "PM・事業開発",
     body: "官公庁・電力・通信事業者との実証プロジェクト推進、海外メーカーとの提携、点検サービスの事業化。",
     skills: "プロジェクト推進 / 官公庁調整 / アライアンス / 事業企画",
@@ -214,7 +217,7 @@ const translations = [
   {
     from: "プラント・重工（大型機械の設計・保全）",
     to: "洋上風力O&M・水中構造物点検",
-    note: "回転機や構造物の保全知識×ロボットで、点検サービスの設計者・監督者へ。",
+    note: "回転機や構造物の保全知識×水中ロボットで、点検サービスの設計者・監督者へ。",
   },
   {
     from: "研究（流体・材料・海洋学など）",
@@ -299,6 +302,96 @@ const faqItems = [
 function ghostFontSize(ghost: string) {
   const perChar = (ghost.length * 1.06).toFixed(2);
   return `min(clamp(40px, 7.5vw, 84px), max(40px, calc((100vw - 100px) / ${perChar})))`;
+}
+
+// 「そもそもROV・AUVとは？」の説明イラスト(ユーザーFB・2026-07-09)。
+// ROV = 船とケーブルでつながり人が操縦 / AUV = ケーブルなしで自律航行、を絵で対比する
+function RovIllustration() {
+  return (
+    <svg
+      viewBox="0 0 360 200"
+      role="img"
+      aria-label="ROVのイメージ図: 海面の船からケーブルでつながった機体を人が操縦する"
+    >
+      <defs>
+        <linearGradient id="rovWater" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#0e7c8c" />
+          <stop offset="1" stopColor="#052e3a" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="200" rx="14" fill="url(#rovWater)" />
+      <path
+        d="M0 46 C 30 42, 60 50, 90 46 C 120 42, 150 50, 180 46 C 210 42, 240 50, 270 46 C 300 42, 330 50, 360 46"
+        fill="none"
+        stroke="rgba(255,255,255,0.55)"
+        strokeWidth="2.5"
+      />
+      <path d="M96 46 L152 46 L142 62 L106 62 Z" fill="#0c2b33" />
+      <rect x="112" y="30" width="24" height="16" rx="3" fill="#123f4b" />
+      <rect x="138" y="36" width="9" height="10" rx="2" fill="#123f4b" />
+      <path
+        d="M124 62 C 120 100, 168 108, 196 134"
+        fill="none"
+        stroke="#ffb066"
+        strokeWidth="3"
+        strokeDasharray="1 7"
+        strokeLinecap="round"
+      />
+      <g transform="translate(196, 122)">
+        <rect x="8" y="-8" width="42" height="10" rx="5" fill="#ff9a4d" />
+        <rect x="0" y="0" width="58" height="34" rx="8" fill="#e56812" />
+        <rect x="-2" y="36" width="62" height="6" rx="3" fill="#0c2b33" />
+        <circle cx="46" cy="14" r="6" fill="#06222e" />
+        <circle cx="46" cy="14" r="2.5" fill="#9ff5ee" />
+        <path d="M56 10 L100 -4 L100 32 L56 24 Z" fill="rgba(255,236,190,0.26)" />
+      </g>
+    </svg>
+  );
+}
+
+function AuvIllustration() {
+  return (
+    <svg
+      viewBox="0 0 360 200"
+      role="img"
+      aria-label="AUVのイメージ図: ケーブルなしで、ソナーを使いながら自律航行する"
+    >
+      <defs>
+        <linearGradient id="auvWater" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#0e7c8c" />
+          <stop offset="1" stopColor="#052e3a" />
+        </linearGradient>
+        <linearGradient id="auvIllHull" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#ffa15c" />
+          <stop offset="1" stopColor="#b34e0c" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="200" rx="14" fill="url(#auvWater)" />
+      <path
+        d="M0 46 C 30 42, 60 50, 90 46 C 120 42, 150 50, 180 46 C 210 42, 240 50, 270 46 C 300 42, 330 50, 360 46"
+        fill="none"
+        stroke="rgba(255,255,255,0.55)"
+        strokeWidth="2.5"
+      />
+      <path
+        d="M16 152 C 80 122, 140 142, 200 120 C 252 102, 306 118, 348 100"
+        fill="none"
+        stroke="rgba(143,227,221,0.5)"
+        strokeWidth="2"
+        strokeDasharray="1 10"
+        strokeLinecap="round"
+      />
+      <g transform="translate(140, 96)">
+        <circle cx="8" cy="15" r="12" fill="none" stroke="#0c2b33" strokeWidth="5" />
+        <rect x="14" y="2" width="96" height="26" rx="13" fill="url(#auvIllHull)" />
+        <rect x="94" y="6" width="13" height="18" rx="6" fill="#06222e" />
+        <circle cx="100" cy="15" r="2.5" fill="#9ff5ee" />
+      </g>
+      <circle cx="262" cy="111" r="14" fill="none" stroke="rgba(143,227,221,0.7)" strokeWidth="2" />
+      <circle cx="262" cy="111" r="27" fill="none" stroke="rgba(143,227,221,0.4)" strokeWidth="2" />
+      <circle cx="262" cy="111" r="41" fill="none" stroke="rgba(143,227,221,0.2)" strokeWidth="2" />
+    </svg>
+  );
 }
 
 function SectionHead({
@@ -479,7 +572,7 @@ export default async function RoboticsQuestPage() {
               国が、<em>2030年までのAUV産業化</em>を宣言している。
             </>
           }
-          lead="内閣府は「AUVの社会実装に向けた戦略」を掲げ、官民プラットフォームで産業育成を進めています。産業化の先にあるのは、人が危険な海に出ずに、制御室からロボットが海を守る世界。それがなぜ日本の必然なのか、数字で見てください。"
+          lead="内閣府は「AUVの社会実装に向けた戦略」を掲げ、官民プラットフォームで産業育成を進めています。産業化の先にあるのは、人が危険な海に出ずに、制御室から水中ロボットが海を守る世界。それがなぜ日本の必然なのか、数字で見てください。"
         />
         <div className="quest-stats-band rv">
           {whyNowStats.map(({ value, prefix, suffix, label, note, static: isStatic }) => (
@@ -493,6 +586,31 @@ export default async function RoboticsQuestPage() {
               <small>{note}</small>
             </div>
           ))}
+        </div>
+        <div className="quest-rovauv rv" aria-label="そもそもROV・AUVとは">
+          <h3>そもそも、ROV・AUVとは？</h3>
+          <div className="quest-rovauv-grid">
+            <div className="quest-rovauv-item">
+              <RovIllustration />
+              <b>
+                ROV<span>遠隔操作型無人潜水機</span>
+              </b>
+              <p>
+                Remotely Operated
+                Vehicleの略。船とケーブルでつながり、人が船上から操縦する水中ロボットです。ケーブル経由の電力供給と高精細映像に強く、点検・作業の現場の主力。小型のものは「水中ドローン」とも呼ばれます。
+              </p>
+            </div>
+            <div className="quest-rovauv-item">
+              <AuvIllustration />
+              <b>
+                AUV<span>自律型無人探査機</span>
+              </b>
+              <p>
+                Autonomous Underwater
+                Vehicleの略。ケーブルなしで、自分で判断しながら航行する水中ロボットです。人が操縦しなくても広い海域を調査・点検できるため、国が産業化を進める主役になっています。
+              </p>
+            </div>
+          </div>
         </div>
         <div className="quest-why-num-grid">
           {whyNowReasons.map(({ tag, value, title, body }, index) => (
@@ -509,16 +627,13 @@ export default async function RoboticsQuestPage() {
           ))}
         </div>
         <div className="quest-roadmap rv" aria-label="海洋ロボティクス導入の道筋">
-          {whyNowRoadmap.map(({ period, title, body }, index) => (
+          <span className="quest-roadmap-line" aria-hidden="true" />
+          {whyNowRoadmap.map(({ period, title, body }) => (
             <div className="quest-roadmap-step" key={period}>
+              <span className="quest-roadmap-dot" aria-hidden="true" />
               <span className="quest-roadmap-period">{period}</span>
               <b>{title}</b>
               <small>{body}</small>
-              {index < whyNowRoadmap.length - 1 ? (
-                <span className="quest-roadmap-arrow" aria-hidden="true">
-                  <ArrowRight size={18} />
-                </span>
-              ) : null}
             </div>
           ))}
         </div>
@@ -540,15 +655,21 @@ export default async function RoboticsQuestPage() {
           lead="開発職から現場職、企画職まで。水中ロボティクスの主な8職種と、それぞれに必要なスキルです。"
         />
         <div className="card-grid quest-role-grid">
-          {roles.map(({ icon: Icon, title, body, skills }, index) => (
+          {roles.map(({ photo, photoAlt, title, body, skills }, index) => (
             <article
               className="content-card quest-role-card rv"
               style={{ transitionDelay: `${(index % 4) * 0.08}s` }}
               key={title}
             >
-              <div className="card-icon">
-                <Icon size={22} />
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="quest-role-photo"
+                src={photo}
+                alt={photoAlt}
+                width={900}
+                height={560}
+                loading="lazy"
+              />
               <h3>{title}</h3>
               <p>{body}</p>
               <p className="quest-role-skills">{skills}</p>
@@ -814,7 +935,7 @@ export default async function RoboticsQuestPage() {
         </div>
       </section>
 
-      <section className="section quest-sec quest-dive" aria-label="ロボットはどこまで潜れるのか">
+      <section className="section quest-sec quest-dive" aria-label="水中ロボットはどこまで潜れるのか">
         <div className="quest-dive-head rv">
           <div
             className="quest-ghost"
@@ -825,10 +946,10 @@ export default async function RoboticsQuestPage() {
           </div>
           <p className="quest-kicker">Deep Dive</p>
           <h2>
-            ロボットは、どこまで<em>深く</em>潜れるのか。
+            水中ロボットは、どこまで<em>深く</em>潜れるのか。
           </h2>
           <p className="quest-lead">
-            日本のAUVの潜航能力は8,000m級。富士山を逆さに沈めても半分にも届かず、エベレストを沈めてもまだ余裕があります。地球でいちばん深い海の底、チャレンジャー海淵（約10,920m）には、日本のROV「かいこう」が1995年に到達済み——人類より先に、ロボットが海の最深部を知っています。
+            日本のAUVの潜航能力は8,000m級。富士山を逆さに沈めても半分にも届かず、エベレストを沈めてもまだ余裕があります。地球でいちばん深い海の底、チャレンジャー海淵（約10,920m）には、日本のROV「かいこう」が1995年に到達済み——人類より先に、水中ロボットが海の最深部を知っています。
           </p>
         </div>
         <div className="qdive-chart rv" role="img" aria-label="潜航深度の比較チャート">
@@ -863,7 +984,7 @@ export default async function RoboticsQuestPage() {
           ))}
         </div>
         <p className="qdive-note rv">
-          ※ 深さは実寸比。ダイバーのバーが見えないのは、間違いではありません。それくらい、海は深い——だからロボットの出番です。
+          ※ 深さは実寸比。ダイバーのバーが見えないのは、間違いではありません。それくらい、海は深い——だから水中ロボットの出番です。
         </p>
       </section>
 
