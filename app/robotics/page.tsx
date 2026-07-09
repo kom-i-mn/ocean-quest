@@ -455,7 +455,7 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec" id="why-now" aria-label="なぜ今、水中ロボティクスなのか">
         <SectionHead
           no="01"
-          ghost="WHY NOW"
+          ghost="なぜ、今なのか"
           kicker="Why Now"
           title={
             <>
@@ -510,7 +510,7 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec quest-sec-alt" id="roles" aria-label="どんな仕事があるのか">
         <SectionHead
           no="02"
-          ghost="JOB MAP"
+          ghost="仕事の地図"
           kicker="Job Map"
           title={
             <>
@@ -540,7 +540,7 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec" id="translate" aria-label="異業種からどうつながるか">
         <SectionHead
           no="03"
-          ghost="YOUR SKILLS"
+          ghost="経験のつなぎ方"
           kicker="Skill Bridge"
           title={
             <>
@@ -572,7 +572,7 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec quest-sec-alt" id="self-check" aria-label="セルフチェック">
         <SectionHead
           no="04"
-          ghost="SELF CHECK"
+          ghost="自分の現在地"
           kicker="Self Check"
           title={
             <>
@@ -681,7 +681,7 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec" id="players" aria-label="企業・プレイヤーマップ">
         <SectionHead
           no="05"
-          ghost="PLAYERS"
+          ghost="企業と研究機関"
           kicker="Player Map"
           title={
             <>
@@ -714,7 +714,7 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec quest-sec-alt" id="blog" aria-label="ブログ・コンテンツ">
         <SectionHead
           no="06"
-          ghost="BLOG"
+          ghost="読みもの"
           kicker="Blog & Contents"
           title={
             <>
@@ -777,7 +777,7 @@ export default async function RoboticsQuestPage() {
       </section>
 
       <section className="section quest-sec" aria-label="よくある質問">
-        <SectionHead no="07" ghost="FAQ" kicker="FAQ" title={<>よくある質問</>} />
+        <SectionHead no="07" ghost="よくある質問" kicker="FAQ" title={<>よくある質問</>} />
         <div className="faq-list quest-faq">
           {faqItems.map(({ question, answer }) => (
             <details className="faq-item" key={question}>
@@ -797,7 +797,7 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec quest-dive" aria-label="ロボットはどこまで潜れるのか">
         <div className="quest-dive-head rv">
           <div className="quest-ghost" aria-hidden="true">
-            HOW DEEP?
+            どこまで潜れるのか
           </div>
           <p className="quest-kicker">Deep Dive</p>
           <h2>

@@ -3776,10 +3776,11 @@ a.ocean-map-list-title {
   position: absolute;
   top: -6px;
   left: -4px;
-  font-family: var(--font-serif-en);
-  font-size: clamp(52px, 9vw, 96px);
+  /* ゴーストは日本語の項目タイトル(ユーザーFB・2026-07-09)。明朝で大きく敷く */
+  font-family: var(--font-serif-ja);
+  font-size: clamp(40px, 7.5vw, 84px);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   color: rgba(0, 88, 102, 0.07);
   white-space: nowrap;
   pointer-events: none;
