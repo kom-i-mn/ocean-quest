@@ -447,7 +447,7 @@ export default async function RoboticsQuestPage() {
             日本のロボットは、8,000m。
           </h1>
           <p className="qhv-lead">
-            その差、400倍。人が安全に作業できるのは、せいぜい水深20m・1回1時間です。その先の海で働けるのは、ROV・AUV・水中ドローンだけ。洋上風力・海底ケーブル・防衛で「人が行けない現場」は増え続けています。つくる人、動かす人、事業にする人のためのキャリアサイトです。
+            その差、400倍。人が安全に作業できるのは、せいぜい水深20m・1回1時間。その先の海で働けるのは、ROV・AUV・水中ドローンだけです。海でいちばん深いチャレンジャー海淵は約10,920m——残りの約3,000mは、これからこの仕事に就く人の伸び代です。つくる人、動かす人、事業にする人のためのキャリアサイトです。
           </p>
           <div className="hero-actions qhv-actions">
             <a className="primary-button" href="/diagnosis">
