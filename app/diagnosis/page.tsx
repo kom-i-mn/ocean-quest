@@ -4,12 +4,14 @@ import { DiagnosisForm } from "@/components/DiagnosisForm";
 import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "海洋産業キャリア診断 | Ocean Quest",
   description:
     "回答に応じて質問が変わる11問の診断で、水中ロボティクス、洋上風力、海洋データなど9領域×4つの職種タイプから、あなたの海洋キャリアタイプ・想定職種・想定年収帯まで診断します。",
-};
+  path: "/diagnosis",
+});
 
 export default function DiagnosisPage() {
   return (

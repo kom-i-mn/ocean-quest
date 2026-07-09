@@ -11,13 +11,14 @@ import {
 import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "企業向け採用支援 | 海洋産業特化の採用パートナー | Ocean Quest",
   description:
     "海洋産業に特化した採用支援。採用戦略設計、採用ブランディング、専門人材スカウト、母集団形成まで、業界理解を土台に採用を設計します。",
-  alternates: { canonical: "/companies" },
-};
+  path: "/companies",
+});
 
 const supportAreas = [
   {

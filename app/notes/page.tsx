@@ -2,16 +2,17 @@ import { ArrowUpRight, FileText } from "lucide-react";
 import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { pageMetadata } from "@/lib/seo";
 import { listNoteContents } from "@/lib/supabase";
 
 export const revalidate = 300;
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "海洋産業を読み解くnote記事 | Ocean Quest",
   description:
     "海洋産業の可能性、技術、職種、採用、キャリアをOcean Questの視点で解説するnote記事一覧。ニュースだけでは見えない業界の文脈をわかりやすく言語化します。",
-  alternates: { canonical: "/notes" },
-};
+  path: "/notes",
+});
 
 export default async function NotesPage() {
   const notes = await listNoteContents().catch(() => []);

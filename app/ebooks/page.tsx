@@ -3,16 +3,17 @@ import { EbookCard } from "@/components/EbookCard";
 import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { pageMetadata } from "@/lib/seo";
 import { listEbookContents } from "@/lib/supabase";
 
 export const revalidate = 300;
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "eBook | 海洋産業の採用・キャリア資料 | Ocean Quest",
   description:
     "海洋産業の業界理解・職種理解・転職ノウハウ・市場データを体系的にまとめた無料eBookライブラリ。noteの発信を資料化し、メールアドレスのみでダウンロードできます。",
-  alternates: { canonical: "/ebooks" },
-};
+  path: "/ebooks",
+});
 
 export default async function EbooksPage() {
   const ebooks = await listEbookContents(48).catch(() => []);
