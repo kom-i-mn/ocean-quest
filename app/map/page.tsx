@@ -4,13 +4,14 @@ import { OceanMap } from "@/components/OceanMap";
 import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "海の地図(β) | Ocean Quest",
   description:
     "海上保安庁「海しる」の公開データで、黒潮などの海流、全国の水族館・海の展示施設・体験学習施設、港湾、灯台、海底ケーブルを地図から探索できます。海洋産業を知る入口としてご活用ください。",
-  alternates: { canonical: "/map" },
-};
+  path: "/map",
+});
 
 const highlights = [
   {

@@ -87,9 +87,16 @@
 ## 8.5 OGP（SNS/Slackリンクプレビュー）
 
 - **OGP画像は写真そのままにしない**。「何のサイトか」が一目で伝わるブランド合成画像にする（ユーザーFB・2026-07-09）
-- 実装: `app/opengraph-image.tsx`（next/og・全ページ共通デフォルト）。構成 = ロゴ（左上）＋タグライン大文字＋提供内容チップ＋ドメイン＋「運営 POTENTIALIGHT」＋背景写真＋左からの可読性グラデーション
+- **ページごとに個別OGP**（ユーザーFB・2026-07-09）。実装の正本は `lib/og/render.tsx`（全ページ共通レンダラー）:
+  - 共通フレーム = ロゴ（左上）＋ドメイン＋「運営 POTENTIALIGHT」（下段）＋背景写真＋左からの可読性グラデーション。**この骨格は全ページで崩さない**（一目でOcean Questと分かる一貫性がクリック率の土台）
+  - 中央モチーフだけをページの役割で切替: standard（トップ・企業・診断・地図・相談・Quest）/ video（再生ボタン+シークバー）/ article（白カード+タイトル）/ ebook（表紙スタック+無料バッジ）/ event（チケット風破線バナー）/ interview（人物円形写真+引用・**将来用**）/ news（マストヘッド+見出し帯・**将来用**）
+  - ページ追加時: `lib/og/render.tsx` の `ogPages` に設定を足し、`app/<route>/opengraph-image.tsx` と `twitter-image.tsx`（各10行のラッパー）を置く
+  - 明るい背景写真のページは `shade: "strong"` でグラデーションを濃くする
+- **og:title/og:descriptionもページ個別必須**。Next.jsのメタデータは浅いマージのため、ページ側は必ず `lib/seo.ts` の `pageMetadata()` を使う（使わないとOGタイトルがサイト共通のままになる）
+- **差し替え規約**: `public/images/ogp/<ページキー>.png`（1200×630）を置くと生成画像より優先して配信される（デザイナー入稿・AI生成画像用。手順とAIプロンプトは同フォルダのREADME.md）
+- 重要要素は中央1200×630の内側1000×524に収める（LINE/Discordの端切れ対策）。タイトルは最大2行・1行13文字前後
 - フォントは `assets/fonts/ZenKakuGothicNew-*.ttf`（eBookカバーと共通）
-- 領域Questページに個別OGPを作る場合も同じ型（ロゴ＋Quest名＋タグライン＋写真）で `app/<quest>/opengraph-image.tsx` を置く
+- satoriの制約: `style` にundefined値を渡すと落ちる。条件付きスタイルはスプレッド `...(cond ? {...} : {})` で書く
 - 注意: SlackはOGPをキャッシュする。更新確認は新しいチャンネル/メッセージで貼り直すか、Slackの場合はURL末尾に `?v=2` 等を付けて確認
 
 ## 9. フッター / ヘッダー
@@ -111,5 +118,6 @@
 
 ## 変更履歴
 
+- 2026-07-09 OGPをページ個別化（lib/og/render.tsx に7種テンプレート集約・pageMetadata()でog:title個別化・public/images/ogp/ 差し替え規約・interview/news将来テンプレート）。
 - 2026-07-09 OGPルール追加（写真だけのプレビュー禁止→ロゴ+タグライン合成。app/opengraph-image.tsx）。
 - 2026-07-08 初版。/robotics構築時のユーザーFBを全て反映（余白リズム・背景オーバーレイ禁止・「武器になる」語彙・6カード化・企業リンク・深度チャート・AUVヒーロー・領域別Questドロップダウン・原器/横展開方針）。

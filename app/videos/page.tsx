@@ -2,16 +2,17 @@ import { ArrowUpRight, PlayCircle } from "lucide-react";
 import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { pageMetadata } from "@/lib/seo";
 import { listYouTubeContents } from "@/lib/supabase";
 
 export const revalidate = 300;
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "動画で学ぶ海洋産業 | Ocean Quest",
   description:
     "海洋産業の仕事、技術、企業、キャリアの可能性を対談・解説動画で紹介。AUV、洋上風力、海運・造船など、海の仕事をわかりやすく学べる動画ライブラリです。",
-  alternates: { canonical: "/videos" },
-};
+  path: "/videos",
+});
 
 export default async function VideosPage() {
   const videos = await listYouTubeContents().catch(() => []);

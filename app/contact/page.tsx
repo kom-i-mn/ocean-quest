@@ -4,13 +4,14 @@ import { ContactForm } from "@/components/ContactForm";
 import { ProfileCta } from "@/components/ProfileCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "相談する | 採用・転職・キャリア相談 | Ocean Quest",
   description:
     "海洋産業の採用相談、転職・キャリア相談、記事・動画・イベント連携のご相談はこちら。内容が固まっていない段階でも、状況を伺いながら一緒に整理します。",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 const topics = [
   "転職・キャリア相談",

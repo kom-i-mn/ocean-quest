@@ -1,8 +1,5 @@
 import { ogPages, ogSize, renderPageOg } from "@/lib/og/render";
 
-// SNS/Slackのリンクプレビュー用OGP画像(トップページ+個別設定のないページのデフォルト)。
-// デザイン本体は lib/og/render.tsx(全ページ共通レンダラー)にある。
-
 export const runtime = "nodejs";
 export const alt = ogPages.home.alt;
 export const size = ogSize;
