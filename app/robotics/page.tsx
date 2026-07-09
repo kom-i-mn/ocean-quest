@@ -288,6 +288,15 @@ const faqItems = [
   },
 ];
 
+// ゴーストが長文でも画面からはみ出さないよう、文字数に応じた上限を font-size にかける。
+// 幅 ≈ 文字数 × font-size × 1.06(letter-spacing分)。見出しの左オフセット分として100pxを差し引く。
+// ただし40px未満には縮めない(小さすぎると透かしの意味がない)。その場合は右端で
+// 自然に切れる(.quest-page の overflow-x: clip が横スクロールを防ぐ)
+function ghostFontSize(ghost: string) {
+  const perChar = (ghost.length * 1.06).toFixed(2);
+  return `min(clamp(40px, 7.5vw, 84px), max(40px, calc((100vw - 100px) / ${perChar})))`;
+}
+
 function SectionHead({
   no,
   ghost,
@@ -303,7 +312,11 @@ function SectionHead({
 }) {
   return (
     <div className="quest-sec-head rv">
-      <div className="quest-ghost" aria-hidden="true">
+      <div
+        className="quest-ghost"
+        style={{ fontSize: ghostFontSize(ghost) }}
+        aria-hidden="true"
+      >
         {ghost}
       </div>
       <p className="quest-kicker">
@@ -455,7 +468,7 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec" id="why-now" aria-label="なぜ今、水中ロボティクスなのか">
         <SectionHead
           no="01"
-          ghost="なぜ、今なのか"
+          ghost="なぜ、今、水中ロボティクスが重要なのか"
           kicker="Why Now"
           title={
             <>
@@ -510,7 +523,7 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec quest-sec-alt" id="roles" aria-label="どんな仕事があるのか">
         <SectionHead
           no="02"
-          ghost="仕事の地図"
+          ghost="水中ロボティクスの仕事"
           kicker="Job Map"
           title={
             <>
@@ -540,7 +553,7 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec" id="translate" aria-label="異業種からどうつながるか">
         <SectionHead
           no="03"
-          ghost="経験のつなぎ方"
+          ghost="こんな経験が活きる"
           kicker="Skill Bridge"
           title={
             <>
@@ -572,7 +585,7 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec quest-sec-alt" id="self-check" aria-label="セルフチェック">
         <SectionHead
           no="04"
-          ghost="自分の現在地"
+          ghost="キャリア診断"
           kicker="Self Check"
           title={
             <>
@@ -714,7 +727,7 @@ export default async function RoboticsQuestPage() {
       <section className="section quest-sec quest-sec-alt" id="blog" aria-label="ブログ・コンテンツ">
         <SectionHead
           no="06"
-          ghost="読みもの"
+          ghost="ブログ"
           kicker="Blog & Contents"
           title={
             <>
@@ -796,7 +809,11 @@ export default async function RoboticsQuestPage() {
 
       <section className="section quest-sec quest-dive" aria-label="ロボットはどこまで潜れるのか">
         <div className="quest-dive-head rv">
-          <div className="quest-ghost" aria-hidden="true">
+          <div
+            className="quest-ghost"
+            style={{ fontSize: ghostFontSize("どこまで潜れるのか") }}
+            aria-hidden="true"
+          >
             どこまで潜れるのか
           </div>
           <p className="quest-kicker">Deep Dive</p>

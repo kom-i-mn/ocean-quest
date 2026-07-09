@@ -3746,6 +3746,11 @@ a.ocean-map-list-title {
   position: relative;
 }
 
+/* 長い日本語ゴーストが右端からはみ出しても横スクロールを発生させない */
+.quest-page {
+  overflow-x: clip;
+}
+
 /* .sectionの既定(上96px・下0)を上下対称のリズムに上書き */
 .quest-page .quest-sec {
   padding: 84px 24px;
