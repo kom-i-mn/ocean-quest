@@ -266,7 +266,7 @@ export default function Home() {
       <section className="section audience-intro" aria-label="Ocean Questを使う3つの立場">
         <div className="section-heading">
           <p className="section-kicker">FOR YOU</p>
-          <h2>Ocean Questは、こんな方のためのサービスです。</h2>
+          <h2>Ocean Quest（オーシャンクエスト）は、こんな方のためのサービスです。</h2>
         </div>
         <div className="audience-section">
           {audiences.map(({ icon: Icon, title, description, href, cta }) => (
