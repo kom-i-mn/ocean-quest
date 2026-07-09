@@ -3698,6 +3698,17 @@ a.ocean-map-list-title {
   letter-spacing: 0.02em;
 }
 
+/* ジョブマップ: アイコンではなく実際の作業風景の写真(ユーザーFB・2026-07-09) */
+.quest-role-photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 0 0 14px;
+  display: block;
+}
+
 .quest-translate-list {
   display: grid;
   gap: 14px;
@@ -4489,56 +4500,138 @@ a.ocean-map-list-title {
   }
 }
 
-/* WHY NOW: 導入の道筋 */
+/* WHY NOW: そもそもROV・AUVとは(用語解説・ユーザーFB 2026-07-09) */
+.quest-rovauv {
+  background: rgba(251, 255, 253, 0.94);
+  border-radius: 20px;
+  padding: 30px 34px 28px;
+  margin: 0 0 34px;
+  box-shadow: var(--shadow-md);
+}
+
+.quest-rovauv > h3 {
+  margin: 0 0 20px;
+  color: var(--ink);
+  font-size: 19px;
+}
+
+.quest-rovauv-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.quest-rovauv-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quest-rovauv-item svg {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  display: block;
+}
+
+.quest-rovauv-item b {
+  color: var(--teal-dark);
+  font-size: 17px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.quest-rovauv-item b span {
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.quest-rovauv-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+@media (max-width: 720px) {
+  .quest-rovauv {
+    padding: 24px 22px;
+  }
+
+  .quest-rovauv-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* WHY NOW: 導入の道筋(タイムラインUI・ユーザーFB 2026-07-09: カードではなくロードマップらしく) */
 .quest-roadmap {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 26px;
-  margin: 34px 0 0;
+  margin: 40px 0 0;
+}
+
+.quest-roadmap-line {
+  position: absolute;
+  top: 7px;
+  left: 8px;
+  right: 8px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(143, 227, 221, 0.9), #12a4b4 55%, #ff7a21);
+  box-shadow: 0 0 12px rgba(143, 227, 221, 0.35);
 }
 
 .quest-roadmap-step {
   position: relative;
-  padding: 20px 22px;
-  border-radius: 16px;
-  background: rgba(251, 255, 253, 0.92);
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm);
+  padding: 34px 8px 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
+}
+
+.quest-roadmap-dot {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #04222c;
+  border: 3px solid #8fe3dd;
+  box-shadow: 0 0 0 5px rgba(143, 227, 221, 0.18);
+}
+
+.quest-roadmap-step:last-child .quest-roadmap-dot {
+  border-color: #ff9a4d;
+  box-shadow: 0 0 0 5px rgba(255, 122, 33, 0.22);
 }
 
 .quest-roadmap-period {
-  color: var(--accent);
-  font-size: 12px;
+  color: #8fe3dd;
+  font-size: 12.5px;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
 
+.quest-roadmap-step:last-child .quest-roadmap-period {
+  color: #ffb066;
+}
+
 .quest-roadmap-step b {
-  color: var(--ink);
-  font-size: 16px;
+  color: #fff;
+  font-size: 16.5px;
+  text-shadow: 0 1px 10px rgba(0, 20, 30, 0.5);
 }
 
 .quest-roadmap-step small {
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.75);
   font-size: 12.5px;
   line-height: 1.7;
-}
-
-.quest-roadmap-arrow {
-  position: absolute;
-  top: 50%;
-  right: -24px;
-  transform: translateY(-50%);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  color: rgba(255, 255, 255, 0.85);
-  filter: drop-shadow(0 1px 4px rgba(0, 32, 40, 0.5));
-  z-index: 1;
 }
 
 .quest-source {
@@ -4557,15 +4650,26 @@ a.ocean-map-list-title {
 @media (max-width: 720px) {
   .quest-roadmap {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 24px;
   }
 
-  .quest-roadmap-arrow {
-    top: auto;
+  .quest-roadmap-line {
+    top: 8px;
+    bottom: 8px;
+    left: 7px;
     right: auto;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%) rotate(90deg);
+    width: 3px;
+    height: auto;
+    background: linear-gradient(180deg, rgba(143, 227, 221, 0.9), #12a4b4 55%, #ff7a21);
+  }
+
+  .quest-roadmap-step {
+    padding: 0 0 0 36px;
+  }
+
+  .quest-roadmap-dot {
+    top: 2px;
+    left: 0;
   }
 }
 
