@@ -39,7 +39,7 @@ export function SiteFooter() {
           />
           <span className="site-footer-company">株式会社ポテンシャライト</span>
           <p>
-            海洋産業に特化した人材支援・採用支援。
+            Ocean Quest（オーシャンクエスト）は、海洋産業に特化した人材支援・採用支援サービス。
             <br />
             海のしごとの面白さを、キャリアの選択肢に。
           </p>
