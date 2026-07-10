@@ -5155,8 +5155,8 @@ a.ocean-map-list-title {
 
 .qdive-chart {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 16px;
   max-width: 1132px;
   height: 520px;
   margin: 0 auto;
@@ -5230,14 +5230,38 @@ a.ocean-map-list-title {
   opacity: 1;
 }
 
-/* 各バーの色 */
+/* 各列の見た目(イラスト化・ユーザーFB 2026-07-09) */
+
+/* ダイバー: 極小バー(見えないのが演出)+人のイラスト */
 .qdive-diver .qdive-fill {
   background: linear-gradient(180deg, #ffd9b8, #ffb066);
   box-shadow: 0 0 18px rgba(255, 176, 102, 0.5);
 }
 
+.qdive-diver .qdive-fill svg {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 42px;
+  height: auto;
+  opacity: 0;
+  transition: opacity 0.5s ease calc(var(--delay) + 0.6s);
+}
+
+.qdive-chart.rv-in .qdive-diver .qdive-fill svg {
+  opacity: 1;
+}
+
+.qdive-diver .qdive-fill em {
+  bottom: auto;
+  top: 38px;
+}
+
+/* 山(逆さ): 実寸比の山容+雪冠 */
 .qdive-fuji .qdive-fill,
 .qdive-everest .qdive-fill {
+  width: min(80px, 88%);
   background: none;
   box-shadow: none;
   border-radius: 0;
@@ -5252,14 +5276,79 @@ a.ocean-map-list-title {
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
+.qdive-everest .qdive-fill::before {
+  background: linear-gradient(180deg, rgba(126, 148, 166, 0.85), rgba(58, 78, 94, 0.92));
+}
+
+/* 逆さの山なので、山頂の雪は下端に来る */
+.qdive-fuji .qdive-fill::after,
+.qdive-everest .qdive-fill::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 20%;
+  background: linear-gradient(180deg, rgba(232, 242, 248, 0.7), rgba(255, 255, 255, 0.95));
+  clip-path: polygon(40% 0, 45% 32%, 50% 10%, 55% 32%, 60% 0, 50% 100%);
+}
+
 .qdive-fuji .qdive-fill em,
 .qdive-everest .qdive-fill em {
   bottom: -24px;
 }
 
-.qdive-auv .qdive-fill {
-  background: linear-gradient(180deg, #ffa15c, #d95f10);
-  box-shadow: 0 0 28px rgba(255, 122, 33, 0.45);
+/* 機体(しんかい6500・うらしま8000・悟空号): 点線の降下ライン+機体イラスト */
+.qdive-vehicle .qdive-fill {
+  background: none;
+  box-shadow: none;
+  transform: none;
+}
+
+.qdive-vehicle .qdive-fill::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 4px;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(143, 227, 221, 0.55) 0 6px,
+    transparent 6px 14px
+  );
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) var(--delay);
+}
+
+.qdive-chart.rv-in .qdive-vehicle .qdive-fill::before {
+  transform: scaleY(1);
+}
+
+.qdive-vehicle .qdive-fill svg {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92px;
+  height: auto;
+  opacity: 0;
+  transition: opacity 0.5s ease calc(var(--delay) + 0.85s);
+  filter: drop-shadow(0 8px 20px rgba(0, 10, 16, 0.5));
+}
+
+.qdive-chart.rv-in .qdive-vehicle .qdive-fill svg {
+  opacity: 1;
+}
+
+.qdive-auv .qdive-fill svg {
+  filter: drop-shadow(0 0 22px rgba(255, 122, 33, 0.55));
+}
+
+.qdive-vehicle .qdive-fill em {
+  bottom: -46px;
 }
 
 .qdive-deepest .qdive-fill {
@@ -5277,11 +5366,11 @@ a.ocean-map-list-title {
 @media (max-width: 860px) {
   .qdive-chart {
     height: 420px;
-    gap: 10px;
+    gap: 8px;
   }
 
   .qdive-label b {
-    font-size: 11px;
+    font-size: 10.5px;
   }
 
   .qdive-label i {
@@ -5290,6 +5379,23 @@ a.ocean-map-list-title {
 
   .qdive-fill em {
     font-size: 10px;
+  }
+
+  .qdive-vehicle .qdive-fill svg {
+    width: 46px;
+    bottom: -9px;
+  }
+
+  .qdive-vehicle .qdive-fill em {
+    bottom: -30px;
+  }
+
+  .qdive-diver .qdive-fill svg {
+    width: 28px;
+  }
+
+  .qdive-diver .qdive-fill em {
+    top: 30px;
   }
 }
 
