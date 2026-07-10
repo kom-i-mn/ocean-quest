@@ -396,35 +396,56 @@ function AuvIllustration() {
 
 // Deep Diveチャートのイラスト(ユーザーFB・2026-07-09: バーではなく絵で見せる)
 function QdiveDiver() {
+  // スキューバダイバー(参考イラスト準拠: ウェットスーツ+タンク+マスク+膝を曲げたフィンキック)
+  // スーツ色は深海背景に沈まないよう、背景より明るいティールスレートにする
+  const suit = "#3a6a7c";
+  const suitDark = "#2b5265";
   return (
-    <svg viewBox="0 0 72 34" aria-hidden="true">
-      {/* 右向きにグライドして泳ぐダイバー(フィン・マスク・気泡付き) */}
-      {/* 頭 */}
-      <circle cx="57" cy="12" r="5" fill="#ffcf9e" />
-      {/* マスク */}
-      <path d="M60.5 9.5 L63.5 10.5 L62.5 13.5 L59.5 12.8 Z" fill="#0a2e3f" />
-      {/* 前に伸ばした腕(グライド) */}
+    <svg viewBox="0 0 104 60" aria-hidden="true">
+      {/* フィン(オレンジの長いブレード×2・左上方向) */}
+      <path d="M26 21 L4 7 L9 19 L25 28 Z" fill="#ff8a3d" />
+      <path d="M24 31 L2 21 L6 30 L22 38 Z" fill="#e56812" />
+      {/* 脚(腿→曲げた膝→足首) */}
       <path
-        d="M58 15 C 63 16, 67 17.5, 71 19.5 L70 22 C 66 20, 62 18.8, 57 18 Z"
-        fill="#ffb066"
+        d="M50 30 L37 18 L26 24"
+        fill="none"
+        stroke={suit}
+        strokeWidth="7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      {/* 胴体(肩→腰へ緩やかにうねる) */}
       <path
-        d="M55 14.5 C 48 17, 42 18.5, 35 18.5 L34 24 C 42 23.5, 49 21, 56 18.5 Z"
-        fill="#ffb066"
+        d="M49 36 L35 26 L24 33"
+        fill="none"
+        stroke={suitDark}
+        strokeWidth="7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      {/* 後ろの腕(体側に沿わせる) */}
-      <path d="M50 17 C 46 19.5, 43 21, 40 21.8 L41 24.5 C 45 23.5, 48 21.5, 51 19.5 Z" fill="#e8964f" />
-      {/* 上の脚(蹴り上げ)+フィン */}
-      <path d="M35 18.5 C 28 17, 22 14.5, 17 12 L15.5 15 C 21 17.5, 27 19.8, 34 21 Z" fill="#ffb066" />
-      <path d="M17 11 L5 5.5 L9.5 13.5 Z" fill="#e8964f" />
-      {/* 下の脚(蹴り下げ)+フィン */}
-      <path d="M34 21.5 C 28 23.5, 22 26, 17 28.5 L18.5 31 C 24 28.5, 30 26.5, 35 24.5 Z" fill="#e8964f" />
-      <path d="M18 29.5 L6 34 L13 26.5 Z" fill="#cf7c3a" />
+      {/* タンク(背中の上に沿わせる) */}
+      <rect x="55" y="16" width="24" height="9" rx="4.5" fill="#9fb4bd" transform="rotate(6 67 20)" />
+      <rect x="78" y="18" width="4" height="5" rx="1.5" fill="#4a5e66" />
+      {/* 胴体(肩→腰) */}
+      <path
+        d="M82 26 C 72 24.5, 62 25.5, 50 28.5 L48 37 C 60 34.5, 71 33.5, 82 34.5 Z"
+        fill={suit}
+      />
+      {/* 腕(前方へ揃えて伸ばす) */}
+      <path
+        d="M80 31 C 88 33.5, 94 37, 100 42 L97.5 46 C 91 41, 85 37.5, 77 35.5 Z"
+        fill={suitDark}
+      />
+      <circle cx="100" cy="44" r="2.6" fill="#ffcf9e" />
+      {/* 頭(フード+顔+マスク+レギュレーター) */}
+      <circle cx="87" cy="27" r="6.5" fill={suit} />
+      <circle cx="90" cy="27.5" r="3.4" fill="#ffcf9e" />
+      <rect x="88.5" y="23.5" width="6.5" height="4.6" rx="1.8" fill="#ffb066" />
+      <path d="M88.5 25.5 L82 24" stroke="#ffb066" strokeWidth="1.6" />
+      <circle cx="92.5" cy="31.5" r="1.8" fill="#4a5e66" />
       {/* 気泡 */}
-      <circle cx="63" cy="5.5" r="1.8" fill="rgba(255,255,255,0.55)" />
-      <circle cx="66.5" cy="2.5" r="1.2" fill="rgba(255,255,255,0.4)" />
-      <circle cx="61" cy="2" r="0.9" fill="rgba(255,255,255,0.35)" />
+      <circle cx="95" cy="17" r="2" fill="rgba(255,255,255,0.55)" />
+      <circle cx="99" cy="12.5" r="1.4" fill="rgba(255,255,255,0.42)" />
+      <circle cx="93" cy="12" r="1" fill="rgba(255,255,255,0.35)" />
     </svg>
   );
 }
