@@ -394,6 +394,78 @@ function AuvIllustration() {
   );
 }
 
+// Deep Diveチャートのイラスト(ユーザーFB・2026-07-09: バーではなく絵で見せる)
+function QdiveDiver() {
+  return (
+    <svg viewBox="0 0 48 26" aria-hidden="true">
+      <circle cx="40" cy="9" r="4.2" fill="#ffd9b8" />
+      <path
+        d="M35 10 C 28 13, 22 13, 15 12"
+        fill="none"
+        stroke="#ffb066"
+        strokeWidth="5"
+        strokeLinecap="round"
+      />
+      <path d="M15 12 L7 7 L10 13 L6 18 Z" fill="#ffb066" />
+      <path
+        d="M31 12 L26 18"
+        fill="none"
+        stroke="#ffb066"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
+      <circle cx="44" cy="4" r="1.6" fill="rgba(255,255,255,0.55)" />
+      <circle cx="46.5" cy="1.5" r="1" fill="rgba(255,255,255,0.4)" />
+    </svg>
+  );
+}
+
+function QdiveShinkai() {
+  return (
+    <svg viewBox="0 0 96 46" aria-hidden="true">
+      {/* しんかい6500: 白い耐圧殻+オレンジの上部構造の有人潜水調査船 */}
+      <circle cx="9" cy="27" r="7" fill="none" stroke="#0a2e3f" strokeWidth="3" />
+      <rect x="38" y="6" width="20" height="13" rx="3" fill="#e8501e" />
+      <rect x="12" y="16" width="74" height="24" rx="12" fill="#eef5f6" />
+      <rect x="12" y="26" width="74" height="5" fill="#e8501e" opacity="0.9" />
+      <circle cx="72" cy="24" r="4" fill="#0a2e3f" />
+      <circle cx="73" cy="23" r="1.2" fill="#9ff5ee" />
+      <rect x="24" y="40" width="14" height="4" rx="2" fill="#0a2e3f" />
+      <rect x="58" y="40" width="14" height="4" rx="2" fill="#0a2e3f" />
+    </svg>
+  );
+}
+
+function QdiveUrashima() {
+  return (
+    <svg viewBox="0 -8 100 40" aria-hidden="true">
+      {/* うらしま8000: オレンジの魚雷型AUV(ヒーローと同じ意匠) */}
+      <circle cx="8" cy="16" r="8" fill="none" stroke="#0a2e3f" strokeWidth="3.5" />
+      <rect x="6" y="13" width="4" height="6" rx="2" fill="#8fe3dd" />
+      <rect x="14" y="5" width="74" height="22" rx="11" fill="#e56812" />
+      <rect x="14" y="5" width="74" height="8" rx="4" fill="#ff9a4d" opacity="0.85" />
+      <path d="M30 5 L20 -3 L26 6 Z" fill="#0a2e3f" />
+      <rect x="80" y="8" width="12" height="16" rx="6" fill="#06222e" />
+      <circle cx="86" cy="16" r="2.4" fill="#9ff5ee" />
+    </svg>
+  );
+}
+
+function QdiveWukong() {
+  return (
+    <svg viewBox="0 -4 100 40" aria-hidden="true">
+      {/* 悟空号: 白い機体+赤いノーズのAUV */}
+      <circle cx="8" cy="16" r="8" fill="none" stroke="#0a2e3f" strokeWidth="3.5" />
+      <path d="M26 6 L16 -2 L22 7 Z" fill="#b8323c" />
+      <path d="M26 26 L16 34 L22 25 Z" fill="#b8323c" />
+      <rect x="14" y="5" width="74" height="22" rx="11" fill="#e9eef2" />
+      <path d="M74 5 L88 5 C 92 5, 94 10, 94 16 C 94 22, 92 27, 88 27 L74 27 Z" fill="#c9313d" />
+      <circle cx="86" cy="16" r="2.4" fill="#ffe2a8" />
+      <rect x="30" y="13" width="30" height="6" rx="3" fill="#b9c6cf" />
+    </svg>
+  );
+}
+
 function SectionHead({
   no,
   ghost,
@@ -949,23 +1021,48 @@ export default async function RoboticsQuestPage() {
             水中ロボットは、どこまで<em>深く</em>潜れるのか。
           </h2>
           <p className="quest-lead">
-            日本のAUVの潜航能力は8,000m級。富士山を逆さに沈めても半分にも届かず、エベレストを沈めてもまだ余裕があります。地球でいちばん深い海の底、チャレンジャー海淵（約10,920m）には、日本のROV「かいこう」が1995年に到達済み——人類より先に、水中ロボットが海の最深部を知っています。
+            日本のAUV「うらしま8000」の潜航能力は8,000m級。富士山を逆さに沈めても半分にも届かず、エベレストを沈めてもまだ余裕があります。地球でいちばん深い海の底、チャレンジャー海淵（約10,920m）には、日本のROV「かいこう」が1995年に到達済み——人類より先に、水中ロボットが海の最深部を知っています。そして今、AUVの世界最深記録は中国「悟空号」の10,896m。この競争は、もう始まっています。
           </p>
         </div>
         <div className="qdive-chart rv" role="img" aria-label="潜航深度の比較チャート">
           {[
-            { depth: 20, label: "ダイバー", sub: "日常的な作業潜水", cls: "qdive-diver" },
+            {
+              depth: 20,
+              label: "ダイバー",
+              sub: "（日常的な作業潜水）",
+              cls: "qdive-diver",
+              art: QdiveDiver,
+            },
             { depth: 3776, label: "富士山（逆さ）", sub: "3,776m", cls: "qdive-fuji" },
-            { depth: 6500, label: "しんかい6500", sub: "有人潜水調査船（日本）", cls: "qdive-shinkai" },
-            { depth: 8000, label: "日本のAUV", sub: "8,000m級（JAMSTEC）", cls: "qdive-auv" },
+            {
+              depth: 6500,
+              label: "しんかい6500",
+              sub: "（有人潜水調査船・日本）",
+              cls: "qdive-shinkai qdive-vehicle",
+              art: QdiveShinkai,
+            },
+            {
+              depth: 8000,
+              label: "うらしま8000",
+              sub: "（AUV・日本 / JAMSTEC）",
+              cls: "qdive-auv qdive-vehicle",
+              art: QdiveUrashima,
+            },
             { depth: 8849, label: "エベレスト（逆さ）", sub: "8,849m", cls: "qdive-everest" },
+            {
+              depth: 10896,
+              label: "悟空号",
+              sub: "（AUV・中国）",
+              cls: "qdive-wukong qdive-vehicle",
+              art: QdiveWukong,
+            },
             {
               depth: 10920,
               label: "チャレンジャー海淵",
               sub: "地球最深部 約10,920m",
               cls: "qdive-deepest",
             },
-          ].map(({ depth, label, sub, cls }, index) => (
+          ].map(({ depth, label, sub, cls, art: Art }, index) => (
             <div className={`qdive-col ${cls}`} key={label}>
               <span className="qdive-label">
                 <b>{label}</b>
@@ -978,6 +1075,7 @@ export default async function RoboticsQuestPage() {
                   ["--delay" as string]: `${index * 0.16}s`,
                 }}
               >
+                {Art ? <Art /> : null}
                 <em>-{depth.toLocaleString()}m</em>
               </span>
             </div>
@@ -985,6 +1083,10 @@ export default async function RoboticsQuestPage() {
         </div>
         <p className="qdive-note rv">
           ※ 深さは実寸比。ダイバーのバーが見えないのは、間違いではありません。それくらい、海は深い——だから水中ロボットの出番です。
+        </p>
+        <p className="quest-source rv">
+          出典:
+          JAMSTEC「うらしま8000」（2025年7月、深度8,015mに到達・国産巡航型AUVの日本記録）、ハルビン工程大学「悟空号」（2021年11月、10,896m・AUVの世界最深記録）、JAMSTEC「しんかい6500」「かいこう」公表資料。
         </p>
       </section>
 
