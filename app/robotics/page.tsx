@@ -397,25 +397,34 @@ function AuvIllustration() {
 // Deep Diveチャートのイラスト(ユーザーFB・2026-07-09: バーではなく絵で見せる)
 function QdiveDiver() {
   return (
-    <svg viewBox="0 0 48 26" aria-hidden="true">
-      <circle cx="40" cy="9" r="4.2" fill="#ffd9b8" />
+    <svg viewBox="0 0 72 34" aria-hidden="true">
+      {/* 右向きにグライドして泳ぐダイバー(フィン・マスク・気泡付き) */}
+      {/* 頭 */}
+      <circle cx="57" cy="12" r="5" fill="#ffcf9e" />
+      {/* マスク */}
+      <path d="M60.5 9.5 L63.5 10.5 L62.5 13.5 L59.5 12.8 Z" fill="#0a2e3f" />
+      {/* 前に伸ばした腕(グライド) */}
       <path
-        d="M35 10 C 28 13, 22 13, 15 12"
-        fill="none"
-        stroke="#ffb066"
-        strokeWidth="5"
-        strokeLinecap="round"
+        d="M58 15 C 63 16, 67 17.5, 71 19.5 L70 22 C 66 20, 62 18.8, 57 18 Z"
+        fill="#ffb066"
       />
-      <path d="M15 12 L7 7 L10 13 L6 18 Z" fill="#ffb066" />
+      {/* 胴体(肩→腰へ緩やかにうねる) */}
       <path
-        d="M31 12 L26 18"
-        fill="none"
-        stroke="#ffb066"
-        strokeWidth="3.5"
-        strokeLinecap="round"
+        d="M55 14.5 C 48 17, 42 18.5, 35 18.5 L34 24 C 42 23.5, 49 21, 56 18.5 Z"
+        fill="#ffb066"
       />
-      <circle cx="44" cy="4" r="1.6" fill="rgba(255,255,255,0.55)" />
-      <circle cx="46.5" cy="1.5" r="1" fill="rgba(255,255,255,0.4)" />
+      {/* 後ろの腕(体側に沿わせる) */}
+      <path d="M50 17 C 46 19.5, 43 21, 40 21.8 L41 24.5 C 45 23.5, 48 21.5, 51 19.5 Z" fill="#e8964f" />
+      {/* 上の脚(蹴り上げ)+フィン */}
+      <path d="M35 18.5 C 28 17, 22 14.5, 17 12 L15.5 15 C 21 17.5, 27 19.8, 34 21 Z" fill="#ffb066" />
+      <path d="M17 11 L5 5.5 L9.5 13.5 Z" fill="#e8964f" />
+      {/* 下の脚(蹴り下げ)+フィン */}
+      <path d="M34 21.5 C 28 23.5, 22 26, 17 28.5 L18.5 31 C 24 28.5, 30 26.5, 35 24.5 Z" fill="#e8964f" />
+      <path d="M18 29.5 L6 34 L13 26.5 Z" fill="#cf7c3a" />
+      {/* 気泡 */}
+      <circle cx="63" cy="5.5" r="1.8" fill="rgba(255,255,255,0.55)" />
+      <circle cx="66.5" cy="2.5" r="1.2" fill="rgba(255,255,255,0.4)" />
+      <circle cx="61" cy="2" r="0.9" fill="rgba(255,255,255,0.35)" />
     </svg>
   );
 }
