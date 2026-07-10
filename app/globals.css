@@ -5378,87 +5378,9 @@ a.ocean-map-list-title {
   bottom: -28px;
 }
 
-/* チャレンジャー海淵: 「海溝の断面図」。両側の岩壁の間を、深度で色が変わる水の層が最深部へ落ちる */
+/* チャレンジャー海淵: 深海グラデーションの柱(当初デザイン・ユーザーFBで断面図案から差し戻し) */
 .qdive-deepest .qdive-fill {
-  width: min(110px, 100%);
-  background: none;
-  box-shadow: none;
-  border-radius: 0;
-}
-
-/* 水の層(表層→超深海層へ段階的に暗く。棚状に狭まる漏斗型) */
-.qdive-deepest .qdive-fill::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    #7fd8d2 0%,
-    #7fd8d2 10%,
-    #35b3c4 10%,
-    #35b3c4 30%,
-    #1490a6 30%,
-    #1490a6 52%,
-    #0b6a84 52%,
-    #0b6a84 74%,
-    #06405a 74%,
-    #06405a 90%,
-    #021a2a 90%
-  );
-  clip-path: polygon(
-    6% 0,
-    94% 0,
-    76% 10%,
-    70% 10%,
-    66% 30%,
-    61% 30%,
-    57% 52%,
-    54% 52%,
-    52.5% 74%,
-    51.5% 74%,
-    50% 97%,
-    48.5% 74%,
-    47.5% 74%,
-    46% 52%,
-    43% 52%,
-    39% 30%,
-    34% 30%,
-    30% 10%,
-    24% 10%
-  );
-}
-
-/* 両側の岩壁(水のV字の外側) */
-.qdive-deepest .qdive-fill::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #2a3f49, #0c1a21);
-  clip-path: polygon(
-    0 0,
-    6% 0,
-    24% 10%,
-    30% 10%,
-    34% 30%,
-    39% 30%,
-    43% 52%,
-    46% 52%,
-    47.5% 74%,
-    48.5% 74%,
-    50% 97%,
-    51.5% 74%,
-    52.5% 74%,
-    54% 52%,
-    57% 52%,
-    61% 30%,
-    66% 30%,
-    70% 10%,
-    76% 10%,
-    94% 0,
-    100% 0,
-    100% 100%,
-    0 100%
-  );
+  background: linear-gradient(180deg, rgba(0, 108, 128, 0.9), #021018);
 }
 
 .qdive-note {
