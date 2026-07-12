@@ -396,26 +396,56 @@ function AuvIllustration() {
 
 // Deep Diveチャートのイラスト(ユーザーFB・2026-07-09: バーではなく絵で見せる)
 function QdiveDiver() {
+  // スキューバダイバー(参考イラスト準拠: ウェットスーツ+タンク+マスク+膝を曲げたフィンキック)
+  // スーツ色は深海背景に沈まないよう、背景より明るいティールスレートにする
+  const suit = "#3a6a7c";
+  const suitDark = "#2b5265";
   return (
-    <svg viewBox="0 0 48 26" aria-hidden="true">
-      <circle cx="40" cy="9" r="4.2" fill="#ffd9b8" />
+    <svg viewBox="0 0 104 60" aria-hidden="true">
+      {/* フィン(オレンジの長いブレード×2・左上方向) */}
+      <path d="M26 21 L4 7 L9 19 L25 28 Z" fill="#ff8a3d" />
+      <path d="M24 31 L2 21 L6 30 L22 38 Z" fill="#e56812" />
+      {/* 脚(腿→曲げた膝→足首) */}
       <path
-        d="M35 10 C 28 13, 22 13, 15 12"
+        d="M50 30 L37 18 L26 24"
         fill="none"
-        stroke="#ffb066"
-        strokeWidth="5"
+        stroke={suit}
+        strokeWidth="7"
         strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <path d="M15 12 L7 7 L10 13 L6 18 Z" fill="#ffb066" />
       <path
-        d="M31 12 L26 18"
+        d="M49 36 L35 26 L24 33"
         fill="none"
-        stroke="#ffb066"
-        strokeWidth="3.5"
+        stroke={suitDark}
+        strokeWidth="7"
         strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <circle cx="44" cy="4" r="1.6" fill="rgba(255,255,255,0.55)" />
-      <circle cx="46.5" cy="1.5" r="1" fill="rgba(255,255,255,0.4)" />
+      {/* タンク(背中の上に沿わせる) */}
+      <rect x="55" y="16" width="24" height="9" rx="4.5" fill="#9fb4bd" transform="rotate(6 67 20)" />
+      <rect x="78" y="18" width="4" height="5" rx="1.5" fill="#4a5e66" />
+      {/* 胴体(肩→腰) */}
+      <path
+        d="M82 26 C 72 24.5, 62 25.5, 50 28.5 L48 37 C 60 34.5, 71 33.5, 82 34.5 Z"
+        fill={suit}
+      />
+      {/* 腕(前方へ揃えて伸ばす) */}
+      <path
+        d="M80 31 C 88 33.5, 94 37, 100 42 L97.5 46 C 91 41, 85 37.5, 77 35.5 Z"
+        fill={suitDark}
+      />
+      <circle cx="100" cy="44" r="2.6" fill="#ffcf9e" />
+      {/* 頭(フード+顔+マスク+レギュレーター) */}
+      <circle cx="87" cy="27" r="6.5" fill={suit} />
+      <circle cx="90" cy="27.5" r="3.4" fill="#ffcf9e" />
+      <rect x="88.5" y="23.5" width="6.5" height="4.6" rx="1.8" fill="#ffb066" />
+      <path d="M88.5 25.5 L82 24" stroke="#ffb066" strokeWidth="1.6" />
+      <circle cx="92.5" cy="31.5" r="1.8" fill="#4a5e66" />
+      {/* 気泡 */}
+      <circle cx="95" cy="17" r="2" fill="rgba(255,255,255,0.55)" />
+      <circle cx="99" cy="12.5" r="1.4" fill="rgba(255,255,255,0.42)" />
+      <circle cx="93" cy="12" r="1" fill="rgba(255,255,255,0.35)" />
     </svg>
   );
 }

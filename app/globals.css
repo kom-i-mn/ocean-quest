@@ -5276,8 +5276,27 @@ a.ocean-map-list-title {
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
+/* エベレスト: 雪をまとった山塊(主峰+副峰の非対称シルエット)。逆さなので山頂は下 */
 .qdive-everest .qdive-fill::before {
-  background: linear-gradient(180deg, rgba(126, 148, 166, 0.85), rgba(58, 78, 94, 0.92));
+  background: linear-gradient(180deg, rgba(176, 198, 216, 0.88), rgba(232, 242, 250, 0.95));
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    86% 16%,
+    78% 13%,
+    68% 34%,
+    63% 30%,
+    58% 66%,
+    54% 100%,
+    49% 62%,
+    44% 66%,
+    39% 40%,
+    34% 38%,
+    28% 54%,
+    23% 42%,
+    16% 24%,
+    8% 12%
+  );
 }
 
 /* 逆さの山なので、山頂の雪は下端に来る */
@@ -5291,6 +5310,13 @@ a.ocean-map-list-title {
   height: 20%;
   background: linear-gradient(180deg, rgba(232, 242, 248, 0.7), rgba(255, 255, 255, 0.95));
   clip-path: polygon(40% 0, 45% 32%, 50% 10%, 55% 32%, 60% 0, 50% 100%);
+}
+
+/* エベレストは山肌が雪なので、山頂(下端)側に露出した暗い岩のピラミッドを重ねる */
+.qdive-everest .qdive-fill::after {
+  height: 46%;
+  background: linear-gradient(180deg, rgba(52, 74, 94, 0.92), rgba(30, 46, 60, 0.95));
+  clip-path: polygon(43% 0, 50% 14%, 57% 4%, 61% 26%, 56% 58%, 54% 100%, 49% 52%, 46% 28%);
 }
 
 .qdive-fuji .qdive-fill em,
@@ -5328,8 +5354,9 @@ a.ocean-map-list-title {
 }
 
 .qdive-vehicle .qdive-fill svg {
+  /* 機体の下端=線の終点(最深到達点)。海淵より深く見えないよう下へはみ出さない */
   position: absolute;
-  bottom: -16px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 92px;
@@ -5348,9 +5375,10 @@ a.ocean-map-list-title {
 }
 
 .qdive-vehicle .qdive-fill em {
-  bottom: -46px;
+  bottom: -28px;
 }
 
+/* チャレンジャー海淵: 深海グラデーションの柱(当初デザイン・ユーザーFBで断面図案から差し戻し) */
 .qdive-deepest .qdive-fill {
   background: linear-gradient(180deg, rgba(0, 108, 128, 0.9), #021018);
 }
@@ -5383,15 +5411,15 @@ a.ocean-map-list-title {
 
   .qdive-vehicle .qdive-fill svg {
     width: 46px;
-    bottom: -9px;
+    bottom: 0;
   }
 
   .qdive-vehicle .qdive-fill em {
-    bottom: -30px;
+    bottom: -22px;
   }
 
   .qdive-diver .qdive-fill svg {
-    width: 28px;
+    width: 34px;
   }
 
   .qdive-diver .qdive-fill em {
