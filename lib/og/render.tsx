@@ -103,9 +103,9 @@ export const ogPages: Record<OgPageKey, OgPageConfig> = {
   },
   robotics: {
     variant: "standard",
-    alt: "水中ロボティクスQuest | ROV・AUV・水中ドローンの転職・キャリア | Ocean Quest",
+    alt: "QUEST 01 水中ロボティクスのしごと | ROV・AUV・水中ドローンの転職・キャリア | Ocean Quest",
     photo: "images/backgrounds/deep-dive.jpg",
-    badge: "水中ロボティクス Quest",
+    badge: "QUEST 01 水中ロボティクスのしごと",
     title: ["あなたの経験は、", "水中で武器になる。"],
     chips: ["職種マップ", "スキルブリッジ", "企業・機関マップ", "適性診断"],
   },

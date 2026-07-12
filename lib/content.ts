@@ -216,7 +216,7 @@ export const diagnosisResults: Record<DiagnosisAreaKey, DiagnosisResult> = {
   robotics: {
     key: "robotics",
     title: "水中ロボティクス",
-    questName: "水中ロボティクス Quest",
+    questName: "QUEST 01 水中ロボティクスのしごと",
     questPath: "/robotics",
     summary:
       "AUV・ROV・水中ドローン、センサー、制御、耐圧・防水設計など、海の中で動く機械をつくる領域です。ロボティクスや組込み、機械・電気の経験を海洋分野に接続しやすい入口です。",
