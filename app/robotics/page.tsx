@@ -746,7 +746,7 @@ export default async function RoboticsQuestPage() {
         </p>
       </section>
 
-      <section className="section quest-sec quest-sec-alt" id="roles" aria-label="どんな仕事があるのか">
+      <section className="section quest-sec" id="roles" aria-label="どんな仕事があるのか">
         <SectionHead
           no="02"
           ghost="水中ロボティクスの仕事"

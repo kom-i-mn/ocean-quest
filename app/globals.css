@@ -5659,3 +5659,57 @@ a.ocean-map-list-title {
     animation: none;
   }
 }
+
+/* 海が透けるダークガラスパネル(02 Job Map / 03 Skill Bridge / 05 Player Map・ユーザーFB 2026-07-12)
+   白帯・白カードを外し、深度ジャーニーの「道中の海」を見せる */
+.quest-role-grid .content-card,
+.quest-player-grid .content-card,
+.quest-translate-row {
+  background: rgba(2, 26, 36, 0.55);
+  border: 1px solid rgba(143, 227, 221, 0.22);
+  box-shadow: 0 12px 32px rgba(0, 10, 16, 0.28);
+  backdrop-filter: blur(3px);
+}
+
+.quest-role-grid .content-card h3,
+.quest-player-grid .content-card h3 {
+  color: #fff;
+}
+
+.quest-role-grid .content-card p,
+.quest-player-grid .content-card p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.quest-role-grid .quest-role-skills {
+  color: #8fe3dd;
+  border-top-color: rgba(143, 227, 221, 0.35);
+}
+
+.quest-translate-row .quest-translate-from {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.quest-translate-row .quest-translate-to {
+  color: #8fe3dd;
+}
+
+.quest-translate-row .quest-translate-note {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.quest-player-grid .quest-player-links {
+  border-top-color: rgba(143, 227, 221, 0.3);
+}
+
+.quest-player-grid .quest-player-links a {
+  border-color: rgba(143, 227, 221, 0.35);
+  background: rgba(2, 32, 44, 0.6);
+  color: #8fe3dd;
+}
+
+.quest-player-grid .quest-player-links a:hover {
+  background: #12a4b4;
+  border-color: #12a4b4;
+  color: #fff;
+}
