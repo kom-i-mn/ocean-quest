@@ -3,8 +3,8 @@
 import { useEffect, useRef } from "react";
 
 // スクロール深度に連動する背景ジャーニー(/robotics・ユーザーFB 2026-07-12)。
-// 水面直下(写真) → 中深層〜深海層(だんだん暗くなる青+マリンスノー) → 海底(沈没船写真)。
-// 「道中」の写真は存在しない/特徴がないため、生成写真ではなくグラデーションで連続的に潜行させる。
+// ミネさん支給の4枚(水面直下→気泡の浅層→クラゲの中深層→発光クラゲの深海)を
+// スクロールでクロスフェードし、最後に海底(沈没船)へ到達する。
 // 右下の深度計はスクロール位置を水深(最大8,000m=うらしま8000の到達点)に換算して表示する。
 
 const MAX_DEPTH = 8000;
@@ -21,10 +21,17 @@ function clamp01(v: number) {
   return Math.min(1, Math.max(0, v));
 }
 
+// pが[a,b]を通過する間に0→1になる
+function band(p: number, a: number, b: number) {
+  return clamp01((p - a) / (b - a));
+}
+
 export function DepthJourney() {
-  const surfaceRef = useRef<HTMLDivElement>(null);
-  const midRef = useRef<HTMLDivElement>(null);
-  const seabedRef = useRef<HTMLDivElement>(null);
+  const ph1Ref = useRef<HTMLDivElement>(null); // 水面直下
+  const ph2Ref = useRef<HTMLDivElement>(null); // 気泡の浅層
+  const ph3Ref = useRef<HTMLDivElement>(null); // クラゲの中深層
+  const ph4Ref = useRef<HTMLDivElement>(null); // 発光クラゲの深海
+  const seabedRef = useRef<HTMLDivElement>(null); // 海底(沈没船)
   const snowRef = useRef<HTMLDivElement>(null);
   const meterRef = useRef<HTMLDivElement>(null);
   const depthRef = useRef<HTMLElement>(null);
@@ -38,22 +45,21 @@ export function DepthJourney() {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const p = max > 0 ? clamp01(window.scrollY / max) : 0;
 
-      // 水面直下の写真は序盤でフェードアウト
-      if (surfaceRef.current) {
-        surfaceRef.current.style.opacity = String(clamp01(1 - p / 0.18));
-      }
-      // 中層の明るい青 → 深層の暗いベースへ沈む
-      if (midRef.current) {
-        midRef.current.style.opacity = String(clamp01(1 - (p - 0.15) / 0.45));
-      }
-      // 海底(沈没船)は終盤でフェードイン
-      if (seabedRef.current) {
-        seabedRef.current.style.opacity = String(clamp01((p - 0.7) / 0.18));
-      }
-      // マリンスノーは道中だけ舞う
+      // クロスフェード窓: w1=0.12-0.22 / w2=0.38-0.48 / w3=0.62-0.72 / w4=0.86-0.94
+      const w1 = band(p, 0.12, 0.22);
+      const w2 = band(p, 0.38, 0.48);
+      const w3 = band(p, 0.62, 0.72);
+      const w4 = band(p, 0.86, 0.94);
+
+      if (ph1Ref.current) ph1Ref.current.style.opacity = String(1 - w1);
+      if (ph2Ref.current) ph2Ref.current.style.opacity = String(w1 * (1 - w2));
+      if (ph3Ref.current) ph3Ref.current.style.opacity = String(w2 * (1 - w3));
+      if (ph4Ref.current) ph4Ref.current.style.opacity = String(w3 * (1 - w4));
+      if (seabedRef.current) seabedRef.current.style.opacity = String(w4);
+      // マリンスノーは道中だけ舞う(深海写真は素で降っているので控えめに重なる)
       if (snowRef.current) {
         snowRef.current.style.opacity = String(
-          clamp01((p - 0.08) / 0.15) * clamp01((0.88 - p) / 0.1) * 0.9,
+          band(p, 0.08, 0.2) * (1 - band(p, 0.85, 0.95)) * 0.85,
         );
       }
 
@@ -99,8 +105,10 @@ export function DepthJourney() {
     <>
       <div className="depth-journey" aria-hidden="true">
         <div className="dj-layer dj-deep" />
-        <div className="dj-layer dj-mid" ref={midRef} />
-        <div className="dj-layer dj-surface" ref={surfaceRef} />
+        <div className="dj-layer dj-ph4" ref={ph4Ref} />
+        <div className="dj-layer dj-ph3" ref={ph3Ref} />
+        <div className="dj-layer dj-ph2" ref={ph2Ref} />
+        <div className="dj-layer dj-ph1" ref={ph1Ref} />
         <div className="dj-layer dj-snow" ref={snowRef} />
         <div className="dj-layer dj-seabed" ref={seabedRef} />
       </div>

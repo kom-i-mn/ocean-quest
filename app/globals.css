@@ -5557,18 +5557,38 @@ a.ocean-map-list-title {
   background: linear-gradient(180deg, #052638, #020b12);
 }
 
-/* 中深層の青 */
-.dj-mid {
-  background: linear-gradient(180deg, #0e4c6d, #06344e);
-}
-
-/* 水面直下(エントリー)。白文字の可読性のため他サブページ同様の暗色グラデーションを焼き込む */
-.dj-surface {
+/* 道中の4枚(ミネさん支給・2026-07-12)。白文字の可読性のため各層に暗色グラデーションを焼き込む
+   (明るい層ほど濃く、深い層ほど薄く) */
+.dj-ph1 {
   background-image:
-    linear-gradient(180deg, rgba(0, 43, 52, 0.62), rgba(0, 52, 63, 0.5)),
-    url("/images/backgrounds/bubbles.jpg");
+    linear-gradient(180deg, rgba(0, 43, 52, 0.6), rgba(0, 52, 63, 0.5)),
+    url("/images/backgrounds/journey-surface.jpg");
   background-size: cover, cover;
   background-position: center top, center top;
+}
+
+.dj-ph2 {
+  background-image:
+    linear-gradient(180deg, rgba(0, 38, 48, 0.5), rgba(0, 44, 56, 0.45)),
+    url("/images/backgrounds/journey-bubbles.jpg");
+  background-size: cover, cover;
+  background-position: center, center;
+}
+
+.dj-ph3 {
+  background-image:
+    linear-gradient(180deg, rgba(0, 26, 36, 0.35), rgba(0, 24, 34, 0.35)),
+    url("/images/backgrounds/journey-jelly.jpg");
+  background-size: cover, cover;
+  background-position: center, center;
+}
+
+.dj-ph4 {
+  background-image:
+    linear-gradient(180deg, rgba(0, 14, 22, 0.25), rgba(0, 12, 20, 0.25)),
+    url("/images/backgrounds/journey-deepsea.jpg");
+  background-size: cover, cover;
+  background-position: center, center;
 }
 
 /* 海底(到達点)= 沈没船 */
