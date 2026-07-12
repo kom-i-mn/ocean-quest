@@ -9,6 +9,7 @@ import {
   FlaskConical,
   GraduationCap,
 } from "lucide-react";
+import { DepthJourney } from "@/components/DepthJourney";
 import { QuestFx } from "@/components/QuestFx";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -532,7 +533,8 @@ export default async function RoboticsQuestPage() {
   const notes = await listNoteContents(3).catch(() => []);
 
   return (
-    <main className="subpage-shell subpage-bg-deep-wreck quest-page">
+    <main className="subpage-shell quest-page">
+      <DepthJourney />
       <SiteHeader solid />
       <QuestFx />
 
@@ -744,7 +746,7 @@ export default async function RoboticsQuestPage() {
         </p>
       </section>
 
-      <section className="section quest-sec quest-sec-alt" id="roles" aria-label="どんな仕事があるのか">
+      <section className="section quest-sec" id="roles" aria-label="どんな仕事があるのか">
         <SectionHead
           no="02"
           ghost="水中ロボティクスの仕事"
