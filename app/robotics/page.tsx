@@ -19,7 +19,7 @@ import { listNoteContents } from "@/lib/supabase";
 export const revalidate = 300;
 
 export const metadata: Metadata = pageMetadata({
-  title: "水中ロボティクスQuest | ROV・AUV・水中ドローンの転職・キャリア | Ocean Quest",
+  title: "QUEST 01 水中ロボティクスのしごと | ROV・AUV・水中ドローンの転職・キャリア | Ocean Quest",
   description:
     "水中ロボティクス（ROV・AUV・水中ドローン）専門のキャリアサイト。洋上風力・海底ケーブル・防衛で拡大する市場背景、職種マップ、自動車・ドローン・組込みなど異業種経験の活かし方、企業・研究機関マップまで。無料キャリア診断・相談つき。",
   path: "/robotics",
@@ -538,7 +538,7 @@ export default async function RoboticsQuestPage() {
       <SiteHeader solid />
       <QuestFx />
 
-      <section className="quest-hero-v2" aria-label="水中ロボティクスQuest">
+      <section className="quest-hero-v2" aria-label="QUEST 01 水中ロボティクスのしごと">
         <div className="qhv-scene" aria-hidden="true">
           <div className="qhv-rays" />
           <div className="qhv-particles" />
@@ -622,7 +622,7 @@ export default async function RoboticsQuestPage() {
               <i>0m</i>
             </span>
             <span className="qhv-depth-mark qhv-depth-diver" style={{ ["--d" as string]: "24%" }}>
-              <i>-20m</i>
+              <i>-40m</i>
               <em>ダイバーの限界</em>
             </span>
             <span className="qhv-depth-mark" style={{ ["--d" as string]: "56%" }}>
@@ -636,15 +636,18 @@ export default async function RoboticsQuestPage() {
         </div>
 
         <div className="qhv-content">
-          <p className="qhv-kicker">Ocean Quest Family</p>
-          <p className="quest-badge">水中ロボティクス Quest</p>
+          <div className="quest-plate">
+            <span className="quest-plate-family">Ocean Quest Family</span>
+            <span className="quest-plate-no">QUEST 01</span>
+            <span className="quest-plate-name">水中ロボティクスのしごと</span>
+          </div>
           <h1>
-            人が潜れるのは、20m。
+            人が潜れるのは、40m。
             <br />
             日本の水中ロボットは、8,000m。
           </h1>
           <p className="qhv-lead">
-            その差、400倍。人が安全に作業できるのは、せいぜい水深20m・1回1時間。その先の海で働けるのは、ROV・AUV・水中ドローンだけです。海でいちばん深いチャレンジャー海淵は約10,920m——残りの約3,000mは、これからこの仕事に就く人の伸び代です。つくる人、動かす人、事業にする人のためのキャリアサイトです。
+            その差、200倍。人が安全に作業できるのは、せいぜい水深40m・1回1時間。その先の海で働けるのは、ROV・AUV・水中ドローンだけです。海でいちばん深いチャレンジャー海淵は約10,920m——残りの約3,000mは、これからこの仕事に就く人の伸び代です。つくる人、動かす人、事業にする人のためのキャリアサイトです。
           </p>
           <div className="hero-actions qhv-actions">
             <a className="primary-button" href="/diagnosis">
@@ -794,21 +797,19 @@ export default async function RoboticsQuestPage() {
           }
           lead="水中ロボティクスは「海の経験者」より「隣接分野の経験者」でできている領域です。いまの仕事の経験がどこで武器になるのか、8つの入り口を用意しました。"
         />
-        <div className="quest-translate-list">
+        <div className="quest-bridge-grid">
           {translations.map(({ from, to, note }, index) => (
             <article
-              className="quest-translate-row rv"
-              style={{ transitionDelay: `${(index % 4) * 0.06}s` }}
+              className="quest-bridge-card rv"
+              style={{ transitionDelay: `${(index % 2) * 0.08}s` }}
               key={from}
             >
-              <div className="quest-translate-pair">
-                <span className="quest-translate-from">{from}</span>
-                <span className="quest-translate-arrow" aria-hidden="true">
-                  <ArrowRight size={18} />
-                </span>
-                <span className="quest-translate-to">{to}</span>
-              </div>
-              <p className="quest-translate-note">{note}</p>
+              <span className="qb-tag">いまの仕事</span>
+              <p className="qb-from">{from}</p>
+              <span className="qb-dive" aria-hidden="true" />
+              <span className="qb-tag qb-tag-sea">海でのしごと</span>
+              <p className="qb-to">{to}</p>
+              <p className="qb-note">{note}</p>
             </article>
           ))}
         </div>
@@ -1059,7 +1060,7 @@ export default async function RoboticsQuestPage() {
         <div className="qdive-chart rv" role="img" aria-label="潜航深度の比較チャート">
           {[
             {
-              depth: 20,
+              depth: 40,
               label: "ダイバー",
               sub: "（日常的な作業潜水）",
               cls: "qdive-diver",
@@ -1165,7 +1166,7 @@ export default async function RoboticsQuestPage() {
             {
               "@context": "https://schema.org",
               "@type": "WebPage",
-              name: "水中ロボティクスQuest | ROV・AUV・水中ドローンの転職・キャリア",
+              name: "QUEST 01 水中ロボティクスのしごと | ROV・AUV・水中ドローンの転職・キャリア",
               url: "https://ocean-quest.jp/robotics",
               inLanguage: "ja",
               isPartOf: { "@id": "https://ocean-quest.jp/#website" },
