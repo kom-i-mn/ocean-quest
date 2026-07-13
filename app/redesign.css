@@ -263,6 +263,13 @@
   font-size: 13px; letter-spacing: 0.3em; color: var(--rd-orange);
 }
 .rd-tlist-row p { font-size: 13.5px; color: var(--rd-ink-soft); line-height: 2.2; font-weight: 400; margin: 0; }
+/* 3分類の図解(旧トップから復帰・ユーザーFB 2026-07-13) */
+.rd-types-map { margin: 9vh auto 0; max-width: 1000px; }
+.rd-types-map img {
+  width: 100%; height: auto; display: block;
+  border: 1px solid rgba(20, 24, 28, 0.12);
+}
+
 .rd-src { margin-top: 8vh; font-size: 11px; color: var(--rd-ink-faint); letter-spacing: 0.06em; line-height: 2; font-weight: 400; }
 .rd-src a { border-bottom: 1px solid currentColor; }
 

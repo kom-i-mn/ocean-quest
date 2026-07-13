@@ -335,6 +335,14 @@ export default function Home() {
             </div>
           ))}
         </div>
+        <figure className="rd-types-map rd-rv">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/ocean-industry-map.jpg"
+            alt="海洋産業を海洋空間活動型、素材・サービス等供給型、海洋資源活用型の3分類で整理した図"
+            loading="lazy"
+          />
+        </figure>
         <p className="rd-src rd-rv">出典: 内閣府「海洋産業の活動状況に関する調査」／第4期海洋基本計画</p>
       </section>
 
