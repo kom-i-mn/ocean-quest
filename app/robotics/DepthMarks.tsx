@@ -16,7 +16,6 @@ const MARKS: Array<{ depth: number; note: string; side?: "r" }> = [
   { depth: 8000, note: "うらしま8000（AUV・日本）" },
   { depth: 8849, note: "エベレストの高さ" },
   { depth: 10896, note: "悟空号（AUV・中国）" },
-  { depth: 10909, note: "奮闘者号（有人・中国）", side: "r" },
   { depth: 10920, note: "チャレンジャー海淵・海底" },
 ];
 
