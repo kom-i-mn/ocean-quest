@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { ArrowRight } from "lucide-react";
 import { OceanMap } from "@/components/OceanMap";
-import { ProfileCta } from "@/components/ProfileCta";
+import { RdFx } from "@/components/RdFx";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { pageMetadata } from "@/lib/seo";
@@ -30,28 +29,62 @@ const highlights = [
 
 export default function MapPage() {
   return (
-    <main className="subpage-shell subpage-bg-bubbles">
+    <main className="rd">
       <SiteHeader solid />
-      <section className="subpage-hero">
-        <p className="section-kicker">Ocean Map (β)</p>
-        <h1>海の地図から、海洋産業の入口を探す。</h1>
-        <p>
-          海上保安庁の海洋情報サービス「海しる」の公開データと連携し、海流・水族館・港湾・灯台・海底ケーブルなどを地図上で探索できます。気になる場所を見つけたら、そのまま診断や動画で海洋産業の仕事を知ることができます。
-        </p>
-        <div className="hero-actions subpage-actions">
-          <a className="primary-button" href="#ocean-map">
-            地図を見る
-            <ArrowRight size={18} />
-          </a>
-          <a className="secondary-button light" href="/diagnosis">
-            キャリア診断をする
-          </a>
+      <RdFx />
+
+      <section className="rd-sub-hero">
+        <div className="rd-sub-hero-bg" style={{ backgroundImage: "url('/images/backgrounds/ocean-foam.jpg')" }} />
+        <div className="rd-sub-hero-inner">
+          <p className="rd-kicker-w rd-rv">OCEAN MAP（β）</p>
+          <h1 className="rd-rv rd-rv-slow">
+            海の地図から、
+            <br />
+            海洋産業の入口を探す。
+          </h1>
+          <p className="rd-lead-w rd-rv rd-rv-slow">
+            海上保安庁の海洋情報サービス「海しる」の公開データと連携。海流・水族館・港湾・灯台・海底ケーブルを地図上で探索できます。気になる場所を見つけたら、そのまま診断や動画へ。
+          </p>
         </div>
       </section>
 
-      <section className="section" id="ocean-map" aria-label="海の地図">
-        <OceanMap />
-        <p className="map-attribution">
+      <section className="rd-sec" aria-label="日本の海の現場の数">
+        <div className="rd-rv">
+          <p className="rd-kicker">NUMBERS</p>
+          <h2 className="rd-title">
+            日本の海の「現場」は、<em>この数だけ</em>ある。
+          </h2>
+        </div>
+        <div className="rd-stat-row">
+          <div className="rd-stat rd-rv">
+            <p className="rd-v">
+              1,200<small>超</small>
+            </p>
+            <p className="rd-l">全国の港湾</p>
+            <p className="rd-n">海洋産業の仕事が毎日動いている現場。あなたの街の港も、そのひとつです。</p>
+          </div>
+          <div className="rd-stat rd-rv">
+            <p className="rd-v">
+              3,000<small>超</small>
+            </p>
+            <p className="rd-l">全国の灯台</p>
+            <p className="rd-n">海の安全を支えるインフラ。位置を地図で体感できます。</p>
+          </div>
+          <div className="rd-stat rd-rv">
+            <p className="rd-v">
+              99<small>%</small>
+            </p>
+            <p className="rd-l">海底ケーブルが運ぶ国際通信</p>
+            <p className="rd-n">ネットも金融も、海の底が支えています。敷設ルートを地図で見られます。</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="rd-sec rd-sec-tight" id="ocean-map" aria-label="海の地図">
+        <div className="rd-tool-wrap rd-rv" style={{ marginTop: 0 }}>
+          <OceanMap />
+        </div>
+        <p className="rd-src">
           本ページでは海上保安庁「
           <a href="https://www.msil.go.jp/" target="_blank" rel="noopener noreferrer">
             海しる（海洋状況表示システム）
@@ -60,18 +93,43 @@ export default function MapPage() {
         </p>
       </section>
 
-      <section className="section" aria-label="この地図でできること">
-        <div className="ocean-map-highlights">
-          {highlights.map((item) => (
-            <div className="ocean-map-highlight" key={item.title}>
-              <h2>{item.title}</h2>
-              <p>{item.body}</p>
+      <section className="rd-sec rd-sec-tight" aria-label="この地図でできること">
+        <div className="rd-rv">
+          <p className="rd-kicker">HOW TO USE</p>
+          <h2 className="rd-title">
+            この地図で、<em>できること</em>。
+          </h2>
+        </div>
+        <div className="rd-tlist">
+          {highlights.map(({ title, body }) => (
+            <div className="rd-tlist-row rd-rv" key={title}>
+              <h3>{title}</h3>
+              <p>{body}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <ProfileCta primaryLabel="無料でキャリア相談する" />
+      <section className="rd-final rd-sub-final">
+        <div className="rd-final-bg" style={{ backgroundImage: "url('/images/backgrounds/shoreline.jpg')" }} />
+        <div className="rd-final-inner">
+          <h2 className="rd-rv rd-rv-slow">
+            地図で見つけた興味を、
+            <br />
+            キャリアにつなげる。
+          </h2>
+          <p className="rd-final-sub rd-rv rd-rv-slow">気になる場所が見つかったら、診断でその領域との相性を確かめられます。</p>
+          <div className="rd-final-ctas rd-rv">
+            <a className="rd-btn rd-btn-primary" href="/diagnosis">
+              キャリア診断をする
+            </a>
+            <a className="rd-btn rd-btn-ghost" href="/contact">
+              無料でキャリア相談する
+            </a>
+          </div>
+        </div>
+      </section>
+
       <SiteFooter />
     </main>
   );

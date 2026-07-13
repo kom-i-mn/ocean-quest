@@ -139,7 +139,24 @@
 - [ ] sitemap / llms.txt / publishedQuestAreas の追記漏れなし
 - [ ] PRは自分でマージしない（ユーザー承認後にマージ→本番反映をcurlで確認）
 
+## 11. エディトリアル・リデザイン（トップ+下層6ページ・2026-07-13）
+
+ミネさんFB「サイトがAIっぽくなってきた。情報量は保ちつつデザインで解決したい」（doda パリーグお仕事図鑑・will style・SORATO比較）起点。`app/redesign.css`（rd-名前空間）+ `components/RdFx.tsx` で実装。対象=トップ・videos・notes・ebooks・events・map・diagnosis。**/roboticsは従来デザインのまま**（次フェーズ）。
+
+- **色は白・墨（#14181c）＋オレンジ1色**。青系の面は使わない。オレンジはタグ・マーカー下線・矢印・主ボタンのみ
+- **フォントは游明朝で統一**（ユーザーFB・2026-07-13）: 見出し=游明朝 Medium（font-weight 500〜600）/ 本文=游明朝 Regular（400）。Webフォントは読み込まない（Zen Old Mincho/Zen Kaku Gothic Newは太く感じるため不採用）
+- **ジャンプ率を極端に**: 見出しはclamp上限90px級、本文は12.5〜13px
+- **カードを廃止し、罫線とタイポグラフィのリスト**（.rd-tlist / .rd-fy-row / .rd-media-row）で情報を並べる。情報量は削らず密度に緩急を付ける
+- **セクションごとに景色を変える**: 余白だけ（.rd-breath）→ 数字リード非対称（.rd-story-row）→ 写真フルブリード（.rd-bleed）→ 白のリスト → 墨の帯（.rd-quest / .rd-dark-band）
+- **コピーは10〜30字の主張**＋小さな補足。トップヒーローは温存していた「国土は、世界61位。海は、世界6位。」を使用（§5の温存ルールを消化）
+- **機能コンポーネントは移植せず内包する**: OceanMap・DiagnosisForm・EbookCard・Supabase一覧は既存のまま .rd-tool-wrap / .rd-media-list に入れる
+- 出現アニメは .rd-rv（IntersectionObserver・RdFx）。prefers-reduced-motionで停止
+- トップの必須要素: FOR YOU索引 → ABOUT/FOUNDER（誰の何のため+なぜ生まれたか）→ QUEST看板（COMING SOON含む）→ 3分類 → CONTENTS 6セル（海の地図・診断を含める）→ 企業向け → FAQ+検索キーワード（静かに）→ 締めCTA。FAQPage JSON-LDは維持
+
 ## 変更履歴
+
+- 2026-07-13 フォントを游明朝に統一（見出しMedium/本文Regular）・/companiesをリデザイン対象に追加。
+- 2026-07-13 エディトリアル・リデザイン導入（トップ+下層6ページ。§11参照。静的デモ `新規事業調査/oq-redesign-demo/` を原案としてNext.jsに実装）。
 
 - 2026-07-12 領域名を「QUEST 01 水中ロボティクスのしごと」に改称・ヒーローに領域プレート導入・Skill Bridgeを縦ブリッジカード化・ダイバー限界を40mに統一。
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { FloatingCta } from "@/components/FloatingCta";
 import "./globals.css";
+import "./redesign.css";
 
 const siteTitle = "Ocean Quest | 海洋産業専門の採用・転職・キャリア支援サービス";
 const siteDescription =
