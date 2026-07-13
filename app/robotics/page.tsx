@@ -1,20 +1,13 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Bot,
-  Building2,
-  FileText,
-  FlaskConical,
-  GraduationCap,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight, FileText } from "lucide-react";
 import { DepthJourney } from "@/components/DepthJourney";
+import { DepthMarks } from "./DepthMarks";
 import { QuestFx } from "@/components/QuestFx";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { pageMetadata } from "@/lib/seo";
 import { listNoteContents } from "@/lib/supabase";
+import "./quest-rd.css";
 
 export const revalidate = 300;
 
@@ -65,44 +58,54 @@ const whyNowStats = [
   },
 ];
 
-// なぜ今なのかを「数字リード」で語るカード(ユーザーFB・2026-07-09)。
-// tagで「日本の必然 → いま起きている変化 → 産業化後の世界」の物語順にする
+// なぜ今なのかを「数字リード」で語る(ユーザーFB・2026-07-09)。
+// v2(ユーザーFB・2026-07-13): 機械設計・電気電子・組込みのエンジニアが
+// 「できないと思われているものを作る」ことにワクワクする、を軸に書き直し。
+// 並び順・内容はミネさんFB(2026-07-13)起点:
+// 「世界初」を先頭に、「まだ、誰もできていない」のエンジニア視点を前半へ。
+// 親サイト(トップ)に載っている話(12倍/EEZ)と、AUV固有でない話(洋上風力の需要)は載せない
 const whyNowReasons = [
   {
-    tag: "日本の必然",
-    value: "12倍",
-    title: "国土の12倍の「現場」が、海の中にある。",
-    body: "日本の領海と排他的経済水域は約447万km²で世界第6位（国土面積は世界61位）。この広大な海の調査・開発・維持管理が日本の生命線ですが、そのほとんどは人が潜れない深さにあります。",
+    tag: "まだ、誰もできていない",
+    value: "世界初",
+    title: "「できない」と思われていたことが、仕事になる。",
+    body: "内閣府事業で、AUVによる浮体式洋上風力発電施設（水中部）の全自動周回点検に世界で初めて成功。それでも、この海には「まだ誰もやっていないこと」の方が多く残っています。国家戦略が掲げる柱は「人材育成」——足りないのは技術より、次の世界初を作る人です。",
   },
   {
-    tag: "日本の必然",
+    tag: "まだ、誰もできていない",
+    value: "1,100気圧",
+    title: "指先1cm²に、約1トン。その水圧に勝つ設計。",
+    body: "地球最深部・チャレンジャー海淵の水圧は約1,100気圧＝1cm²あたり約1.1トン。小指の先で軽自動車を支える計算です。耐圧殻、シール、材料、浮力——「壊れなくて当たり前」を桁違いの環境で作り切るのは、機械設計の醍醐味です。",
+  },
+  {
+    tag: "まだ、誰もできていない",
+    value: "あと2,900m",
+    title: "日本のAUVは8,000m。最深部まで、あと約2,900m。",
+    body: "AUVの世界最深記録は中国「悟空号」の10,896m。日本の「うらしま8000」は8,000m級。そして約10,920mの世界最深部に自律型で到達した機体は、世界にまだ1台もありません。「世界初」の席は、まだ空いています。",
+  },
+  {
+    tag: "まだ、誰もできていない",
+    value: "71%",
+    title: "海底の約7割は、まだ詳しい地形図すらない。",
+    body: "日本財団とGEBCOの「Seabed 2030」が2030年の完全地図化を目指していますが、マッピング済みは約29%（2026年時点）。月の表側より分かっていない場所が、この星にまだ広がっています。そこを測りに行けるのは、水中ロボットだけです。",
+  },
+  {
+    tag: "水中ロボットにしかできない",
+    value: "ゼロ",
+    title: "GPSなし。無線なし。再起動も、なし。",
+    body: "海中には電波が届きません。位置は音響と慣性で自ら推定し、通信はわずかな音のリンクだけ。潜ったら誰も助けに行けない——「止まってはいけないシステム」を極限環境で成立させる、制御・組込み・電源設計の総力戦です。",
+  },
+  {
+    tag: "水中ロボットにしかできない",
     value: "99%",
     title: "国際通信の99%は、海底ケーブルが運んでいる。",
     body: "ネットも金融も動画も、海の底に敷かれた光ケーブルが支えています。その敷設・点検・修理はすべて人が潜れない深さの仕事。この生命線を守れるのは、水中ロボットだけです。",
-  },
-  {
-    tag: "いま起きている変化",
-    value: "30〜45GW",
-    title: "洋上風力が、「潜れない現場」を量産する。",
-    body: "政府目標は2030年10GW・2040年30〜45GW。特に浮体式の現場は水深200m級で、風車の水中部・係留チェーン・海底ケーブルの点検需要が構造的に増え続けます。",
-  },
-  {
-    tag: "いま起きている変化",
-    value: "ゼロ",
-    title: "海中では、GPSも無線も使えない。",
-    body: "電波が届かない海中では遠隔操作にも限界があり、ケーブルなしで自ら判断して動くAUVが唯一解。「あれば便利」ではなく「ないと成り立たない」技術だから、国が本気で投資しています。",
   },
   {
     tag: "産業化後の世界",
     value: "29人",
     title: "点検船の29人が、制御室の数人になる。",
     body: "政府試算では、風車5基の日常点検に有人船3隻・現場29人が必要だった体制が、AUVでほぼ無人に（現場作業696h・人/日→3h・人/日）。人は海に出る側から、水中ロボットを設計し運用する側へ回ります。",
-  },
-  {
-    tag: "産業化後の世界",
-    value: "世界初",
-    title: "その未来を、日本のAUVがもう実証した。",
-    body: "内閣府事業で、AUVによる浮体式洋上風力発電施設（水中部）の全自動周回点検に世界で初めて成功。国家戦略は「人材育成」を柱の1つに掲げています。足りないのは技術より、担う人です。",
   },
 ];
 
@@ -229,7 +232,6 @@ const translations = [
 
 const players = [
   {
-    icon: Building2,
     category: "大手メーカー・重工",
     body: "潜水艦・深海探査機で培った技術を持つ重工各社と、ソナー・音響機器のメーカーが、AUV・水中音響の中核を担っています。",
     orgs: [
@@ -242,7 +244,6 @@ const players = [
     ],
   },
   {
-    icon: Bot,
     category: "スタートアップ",
     body: "産業用水中ドローンのFullDepthをはじめ、点検・調査サービスや機体開発のスタートアップが登場。海外では専業メーカーが大きな市場を築いており、日本はこれからが本番です。",
     orgs: [
@@ -252,7 +253,6 @@ const players = [
     ],
   },
   {
-    icon: FlaskConical,
     category: "研究機関",
     body: "JAMSTECは「うらしま」など自律型探査機の開発・運用で世界的な実績を持ちます。船舶・港湾・要素技術の研究拠点も揃っています。",
     orgs: [
@@ -263,7 +263,6 @@ const players = [
     ],
   },
   {
-    icon: GraduationCap,
     category: "大学・官公庁",
     body: "水中ロボットの研究・人材輩出拠点となる大学と、需要側として市場を牽引する官公庁です。",
     orgs: [
@@ -295,15 +294,6 @@ const faqItems = [
       "関われます。ROVオペレーターやフィールド実証、プロジェクトマネジメント、事業開発、官公庁向けの渉外など、開発以外の職種も採用が増えています。まずは無料のキャリア診断で、自分の経験がどの職種につながるかを確認するのがおすすめです。",
   },
 ];
-
-// ゴーストが長文でも画面からはみ出さないよう、文字数に応じた上限を font-size にかける。
-// 幅 ≈ 文字数 × font-size × 1.06(letter-spacing分)。見出しの左オフセット分として100pxを差し引く。
-// ただし40px未満には縮めない(小さすぎると透かしの意味がない)。その場合は右端で
-// 自然に切れる(.quest-page の overflow-x: clip が横スクロールを防ぐ)
-function ghostFontSize(ghost: string) {
-  const perChar = (ghost.length * 1.06).toFixed(2);
-  return `min(clamp(40px, 7.5vw, 84px), max(40px, calc((100vw - 100px) / ${perChar})))`;
-}
 
 // 「そもそもROV・AUVとは？」の説明イラスト(ユーザーFB・2026-07-09)。
 // ROV = 船とケーブルでつながり人が操縦 / AUV = ケーブルなしで自律航行、を絵で対比する
@@ -497,193 +487,95 @@ function QdiveWukong() {
   );
 }
 
-function SectionHead({
-  no,
-  ghost,
-  kicker,
-  title,
-  lead,
-}: {
-  no: string;
-  ghost: string;
-  kicker: string;
-  title: ReactNode;
-  lead?: ReactNode;
-}) {
-  return (
-    <div className="quest-sec-head rv">
-      <div
-        className="quest-ghost"
-        style={{ fontSize: ghostFontSize(ghost) }}
-        aria-hidden="true"
-      >
-        {ghost}
-      </div>
-      <p className="quest-kicker">
-        <span className="qno">{no}</span>
-        {kicker}
-      </p>
-      <h2>{title}</h2>
-      {lead ? <p className="quest-lead">{lead}</p> : null}
-    </div>
-  );
-}
-
 export default async function RoboticsQuestPage() {
   const notes = await listNoteContents(3).catch(() => []);
 
   return (
-    <main className="subpage-shell quest-page">
+    <main className="subpage-shell quest-page qrd">
       <DepthJourney />
+      <DepthMarks />
       <SiteHeader solid />
       <QuestFx />
 
-      <section className="quest-hero-v2" aria-label="QUEST 01 水中ロボティクスのしごと">
-        <div className="qhv-scene" aria-hidden="true">
-          <div className="qhv-rays" />
-          <div className="qhv-particles" />
-          <svg className="qhv-svg" viewBox="0 0 1440 810" preserveAspectRatio="xMidYMax slice">
-            <defs>
-              <linearGradient id="qhvHull" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#ffa15c" />
-                <stop offset="0.55" stopColor="#e56812" />
-                <stop offset="1" stopColor="#b34e0c" />
-              </linearGradient>
-              <linearGradient id="qhvBeam" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stopColor="rgba(255, 236, 190, 0.5)" />
-                <stop offset="1" stopColor="rgba(255, 236, 190, 0)" />
-              </linearGradient>
-              <linearGradient id="qhvScan" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="rgba(143, 227, 221, 0.45)" />
-                <stop offset="1" stopColor="rgba(143, 227, 221, 0)" />
-              </linearGradient>
-            </defs>
-
-            {/* AUVの巡航ルート */}
-            <path
-              className="qhv-route"
-              d="M-40 400 C 300 375, 620 435, 940 405 C 1160 385, 1320 410, 1480 395"
-              fill="none"
-              stroke="rgba(143, 227, 221, 0.3)"
-              strokeWidth="2"
-              strokeDasharray="1 16"
-              strokeLinecap="round"
-            />
-
-            {/* 海底と海底ケーブル */}
-            <path
-              d="M0 690 C 200 668, 380 712, 560 696 C 760 678, 900 724, 1090 704 C 1240 690, 1340 708, 1440 698 L1440 810 L0 810 Z"
-              fill="#04141f"
-            />
-            <path
-              className="qhv-cable"
-              d="M-20 710 C 240 692, 480 726, 720 708 C 960 690, 1200 722, 1460 704"
-              fill="none"
-              stroke="#12a4b4"
-              strokeWidth="3"
-              strokeDasharray="3 12"
-              strokeLinecap="round"
-              opacity="0.75"
-            />
-            <path
-              d="M0 748 C 260 730, 520 764, 780 748 C 1040 732, 1240 762, 1440 750 L1440 810 L0 810 Z"
-              fill="#020d15"
-            />
-
-            {/* AUV本体 */}
-            <g className="qhv-auv" transform="translate(880, 320)">
-              <path className="qhv-scan" d="M150 76 L40 400 L300 400 Z" fill="url(#qhvScan)" />
-              <path d="M300 26 L560 120 L470 216 L300 66 Z" fill="url(#qhvBeam)" opacity="0.55" />
-              <g className="qhv-ping-group">
-                <circle className="qhv-ping" cx="126" cy="-24" r="16" fill="none" stroke="rgba(143,227,221,0.8)" strokeWidth="2" />
-                <circle className="qhv-ping qhv-ping-2" cx="126" cy="-24" r="16" fill="none" stroke="rgba(143,227,221,0.8)" strokeWidth="2" />
-                <circle className="qhv-ping qhv-ping-3" cx="126" cy="-24" r="16" fill="none" stroke="rgba(143,227,221,0.8)" strokeWidth="2" />
-              </g>
-              <rect x="118" y="-20" width="10" height="36" rx="5" fill="#0a2e3f" />
-              <circle className="qhv-beacon" cx="123" cy="-24" r="5" fill="#8fe3dd" />
-              <path d="M70 8 L30 -16 L52 12 Z" fill="#0a2e3f" />
-              <path d="M70 76 L30 100 L52 72 Z" fill="#0a2e3f" />
-              <rect x="46" y="10" width="256" height="64" rx="32" fill="url(#qhvHull)" />
-              <ellipse cx="174" cy="66" rx="110" ry="9" fill="rgba(0, 0, 0, 0.22)" />
-              <rect x="258" y="18" width="26" height="48" rx="13" fill="#06222e" />
-              <circle className="qhv-sensor" cx="271" cy="42" r="6" fill="#9ff5ee" />
-              <circle cx="40" cy="42" r="27" fill="none" stroke="#0a2e3f" strokeWidth="9" />
-              <g className="qhv-prop">
-                <rect x="36" y="20" width="8" height="44" rx="4" fill="#8fe3dd" />
-                <rect x="18" y="38" width="44" height="8" rx="4" fill="#8fe3dd" />
-              </g>
-              <circle className="qhv-bubble" cx="4" cy="36" r="4" fill="rgba(255,255,255,0.4)" />
-              <circle className="qhv-bubble qhv-bubble-2" cx="-6" cy="48" r="3" fill="rgba(255,255,255,0.35)" />
-              <circle className="qhv-bubble qhv-bubble-3" cx="-14" cy="40" r="2.5" fill="rgba(255,255,255,0.3)" />
-            </g>
-          </svg>
-          <div className="qhv-depth">
-            <span className="qhv-depth-mark" style={{ ["--d" as string]: "6%" }}>
-              <i>0m</i>
-            </span>
-            <span className="qhv-depth-mark qhv-depth-diver" style={{ ["--d" as string]: "24%" }}>
-              <i>-40m</i>
-              <em>ダイバーの限界</em>
-            </span>
-            <span className="qhv-depth-mark" style={{ ["--d" as string]: "56%" }}>
-              <i>-100m</i>
-            </span>
-            <span className="qhv-depth-mark qhv-depth-auv" style={{ ["--d" as string]: "88%" }}>
-              <i>-200m</i>
-              <em>AUVの現場</em>
-            </span>
-          </div>
+      {/* HERO: 装飾は深度背景(DepthJourney)に任せ、コピーと深度スケールで語る */}
+      <section className="qrd-hero" aria-label="QUEST 01 水中ロボティクスのしごと">
+        <div className="qrd-depth" aria-hidden="true">
+          <span style={{ ["--d" as string]: "6%" }}>
+            <i>0m</i>
+          </span>
+          <span style={{ ["--d" as string]: "24%" }}>
+            <i>-40m</i>
+            <em>ダイバーの限界</em>
+          </span>
+          <span style={{ ["--d" as string]: "56%" }}>
+            <i>-100m</i>
+          </span>
+          <span style={{ ["--d" as string]: "88%" }}>
+            <i>-200m</i>
+            <em>AUVの現場</em>
+          </span>
         </div>
-
-        <div className="qhv-content">
-          <div className="quest-plate">
-            <span className="quest-plate-family">Ocean Quest Family</span>
-            <span className="quest-plate-no">QUEST 01</span>
-            <span className="quest-plate-name">水中ロボティクスのしごと</span>
-          </div>
-          <h1>
-            人が潜れるのは、40m。
-            <br />
-            日本の水中ロボットは、8,000m。
-          </h1>
-          <p className="qhv-lead">
-            その差、200倍。人が安全に作業できるのは、せいぜい水深40m・1回1時間。その先の海で働けるのは、ROV・AUV・水中ドローンだけです。海でいちばん深いチャレンジャー海淵は約10,920m——残りの約3,000mは、これからこの仕事に就く人の伸び代です。つくる人、動かす人、事業にする人のためのキャリアサイトです。
+        <div className="qrd-hero-inner">
+          <p className="qrd-plate rv">
+            <span>Ocean Quest Family</span>
+            <span className="qrd-plate-no">QUEST 01</span>
+            <span>水中ロボティクスのしごと</span>
           </p>
-          <div className="hero-actions qhv-actions">
-            <a className="primary-button" href="/diagnosis">
+          <h1 className="rv">
+            人が潜れるのは、<span className="qrd-num">40</span>m。
+            <br />
+            日本の水中ロボットは、
+            <em>
+              <span className="qrd-num">8,000</span>m
+            </em>
+            。
+          </h1>
+          <p className="qrd-hero-lead rv">
+            人が安全に作業できるのは、せいぜい水深40m・1回1時間。その先の海で働けるのは、ROV・AUV・水中ドローンだけです。つくる人、動かす人、事業にする人のためのキャリアサイトです。
+          </p>
+          <div className="qrd-actions rv">
+            <a className="qrd-btn qrd-btn-primary" href="/diagnosis">
               3分キャリア診断をする
-              <ArrowRight size={18} />
+              <ArrowRight size={16} />
             </a>
-            <a className="secondary-button light" href="/contact">
+            <a className="qrd-btn qrd-btn-ghost" href="/contact">
               無料でキャリア相談する
             </a>
           </div>
-          <ul className="quest-points qhv-points">
+          <ul className="qrd-points rv">
             {keyPoints.map((point) => (
               <li key={point}>{point}</li>
             ))}
           </ul>
         </div>
-        <a className="qhv-scroll" href="#why-now">
+        <a className="qrd-scroll" href="#why-now">
           <span>SCROLL</span>
         </a>
       </section>
 
-      <section className="section quest-sec" id="why-now" aria-label="なぜ今、水中ロボティクスなのか">
-        <SectionHead
-          no="01"
-          ghost="なぜ、今、水中ロボティクスが重要なのか"
-          kicker="Why Now"
-          title={
-            <>
-              国が、<em>2030年までのAUV産業化</em>を宣言している。
-            </>
-          }
-          lead="内閣府は「AUVの社会実装に向けた戦略」を掲げ、官民プラットフォームで産業育成を進めています。産業化の先にあるのは、人が危険な海に出ずに、制御室から水中ロボットが海を守る世界。それがなぜ日本の必然なのか、数字で見てください。"
-        />
-        <div className="quest-stats-band rv">
-          {whyNowStats.map(({ value, prefix, suffix, label, note, static: isStatic }) => (
-            <div className="quest-stat" key={label}>
+      {/* 余白だけのセクション */}
+      <section className="qrd-breath" aria-label="その差、200倍">
+        <p className="qrd-line rv">
+          その差、<em>200倍</em>。
+        </p>
+        <small className="rv">
+          海でいちばん深いチャレンジャー海淵は約10,920m——残りの約3,000mは、これからこの仕事に就く人の伸び代です。
+        </small>
+      </section>
+
+      <section className="qrd-sec" id="why-now" aria-label="なぜ今、水中ロボティクスなのか">
+        <div className="rv">
+          <p className="qrd-kicker">01 — WHY NOW</p>
+          <h2 className="qrd-title">
+            国が、<em>2030年までのAUV産業化</em>を宣言している。
+          </h2>
+          <p className="qrd-lead">
+            内閣府は「AUVの社会実装に向けた戦略」を掲げ、官民プラットフォームで産業育成を進めています。この領域の面白さは、「まだ誰もできていないこと」が数字で見えること。エンジニアの腕が試される順に、並べました。
+          </p>
+        </div>
+        <div className="qrd-stat-row">
+          {whyNowStats.map(({ value, prefix, suffix, label, note, static: isStatic }, index) => (
+            <div className="qrd-stat rv" style={{ transitionDelay: `${index * 0.08}s` }} key={label}>
               <b>
                 {prefix}
                 {isStatic ? <span>{value}</span> : <span data-count={value}>0</span>}
@@ -694,10 +586,10 @@ export default async function RoboticsQuestPage() {
             </div>
           ))}
         </div>
-        <div className="quest-rovauv rv" aria-label="そもそもROV・AUVとは">
+        <div className="qrd-rovauv rv" aria-label="そもそもROV・AUVとは">
           <h3>そもそも、ROV・AUVとは？</h3>
-          <div className="quest-rovauv-grid">
-            <div className="quest-rovauv-item">
+          <div className="qrd-rovauv-grid">
+            <div className="qrd-rovauv-item">
               <RovIllustration />
               <b>
                 ROV<span>遠隔操作型無人潜水機</span>
@@ -707,7 +599,7 @@ export default async function RoboticsQuestPage() {
                 Vehicleの略。船とケーブルでつながり、人が船上から操縦する水中ロボットです。ケーブル経由の電力供給と高精細映像に強く、点検・作業の現場の主力。小型のものは「水中ドローン」とも呼ばれます。
               </p>
             </div>
-            <div className="quest-rovauv-item">
+            <div className="qrd-rovauv-item">
               <AuvIllustration />
               <b>
                 AUV<span>自律型無人探査機</span>
@@ -719,161 +611,123 @@ export default async function RoboticsQuestPage() {
             </div>
           </div>
         </div>
-        <div className="quest-why-num-grid">
-          {whyNowReasons.map(({ tag, value, title, body }, index) => (
-            <article
-              className="quest-why-num rv"
-              style={{ transitionDelay: `${index * 0.08}s` }}
-              key={title}
-            >
-              <span className="quest-why-tag">{tag}</span>
-              <b>{value}</b>
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </article>
+        <div className="qrd-story">
+          {whyNowReasons.map(({ tag, value, title, body }) => (
+            <div className="qrd-story-row" key={title}>
+              <div className={`qrd-story-num rv${value.length >= 4 ? " qrd-story-num-s" : ""}`}>
+                {value}
+              </div>
+              <div className="qrd-story-copy rv">
+                <span className="qrd-tag">{tag}</span>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </div>
+            </div>
           ))}
         </div>
-        <div className="quest-roadmap rv" aria-label="海洋ロボティクス導入の道筋">
-          <span className="quest-roadmap-line" aria-hidden="true" />
+        <div className="qrd-road rv" aria-label="海洋ロボティクス導入の道筋">
           {whyNowRoadmap.map(({ period, title, body }) => (
-            <div className="quest-roadmap-step" key={period}>
-              <span className="quest-roadmap-dot" aria-hidden="true" />
-              <span className="quest-roadmap-period">{period}</span>
+            <div className="qrd-road-step" key={period}>
+              <span>{period}</span>
               <b>{title}</b>
               <small>{body}</small>
             </div>
           ))}
         </div>
-        <p className="quest-source rv">
-          出典: 内閣府「自律型無人探査機（AUV）の社会実装に向けた戦略」、AUV官民プラットフォーム「AUV等海洋ロボティクス導入の効果」（2026年2月）、内閣府海洋政策資料（管轄海域は世界第6位）、海上保安庁（領海・排他的経済水域 約447万km²）、総務省（国際通信に占める海底ケーブルの割合）、経済産業省・国土交通省「洋上風力産業ビジョン」。削減率等は一定の条件設定に基づく政府試算の目安です。
+        <p className="qrd-src rv">
+          出典: 内閣府「自律型無人探査機（AUV）の社会実装に向けた戦略」、AUV官民プラットフォーム「AUV等海洋ロボティクス導入の効果」（2026年2月）、総務省（国際通信に占める海底ケーブルの割合）、日本財団-GEBCO「Seabed 2030」（世界の海底地形の地図化率 約29%・2026年時点）、チャレンジャー海淵の水圧は約108MPa（≒約1,100気圧・1cm²あたり約1.1トン）、JAMSTEC「うらしま8000」（8,015m・国産巡航型AUVの日本記録）、ハルビン工程大学「悟空号」（10,896m・AUV世界最深記録）。削減率等は一定の条件設定に基づく政府試算の目安です。
         </p>
       </section>
 
-      <section className="section quest-sec" id="roles" aria-label="どんな仕事があるのか">
-        <SectionHead
-          no="02"
-          ghost="水中ロボティクスの仕事"
-          kicker="Job Map"
-          title={
-            <>
-              機体を<em>つくる</em>人、海で<em>動かす</em>人、事業に<em>する</em>人。
-            </>
-          }
-          lead="開発職から現場職、企画職まで。水中ロボティクスの主な8職種と、それぞれに必要なスキルです。"
-        />
-        <div className="card-grid quest-role-grid">
+      <section className="qrd-sec" id="roles" aria-label="どんな仕事があるのか">
+        <div className="rv">
+          <p className="qrd-kicker">02 — JOB MAP</p>
+          <h2 className="qrd-title">
+            機体を<em>つくる</em>人、海で<em>動かす</em>人、事業に<em>する</em>人。
+          </h2>
+          <p className="qrd-lead">
+            開発職から現場職、企画職まで。水中ロボティクスの主な8職種と、それぞれに必要なスキルです。
+          </p>
+        </div>
+        <div className="qrd-role-grid">
           {roles.map(({ photo, photoAlt, title, body, skills }, index) => (
-            <article
-              className="content-card quest-role-card rv"
-              style={{ transitionDelay: `${(index % 4) * 0.08}s` }}
-              key={title}
-            >
+            <article className="qrd-role rv" style={{ transitionDelay: `${(index % 2) * 0.08}s` }} key={title}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                className="quest-role-photo"
-                src={photo}
-                alt={photoAlt}
-                width={900}
-                height={560}
-                loading="lazy"
-              />
+              <img src={photo} alt={photoAlt} width={900} height={560} loading="lazy" />
               <h3>{title}</h3>
               <p>{body}</p>
-              <p className="quest-role-skills">{skills}</p>
+              <p className="qrd-role-skills">{skills}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="section quest-sec" id="translate" aria-label="異業種からどうつながるか">
-        <SectionHead
-          no="03"
-          ghost="こんな経験が活きる"
-          kicker="Skill Bridge"
-          title={
-            <>
-              あなたの経験は、海で<em>武器になる</em>。
-            </>
-          }
-          lead="水中ロボティクスは「海の経験者」より「隣接分野の経験者」でできている領域です。いまの仕事の経験がどこで武器になるのか、8つの入り口を用意しました。"
-        />
-        <div className="quest-bridge-grid">
-          {translations.map(({ from, to, note }, index) => (
-            <article
-              className="quest-bridge-card rv"
-              style={{ transitionDelay: `${(index % 2) * 0.08}s` }}
-              key={from}
-            >
-              <span className="qb-tag">いまの仕事</span>
-              <p className="qb-from">{from}</p>
-              <span className="qb-dive" aria-hidden="true" />
-              <span className="qb-tag qb-tag-sea">海でのしごと</span>
-              <p className="qb-to">{to}</p>
+      <section className="qrd-sec" id="translate" aria-label="異業種からどうつながるか">
+        <div className="rv">
+          <p className="qrd-kicker">03 — SKILL BRIDGE</p>
+          <h2 className="qrd-title">
+            あなたの経験は、海で<em>武器になる</em>。
+          </h2>
+          <p className="qrd-lead">
+            水中ロボティクスは「海の経験者」より「隣接分野の経験者」でできている領域です。いまの仕事の経験がどこで武器になるのか、8つの入り口を用意しました。
+          </p>
+        </div>
+        <div className="qrd-bridge">
+          {translations.map(({ from, to, note }) => (
+            <div className="qrd-bridge-row rv" key={from}>
+              <div className="qb-side">
+                <span className="qb-lab">いまの仕事</span>
+                <p>{from}</p>
+              </div>
+              <span className="qb-arrow" aria-hidden="true">
+                →
+              </span>
+              <div className="qb-side">
+                <span className="qb-lab qb-lab-sea">海でのしごと</span>
+                <p>{to}</p>
+              </div>
               <p className="qb-note">{note}</p>
-            </article>
+            </div>
           ))}
         </div>
       </section>
 
-      <section className="section quest-sec quest-sec-alt" id="self-check" aria-label="セルフチェック">
-        <SectionHead
-          no="04"
-          ghost="キャリア診断"
-          kicker="Self Check"
-          title={
-            <>
-              まず、自分の<em>現在地</em>を知る。
-            </>
-          }
-          lead="経歴に合わせて質問が変わる分岐型のキャリア診断です。回答から、水中ロボティクスを含む9領域との相性と、あなたのタイプを判定します。"
-        />
-        <div className="sc-grid">
-          <div className="sc-left rv">
-            <div className="sc-road" aria-label="診断の流れ">
-              <svg className="sc-road-svg" viewBox="0 0 480 238" preserveAspectRatio="none" aria-hidden="true">
-                <defs>
-                  <linearGradient id="scRoadG" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stopColor="#008b98" />
-                    <stop offset=".5" stopColor="#005866" />
-                    <stop offset="1" stopColor="#ff7a21" />
-                  </linearGradient>
-                </defs>
-                <path
-                  className="sc-road-bg"
-                  d="M 12 30 C 160 40, 330 26, 440 48 C 486 58, 486 96, 436 108 C 340 130, 150 106, 58 122 C -8 134, -12 176, 48 192 C 120 216, 210 228, 296 232"
-                />
-                <path
-                  className="sc-road-line"
-                  d="M 12 30 C 160 40, 330 26, 440 48 C 486 58, 486 96, 436 108 C 340 130, 150 106, 58 122 C -8 134, -12 176, 48 192 C 120 216, 210 228, 296 232"
-                  pathLength={1}
-                />
-                <circle className="sc-road-dot" cx="296" cy="232" r="4.5" />
-              </svg>
-              <ol className="sc-flow">
-                <li style={{ ["--fc" as string]: "#008b98" }}>
-                  <span className="fno">1</span>
-                  <span className="ftx">
-                    <b>11問に答える</b>
-                    <i>選ぶだけ・約3分。経歴の回答で次の質問が変わる分岐型</i>
-                  </span>
-                </li>
-                <li style={{ ["--fc" as string]: "#005866" }}>
-                  <span className="fno">2</span>
-                  <span className="ftx">
-                    <b>36タイプから判定</b>
-                    <i>9領域×4職種で、あなたのタイプ名を言語化</i>
-                  </span>
-                </li>
-                <li style={{ ["--fc" as string]: "#ff7a21" }}>
-                  <span className="fno">3</span>
-                  <span className="ftx">
-                    <b>想定職種・年収帯・次の一手へ</b>
-                    <i>強み・市場価値・おすすめ領域つきの読み物級の結果</i>
-                  </span>
-                </li>
-              </ol>
-            </div>
-            <div className="sc-stats" aria-hidden="true">
+      <section className="qrd-sec" id="self-check" aria-label="セルフチェック">
+        <div className="rv">
+          <p className="qrd-kicker">04 — SELF CHECK</p>
+          <h2 className="qrd-title">
+            まず、自分の<em>現在地</em>を知る。
+          </h2>
+          <p className="qrd-lead">
+            経歴に合わせて質問が変わる分岐型のキャリア診断です。回答から、水中ロボティクスを含む9領域との相性と、あなたのタイプを判定します。
+          </p>
+        </div>
+        <div className="qrd-sc-grid">
+          <div className="rv">
+            <ol className="qrd-steps" aria-label="診断の流れ">
+              <li>
+                <span className="qrd-step-no">01</span>
+                <span>
+                  <b>11問に答える</b>
+                  <i>選ぶだけ・約3分。経歴の回答で次の質問が変わる分岐型</i>
+                </span>
+              </li>
+              <li>
+                <span className="qrd-step-no">02</span>
+                <span>
+                  <b>36タイプから判定</b>
+                  <i>9領域×4職種で、あなたのタイプ名を言語化</i>
+                </span>
+              </li>
+              <li>
+                <span className="qrd-step-no">03</span>
+                <span>
+                  <b>想定職種・年収帯・次の一手へ</b>
+                  <i>強み・市場価値・おすすめ領域つきの読み物級の結果</i>
+                </span>
+              </li>
+            </ol>
+            <div className="qrd-sc-stats" aria-hidden="true">
               <div>
                 <b>
                   <span data-count="11">0</span>問
@@ -893,94 +747,89 @@ export default async function RoboticsQuestPage() {
                 <small>判定結果</small>
               </div>
             </div>
-            <a className="primary-button sc-cta" href="/diagnosis">
-              無料でキャリア診断をはじめる
-              <ArrowRight size={18} />
-            </a>
-            <div className="cta-pills">
-              <span>無料</span>
-              <span>約3分</span>
-              <span>結果はその場で表示</span>
+            <div className="qrd-sc-cta">
+              <a className="qrd-btn qrd-btn-primary" href="/diagnosis">
+                無料でキャリア診断をはじめる
+                <ArrowRight size={16} />
+              </a>
+              <div className="qrd-pills">
+                <span>無料</span>
+                <span>約3分</span>
+                <span>結果はその場で表示</span>
+              </div>
             </div>
           </div>
-          <a className="sc-card rv" href="/diagnosis">
-            <div className="sc-card-inner">
-              <div className="sck">OCEAN QUEST SELF CHECK</div>
-              <h3>
-                あなたのタイプは、
-                <br />
-                36通りのどれか。
-              </h3>
-              <div className="sc-types">
-                <span>エンジニア</span>
-                <span>研究・R&D</span>
-                <span>事業開発</span>
-                <span>フィールド・現場</span>
-                <span>× 9領域</span>
-              </div>
-              <span className="sc-card-btn">診断をはじめる →</span>
+          <a className="qrd-panel rv" href="/diagnosis">
+            <p className="qrd-panel-label">OCEAN QUEST SELF CHECK</p>
+            <h3>
+              あなたのタイプは、
+              <br />
+              36通りのどれか。
+            </h3>
+            <div className="qrd-chiprow">
+              <span>エンジニア</span>
+              <span>研究・R&D</span>
+              <span>事業開発</span>
+              <span>フィールド・現場</span>
+              <span>× 9領域</span>
             </div>
+            <span className="qrd-link">診断をはじめる →</span>
           </a>
         </div>
       </section>
 
-      <section className="section quest-sec" id="players" aria-label="企業・プレイヤーマップ">
-        <SectionHead
-          no="05"
-          ghost="企業と研究機関"
-          kicker="Player Map"
-          title={
-            <>
-              この領域を動かしている<em>プレイヤー</em>たち。
-            </>
-          }
-          lead="大手からスタートアップ、研究機関まで。水中ロボティクスの見取り図です（社名は代表例で、網羅ではありません）。"
-        />
-        <div className="card-grid quest-player-grid">
-          {players.map(({ icon: Icon, category, body, orgs }, index) => (
-            <article className="content-card rv" style={{ transitionDelay: `${index * 0.08}s` }} key={category}>
-              <div className="card-icon">
-                <Icon size={22} />
-              </div>
+      <section className="qrd-sec" id="players" aria-label="企業・プレイヤーマップ">
+        <div className="rv">
+          <p className="qrd-kicker">05 — PLAYER MAP</p>
+          <h2 className="qrd-title">
+            この領域を動かしている<em>プレイヤー</em>たち。
+          </h2>
+          <p className="qrd-lead">
+            大手からスタートアップ、研究機関まで。水中ロボティクスの見取り図です（社名は代表例で、網羅ではありません）。
+          </p>
+        </div>
+        <div className="qrd-players">
+          {players.map(({ category, body, orgs }) => (
+            <div className="qrd-player-row rv" key={category}>
               <h3>{category}</h3>
-              <p>{body}</p>
-              <div className="quest-player-links">
-                {orgs.map(({ name, url }) => (
-                  <a href={url} target="_blank" rel="noopener noreferrer" key={name}>
-                    {name}
-                    <ArrowUpRight size={13} />
-                  </a>
-                ))}
+              <div>
+                <p>{body}</p>
+                <div className="qrd-orgs">
+                  {orgs.map(({ name, url }) => (
+                    <a href={url} target="_blank" rel="noopener noreferrer" key={name}>
+                      {name}
+                      <ArrowUpRight size={13} />
+                    </a>
+                  ))}
+                </div>
               </div>
-            </article>
+            </div>
           ))}
         </div>
       </section>
 
-      <section className="section quest-sec quest-sec-alt" id="blog" aria-label="ブログ・コンテンツ">
-        <SectionHead
-          no="06"
-          ghost="ブログ"
-          kicker="Blog & Contents"
-          title={
-            <>
-              海洋産業の<em>現実</em>から読む。
-            </>
-          }
-          lead="業界理解に役立つ最新の記事とコンテンツです。転職を考える前の情報収集から使ってください。"
-        />
+      <section className="qrd-sec" id="blog" aria-label="ブログ・コンテンツ">
+        <div className="rv">
+          <p className="qrd-kicker">06 — BLOG & CONTENTS</p>
+          <h2 className="qrd-title">
+            海洋産業の<em>現実</em>から読む。
+          </h2>
+          <p className="qrd-lead">
+            業界理解に役立つ最新の記事とコンテンツです。転職を考える前の情報収集から使ってください。
+          </p>
+        </div>
         {notes.length > 0 ? (
-          <div className="quest-blog-grid">
+          <div className="qrd-media-list">
             {notes.map((note, index) => (
               <a
-                className="quest-blog-card rv"
+                className="qrd-media-row rv"
                 style={{ transitionDelay: `${index * 0.08}s` }}
                 href={note.source_url}
                 target="_blank"
                 rel="noreferrer"
                 key={note.id}
               >
-                <div className="quest-blog-thumb">
+                <div className="qrd-media-thumb">
                   {note.thumbnail_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={note.thumbnail_url} alt="" loading="lazy" />
@@ -988,163 +837,149 @@ export default async function RoboticsQuestPage() {
                     <FileText size={30} />
                   )}
                 </div>
-                <div className="quest-blog-body">
+                <div>
                   <time dateTime={note.published_at ?? note.created_at}>
                     {formatDate(note.published_at ?? note.created_at)}
                   </time>
                   <h3>{note.title}</h3>
-                  <span className="quest-blog-more">
-                    読む
-                    <ArrowUpRight size={14} />
-                  </span>
+                  <span className="qrd-link">読む →</span>
                 </div>
               </a>
             ))}
           </div>
         ) : null}
-        <div className="quest-content-links rv">
-          <a className="text-link" href="/notes">
-            note記事一覧
-            <ArrowRight size={16} />
+        <div className="qrd-content-links rv">
+          <a className="qrd-link" href="/notes">
+            note記事一覧 →
           </a>
-          <a className="text-link" href="/videos">
-            動画で学ぶ海洋産業
-            <ArrowRight size={16} />
+          <a className="qrd-link" href="/videos">
+            動画で学ぶ海洋産業 →
           </a>
-          <a className="text-link" href="/ebooks">
-            eBook（無料DL）
-            <ArrowRight size={16} />
+          <a className="qrd-link" href="/ebooks">
+            eBook（無料DL）→
           </a>
-          <a className="text-link" href="/map">
-            海の地図（β）
-            <ArrowRight size={16} />
+          <a className="qrd-link" href="/map">
+            海の地図（β）→
           </a>
         </div>
       </section>
 
-      <section className="section quest-sec" aria-label="よくある質問">
-        <SectionHead no="07" ghost="よくある質問" kicker="FAQ" title={<>よくある質問</>} />
-        <div className="faq-list quest-faq">
+      <section className="qrd-sec" aria-label="よくある質問">
+        <div className="rv">
+          <p className="qrd-kicker">07 — FAQ</p>
+          <h2 className="qrd-title">よくある質問</h2>
+        </div>
+        <div className="qrd-faq-list">
           {faqItems.map(({ question, answer }) => (
-            <details className="faq-item" key={question}>
-              <summary>
-                <span className="faq-q">Q</span>
-                {question}
-              </summary>
-              <p>
-                <span className="faq-a">A</span>
-                {answer}
-              </p>
+            <details key={question}>
+              <summary>{question}</summary>
+              <p>{answer}</p>
             </details>
           ))}
         </div>
       </section>
 
-      <section className="section quest-sec quest-dive" aria-label="水中ロボットはどこまで潜れるのか">
-        <div className="quest-dive-head rv">
-          <div
-            className="quest-ghost"
-            style={{ fontSize: ghostFontSize("どこまで潜れるのか") }}
-            aria-hidden="true"
-          >
-            どこまで潜れるのか
+      {/* DEEP DIVE: 深度ジャーニーの到達点。背景は透過して海底(沈没船)を見せる */}
+      <section className="qrd-dive" aria-label="水中ロボットはどこまで潜れるのか">
+        <div className="qrd-dive-inner">
+          <div className="rv">
+            <p className="qrd-kicker">DEEP DIVE</p>
+            <h2 className="qrd-title">
+              水中ロボットは、どこまで<em>深く</em>潜れるのか。
+            </h2>
+            <p className="qrd-lead">
+              日本のAUV「うらしま8000」の潜航能力は8,000m級。富士山を逆さに沈めても半分にも届かず、エベレストを沈めてもまだ余裕があります。地球でいちばん深い海の底、チャレンジャー海淵（約10,920m）には、日本のROV「かいこう」が1995年に到達済み——人類より先に、水中ロボットが海の最深部を知っています。そして今、AUVの世界最深記録は中国「悟空号」の10,896m。この競争は、もう始まっています。
+            </p>
           </div>
-          <p className="quest-kicker">Deep Dive</p>
-          <h2>
-            水中ロボットは、どこまで<em>深く</em>潜れるのか。
-          </h2>
-          <p className="quest-lead">
-            日本のAUV「うらしま8000」の潜航能力は8,000m級。富士山を逆さに沈めても半分にも届かず、エベレストを沈めてもまだ余裕があります。地球でいちばん深い海の底、チャレンジャー海淵（約10,920m）には、日本のROV「かいこう」が1995年に到達済み——人類より先に、水中ロボットが海の最深部を知っています。そして今、AUVの世界最深記録は中国「悟空号」の10,896m。この競争は、もう始まっています。
+          <div className="qdive-chart rv" role="img" aria-label="潜航深度の比較チャート">
+            {[
+              {
+                depth: 40,
+                label: "ダイバー",
+                sub: "（日常的な作業潜水）",
+                cls: "qdive-diver",
+                art: QdiveDiver,
+              },
+              { depth: 3776, label: "富士山（逆さ）", sub: "3,776m", cls: "qdive-fuji" },
+              {
+                depth: 6500,
+                label: "しんかい6500",
+                sub: "（有人潜水調査船・日本）",
+                cls: "qdive-shinkai qdive-vehicle",
+                art: QdiveShinkai,
+              },
+              {
+                depth: 8000,
+                label: "うらしま8000",
+                sub: "（AUV・日本 / JAMSTEC）",
+                cls: "qdive-auv qdive-vehicle",
+                art: QdiveUrashima,
+              },
+              { depth: 8849, label: "エベレスト（逆さ）", sub: "8,849m", cls: "qdive-everest" },
+              {
+                depth: 10896,
+                label: "悟空号",
+                sub: "（AUV・中国）",
+                cls: "qdive-wukong qdive-vehicle",
+                art: QdiveWukong,
+              },
+              {
+                depth: 10920,
+                label: "チャレンジャー海淵",
+                sub: "地球最深部 約10,920m",
+                cls: "qdive-deepest",
+              },
+            ].map(({ depth, label, sub, cls, art: Art }, index) => (
+              <div className={`qdive-col ${cls}`} key={label}>
+                <span className="qdive-label">
+                  <b>{label}</b>
+                  <i>{sub}</i>
+                </span>
+                <span
+                  className="qdive-fill"
+                  style={{
+                    ["--h" as string]: `${(depth / 10920) * 100}%`,
+                    ["--delay" as string]: `${index * 0.16}s`,
+                  }}
+                >
+                  {Art ? <Art /> : null}
+                  <em>-{depth.toLocaleString()}m</em>
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="qrd-note rv">
+            ※ 深さは実寸比。ダイバーのバーが見えないのは、間違いではありません。それくらい、海は深い——だから水中ロボットの出番です。
+          </p>
+          <p className="qrd-src rv">
+            出典:
+            JAMSTEC「うらしま8000」（2025年7月、深度8,015mに到達・国産巡航型AUVの日本記録）、ハルビン工程大学「悟空号」（2021年11月、10,896m・AUVの世界最深記録）、JAMSTEC「しんかい6500」「かいこう」公表資料。
           </p>
         </div>
-        <div className="qdive-chart rv" role="img" aria-label="潜航深度の比較チャート">
-          {[
-            {
-              depth: 40,
-              label: "ダイバー",
-              sub: "（日常的な作業潜水）",
-              cls: "qdive-diver",
-              art: QdiveDiver,
-            },
-            { depth: 3776, label: "富士山（逆さ）", sub: "3,776m", cls: "qdive-fuji" },
-            {
-              depth: 6500,
-              label: "しんかい6500",
-              sub: "（有人潜水調査船・日本）",
-              cls: "qdive-shinkai qdive-vehicle",
-              art: QdiveShinkai,
-            },
-            {
-              depth: 8000,
-              label: "うらしま8000",
-              sub: "（AUV・日本 / JAMSTEC）",
-              cls: "qdive-auv qdive-vehicle",
-              art: QdiveUrashima,
-            },
-            { depth: 8849, label: "エベレスト（逆さ）", sub: "8,849m", cls: "qdive-everest" },
-            {
-              depth: 10896,
-              label: "悟空号",
-              sub: "（AUV・中国）",
-              cls: "qdive-wukong qdive-vehicle",
-              art: QdiveWukong,
-            },
-            {
-              depth: 10920,
-              label: "チャレンジャー海淵",
-              sub: "地球最深部 約10,920m",
-              cls: "qdive-deepest",
-            },
-          ].map(({ depth, label, sub, cls, art: Art }, index) => (
-            <div className={`qdive-col ${cls}`} key={label}>
-              <span className="qdive-label">
-                <b>{label}</b>
-                <i>{sub}</i>
-              </span>
-              <span
-                className="qdive-fill"
-                style={{
-                  ["--h" as string]: `${(depth / 10920) * 100}%`,
-                  ["--delay" as string]: `${index * 0.16}s`,
-                }}
-              >
-                {Art ? <Art /> : null}
-                <em>-{depth.toLocaleString()}m</em>
-              </span>
-            </div>
-          ))}
-        </div>
-        <p className="qdive-note rv">
-          ※ 深さは実寸比。ダイバーのバーが見えないのは、間違いではありません。それくらい、海は深い——だから水中ロボットの出番です。
-        </p>
-        <p className="quest-source rv">
-          出典:
-          JAMSTEC「うらしま8000」（2025年7月、深度8,015mに到達・国産巡航型AUVの日本記録）、ハルビン工程大学「悟空号」（2021年11月、10,896m・AUVの世界最深記録）、JAMSTEC「しんかい6500」「かいこう」公表資料。
-        </p>
       </section>
 
-      <section className="section quest-cta" aria-label="相談する">
-        <div className="quest-cta-grid">
-          <article className="quest-cta-card rv">
-            <p className="section-kicker">For Candidates</p>
+      <section className="qrd-final" aria-label="相談する">
+        <div className="qrd-final-grid">
+          <article className="rv">
+            <p className="qrd-kicker">FOR CANDIDATES</p>
             <h2>キャリアの話を、まずは気軽に。</h2>
             <p>
               「今の経験で通用する？」「どの職種から入るべき？」——水中ロボティクス領域への転身を、海洋産業特化のキャリアパートナーが無料で相談に乗ります。
             </p>
-            <a className="primary-button" href="/contact">
+            <a className="qrd-btn qrd-btn-primary" href="/contact">
               無料キャリア相談をする
-              <ArrowRight size={18} />
+              <ArrowRight size={16} />
             </a>
           </article>
-          <article className="quest-cta-card rv" style={{ transitionDelay: "0.1s" }}>
-            <p className="section-kicker">For Companies</p>
+          <article className="rv" style={{ transitionDelay: "0.1s" }}>
+            <p className="qrd-kicker">FOR COMPANIES</p>
             <h2>水中ロボティクスの採用を支援します。</h2>
             <p>
               制御・組込み・機械設計などの希少人材採用を、「隣接業界の経験を武器に変える」発想で設計します。採用戦略からスカウト・広報まで。
             </p>
-            <a className="secondary-button light" href="/companies">
+            <a className="qrd-btn qrd-btn-ghost" href="/companies">
               企業向け採用支援を見る
-              <ArrowRight size={18} />
+              <ArrowRight size={16} />
             </a>
           </article>
         </div>
