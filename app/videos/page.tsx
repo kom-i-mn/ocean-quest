@@ -68,7 +68,6 @@ export default async function VideosPage() {
                 <div>
                   <p className="rd-media-cat">{video.category ?? "動画"}</p>
                   <h2>{video.title}</h2>
-                  <p className="rd-d">{video.description || "YouTubeから取り込んだ動画コンテンツです。"}</p>
                   <div className="rd-media-meta">
                     <time dateTime={video.published_at ?? video.created_at}>
                       {formatDate(video.published_at ?? video.created_at)}
