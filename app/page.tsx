@@ -76,15 +76,23 @@ export default function Home() {
         <div className="rd-hero-bg">
           <HeroVideo />
         </div>
+        <div className="rd-hero-lockup" aria-label="Ocean Quest × POTENTIALIGHT">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="rd-lockup-oq" src="/images/brand/ocean-quest-logo.png" alt="Ocean Quest" />
+          <span aria-hidden="true">×</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="rd-lockup-pl" src="/images/brand/potentialight-logo-white.png" alt="POTENTIALIGHT" />
+        </div>
         <div className="rd-hero-inner">
           <p className="rd-kicker-w rd-rv">OCEAN QUEST — 海洋産業のキャリア・採用支援</p>
           <h1 className="rd-rv rd-rv-slow">
-            国土は、世界<span className="rd-num">61</span>位。
-            <br />
-            海は、世界<em><span className="rd-num">6</span>位</em>。
+            <span className="rd-h1-pre">日本の国土は、世界61位。</span>
+            けれど海は、世界<em><span className="rd-num">6</span>位</em>。
           </h1>
           <p className="rd-hero-sub rd-rv rd-rv-slow">
-            日本は、海の国。その海の仕事を、キャリアの選択肢にするためのサービスです。
+            海に眠っているのは資源だけじゃない。
+            <br />
+            このポテンシャルも。あなたのキャリアも。
           </p>
         </div>
         <div className="rd-scroll-cue">SCROLL</div>
@@ -114,6 +122,35 @@ export default function Home() {
             <p>
               海運、造船、洋上風力、水中ロボット、海洋資源。社会を支える仕事と、日本の未来をつくる挑戦が、海には広がっています。
             </p>
+            <details className="rd-story-more">
+              <summary>なぜポテンシャルがあるのか、もっと詳しく</summary>
+              <div className="rd-story-more-body">
+                <div className="rd-more-item">
+                  <p className="rd-more-lead">海は、地球の70%。</p>
+                  <p>
+                    地球規模の熱と物質の循環のほとんどは、海を舞台に起きています。生命の起源も海。地球という惑星を理解しようとすると、海は避けて通れません。
+                  </p>
+                </div>
+                <div className="rd-more-item">
+                  <p className="rd-more-lead">日本でしか採れない資源が、海の底に眠っている。</p>
+                  <p>
+                    メタンハイドレート（燃える氷）、海底熱水鉱床、コバルトリッチクラスト。世界6位のEEZ（約447万km²）の中に眠りますが、そのほとんどは水深2,000〜6,000m。採りに行く技術はこれからで、商業利用できる「最初の国」になれる可能性があります。
+                  </p>
+                </div>
+                <div className="rd-more-item">
+                  <p className="rd-more-lead">探査に必要な技術が、すでに国内に揃っている。</p>
+                  <p>
+                    造船技術、素材、高性能センサー、精密機械、IT。海を探査・開発するために欠かせない産業基盤が日本には揃っています。4つのプレートが交わる地震大国だからこそ磨かれてきた、他国が真似しにくい強みです。
+                  </p>
+                </div>
+                <div className="rd-more-item">
+                  <p className="rd-more-lead">国も、本気で動き始めている。</p>
+                  <p>
+                    政府の成長戦略の重点分野に造船が入り、AUV（海のドローン）、革新的海底開発技術、海洋状況把握（MDA）の3テーマに投資が集まっています。あとは「どう産業化するか」のフェーズです。
+                  </p>
+                </div>
+              </div>
+            </details>
           </div>
         </div>
         <div className="rd-story-row">
@@ -128,6 +165,29 @@ export default function Home() {
             <p>
               海洋転職や海洋求人の情報は、まだ十分に届いていません。求人票の職種名だけでは、その仕事が社会のどこにつながっているのか伝わらないからです。
             </p>
+            <details className="rd-story-more">
+              <summary>どんなギャップがあるのか、もっと詳しく</summary>
+              <div className="rd-story-more-body">
+                <div className="rd-more-item">
+                  <p className="rd-more-lead">海は、生活のすぐ隣にある。なのに見えていない。</p>
+                  <p>
+                    ホルムズ海峡の緊張で、ガソリンは高騰し、ポテトチップスの袋は白黒になり、医療用手袋まで足りなくなりました。輸入の生命線は海。それでも私たちの目は、陸と宇宙にばかり向いています。
+                  </p>
+                </div>
+                <div className="rd-more-item">
+                  <p className="rd-more-lead">深海は、月の裏側より未知。</p>
+                  <p>
+                    海はまだ数%しか解明されていないと言われます。人類が宇宙に目を向け始めた一方で、地球の70%を占める海は、いまだにほぼ未開拓のフロンティアのままです。
+                  </p>
+                </div>
+                <div className="rd-more-item">
+                  <p className="rd-more-lead">「世界6位の資産」は、ほとんど語られない。</p>
+                  <p>
+                    失われた30年、GDP横ばい、物価高——聞こえてくるのはそんな話ばかり。でも日本には世界6位の海と、それを活かす技術があります。この事実が知られていないこと自体が、これから入る人のチャンスです。
+                  </p>
+                </div>
+              </div>
+            </details>
           </div>
         </div>
       </div>
@@ -161,7 +221,7 @@ export default function Home() {
             </div>
             <span className="rd-link">キャリア診断へ</span>
           </a>
-          <a className="rd-fy-row rd-rv" href="/notes">
+          <a className="rd-fy-row rd-rv" href="#contents">
             <span className="rd-fy-no">02</span>
             <div>
               <h3>まず、海洋産業を知りたい。</h3>
@@ -198,7 +258,11 @@ export default function Home() {
           <figure className="rd-about-photo rd-rv">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/minenaho-profile.jpg" alt="Ocean Questを運営するミネナホのプロフィール写真" />
-            <figcaption>FOUNDER — 株式会社ポテンシャライト</figcaption>
+            <figcaption>
+              FOUNDER — 株式会社ポテンシャライト
+              <br />
+              Ocean Quest 責任者 ミネナホ
+            </figcaption>
           </figure>
           <div className="rd-about-copy rd-rv">
             <h3>

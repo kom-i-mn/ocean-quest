@@ -151,6 +151,7 @@
 - **コピーは10〜30字の主張**＋小さな補足。トップヒーローは温存していた「国土は、世界61位。海は、世界6位。」を使用（§5の温存ルールを消化）
 - **機能コンポーネントは移植せず内包する**: OceanMap・DiagnosisForm・EbookCard・Supabase一覧は既存のまま .rd-tool-wrap / .rd-media-list に入れる
 - 出現アニメは .rd-rv（IntersectionObserver・RdFx）。prefers-reduced-motionで停止
+- トップのストーリー(12倍/?)には**「もっと詳しく」展開パネル**(.rd-story-more・details/summary)を付ける。中身はYouTube初回動画の根拠(70%・EEZ6位と海底資源・国内技術基盤・国の3テーマ/ホルムズ海峡・深海は月の裏側より未知・語られない世界6位)。ミネさんFB・2026-07-13
 - トップの必須要素: FOR YOU索引 → ABOUT/FOUNDER（誰の何のため+なぜ生まれたか）→ QUEST看板（COMING SOON含む）→ 3分類 → CONTENTS 6セル（海の地図・診断を含める）→ 企業向け → FAQ+検索キーワード（静かに）→ 締めCTA。FAQPage JSON-LDは維持
 
 ## 変更履歴
