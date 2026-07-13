@@ -133,6 +133,31 @@
 }
 .rd-story-copy p { color: var(--rd-ink-soft); font-size: 13px; line-height: 2.3; max-width: 30em; font-weight: 400; margin: 0; }
 
+/* ストーリーの「もっと詳しく」(クリックで展開) */
+.rd-story-more { margin-top: 30px; }
+.rd-story-more summary {
+  cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 12px;
+  font-size: 12px; letter-spacing: 0.22em; color: var(--rd-ink);
+  border-bottom: 1px solid var(--rd-ink); padding-bottom: 6px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.rd-story-more summary::-webkit-details-marker { display: none; }
+.rd-story-more summary::after { content: "＋"; font-size: 13px; color: var(--rd-orange); }
+.rd-story-more[open] summary::after { content: "−"; }
+.rd-story-more summary:hover { color: var(--rd-orange); border-color: var(--rd-orange); }
+.rd-story-more-body { margin-top: 34px; border-top: 1px solid rgba(20, 24, 28, 0.14); }
+.rd-more-item { padding: 26px 4px; border-bottom: 1px solid rgba(20, 24, 28, 0.14); }
+.rd-more-item .rd-more-lead {
+  font-family: var(--rd-serif); font-weight: 500; margin: 0;
+  font-size: 15.5px; letter-spacing: 0.08em; line-height: 1.9;
+  display: flex; align-items: baseline; gap: 14px;
+}
+.rd-more-item .rd-more-lead::before {
+  content: ""; width: 14px; height: 1px; background: var(--rd-orange); flex-shrink: 0;
+  transform: translateY(-4px);
+}
+.rd-more-item p { margin: 10px 0 0 28px; font-size: 12px; color: var(--rd-ink-soft); line-height: 2.2; font-weight: 400; }
+
 /* ---------- フルブリード写真 ---------- */
 .rd-bleed {
   position: relative; height: 88svh; min-height: 520px;
