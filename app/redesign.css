@@ -393,6 +393,23 @@
 .rd-media-meta { margin-top: 18px; display: flex; gap: 28px; align-items: baseline; font-size: 11px; letter-spacing: 0.14em; color: var(--rd-ink-faint); }
 .rd-media-meta .rd-link { font-size: 11px; }
 
+/* ショート動画グリッド（縦型サムネイル） */
+.rd-shorts-grid { margin-top: 9vh; display: grid; grid-template-columns: repeat(4, 1fr); gap: 44px 28px; }
+.rd-short-cell { display: block; }
+.rd-short-thumb {
+  overflow: hidden; aspect-ratio: 9 / 16; background: #0e2a34;
+  display: grid; place-items: center; color: rgba(255, 255, 255, 0.6);
+}
+.rd-short-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; display: block; }
+.rd-short-cell:hover .rd-short-thumb img { transform: scale(1.05); }
+.rd-short-cell h3 {
+  font-family: var(--rd-serif); font-weight: 500; margin: 18px 0 0;
+  font-size: 14px; letter-spacing: 0.06em; line-height: 1.9;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.rd-short-cell .rd-link { display: inline-block; margin-top: 12px; font-size: 10.5px; }
+.rd-short-cell:hover .rd-link { color: var(--rd-orange); border-color: var(--rd-orange); }
+
 /* eBookグリッド（既存EbookCardを包む） */
 .rd-ebook-wrap { margin-top: 9vh; }
 
@@ -429,6 +446,7 @@
   .rd-stat-row, .rd-dx-stats { grid-template-columns: 1fr; gap: 8vh; }
   .rd-dx-stats { gap: 34px; }
   .rd-media-row { grid-template-columns: 1fr; gap: 24px; padding: 40px 0; }
+  .rd-shorts-grid { grid-template-columns: repeat(2, 1fr); gap: 36px 18px; }
   .rd-breath { padding: 20vh 8vw; }
   .rd-sub-hero { padding-top: 120px; }
 }

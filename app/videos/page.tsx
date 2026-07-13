@@ -15,6 +15,9 @@ export const metadata = pageMetadata({
 
 export default async function VideosPage() {
   const videos = await listYouTubeContents().catch(() => []);
+  // metadata.is_short(取り込み時に判定)で本編とショートに振り分ける。未判定は本編扱い
+  const mainVideos = videos.filter((video) => video.metadata?.is_short !== true);
+  const shortVideos = videos.filter((video) => video.metadata?.is_short === true);
 
   return (
     <main className="rd">
@@ -36,16 +39,17 @@ export default async function VideosPage() {
         </div>
       </section>
 
-      <section className="rd-sec" id="videos" aria-label="動画一覧">
+      {/* 本編動画（上層） */}
+      <section className="rd-sec" id="videos" aria-label="本編動画一覧">
         <div className="rd-rv">
-          <p className="rd-kicker">LIBRARY</p>
+          <p className="rd-kicker">MAIN — 本編動画</p>
           <h2 className="rd-title">
-            ここでしか聞けない話を、<em>動画</em>で。
+            ここでしか聞けない話を、<em>じっくり</em>と。
           </h2>
         </div>
-        {videos.length > 0 ? (
+        {mainVideos.length > 0 ? (
           <div className="rd-media-list">
-            {videos.map((video) => (
+            {mainVideos.map((video) => (
               <article className="rd-media-row rd-rv" key={video.id}>
                 <a
                   className="rd-media-thumb"
@@ -88,6 +92,41 @@ export default async function VideosPage() {
           </div>
         )}
       </section>
+
+      {/* ショート動画（下層） */}
+      {shortVideos.length > 0 ? (
+        <section className="rd-sec rd-sec-tight" id="shorts" aria-label="ショート動画一覧">
+          <div className="rd-rv">
+            <p className="rd-kicker">SHORTS — ショート動画</p>
+            <h2 className="rd-title">
+              まずは<em>60秒</em>で、海をのぞく。
+            </h2>
+            <p className="rd-lead">通勤の合間に見られる縦型のショート動画。気になったテーマは、本編動画とnoteで深掘りできます。</p>
+          </div>
+          <div className="rd-shorts-grid">
+            {shortVideos.map((video) => (
+              <a
+                className="rd-short-cell rd-rv"
+                href={video.source_url}
+                target="_blank"
+                rel="noreferrer"
+                key={video.id}
+              >
+                <div className="rd-short-thumb">
+                  {video.thumbnail_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={video.thumbnail_url} alt={video.title} />
+                  ) : (
+                    <span>▶</span>
+                  )}
+                </div>
+                <h3>{video.title}</h3>
+                <span className="rd-link">YouTubeで見る</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="rd-final rd-sub-final">
         <div className="rd-final-bg" style={{ backgroundImage: "url('/images/backgrounds/journey-jelly.jpg')" }} />

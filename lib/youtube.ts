@@ -77,7 +77,42 @@ export async function fetchYouTubePlaylistContents(
   }
 
   const data = (await response.json()) as YouTubePlaylistResponse;
-  return (data.items ?? []).map(normalizePlaylistItem).filter(isYouTubeContentInput);
+  const contents = (data.items ?? []).map(normalizePlaylistItem).filter(isYouTubeContentInput);
+
+  // 本編/ショートを判定して metadata.is_short に保存する(動画ページの上下振り分けに使用)
+  await Promise.all(
+    contents.map(async (content) => {
+      const isShort = await detectYouTubeShort(content.source_id);
+      if (isShort !== null) {
+        content.metadata = { ...content.metadata, is_short: isShort };
+      }
+    }),
+  );
+
+  return contents;
+}
+
+// ショート動画は https://www.youtube.com/shorts/<id> が 200 を返し、
+// 本編動画は /watch へのリダイレクト(303)になることを利用して判定する。
+// 判定できない場合は null(既存のmetadataを上書きしない)
+async function detectYouTubeShort(videoId: string): Promise<boolean | null> {
+  try {
+    const response = await fetch(`https://www.youtube.com/shorts/${videoId}`, {
+      method: "HEAD",
+      redirect: "manual",
+      cache: "no-store",
+      headers: { "user-agent": "Mozilla/5.0" },
+    });
+    if (response.status === 200) {
+      return true;
+    }
+    if (response.status >= 300 && response.status < 400) {
+      return false;
+    }
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 async function resolveYouTubePlaylistId(apiKey?: string) {
