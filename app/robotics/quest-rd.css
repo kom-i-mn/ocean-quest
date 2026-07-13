@@ -78,12 +78,12 @@
 .qrd-hero h1 em { font-style: normal; color: var(--qrd-orange); }
 .qrd-num { font-size: 1.22em; letter-spacing: 0.02em; }
 .qrd-hero-lead {
-  margin: 36px 0 0; font-size: 13px; letter-spacing: 0.08em;
+  margin: 36px 0 0; font-size: 14px; letter-spacing: 0.08em;
   color: var(--qrd-soft); max-width: 40em; line-height: 2.3;
 }
 .qrd-actions { margin-top: 46px; display: flex; gap: 22px; flex-wrap: wrap; }
 .qrd-btn {
-  font-size: 13px; letter-spacing: 0.2em; padding: 17px 44px; border-radius: 999px;
+  font-size: 14px; letter-spacing: 0.2em; padding: 17px 44px; border-radius: 999px;
   display: inline-flex; align-items: center; gap: 10px;
   transition: all 0.4s ease;
 }
@@ -97,7 +97,7 @@
 }
 .qrd-points li {
   padding: 15px 4px; border-bottom: 1px solid var(--qrd-rule);
-  font-size: 12px; line-height: 2.1; color: var(--qrd-soft);
+  font-size: 13px; line-height: 2.1; color: var(--qrd-soft);
   display: flex; gap: 16px;
 }
 .qrd-points li::before {
@@ -141,7 +141,7 @@
 }
 .qrd-line em { font-style: normal; background: linear-gradient(transparent 70%, rgba(240, 112, 32, 0.35) 70%); }
 .qrd-breath small {
-  display: block; margin: 44px auto 0; font-size: 12px; letter-spacing: 0.14em;
+  display: block; margin: 44px auto 0; font-size: 13px; letter-spacing: 0.14em;
   color: var(--qrd-faint); max-width: 44em; line-height: 2.2;
 }
 
@@ -157,10 +157,10 @@
   font-size: clamp(24px, 2.9vw, 42px); line-height: 1.9; letter-spacing: 0.1em;
 }
 .qrd-title em { font-style: normal; background: linear-gradient(transparent 70%, rgba(240, 112, 32, 0.4) 70%); }
-.qrd-lead { margin: 28px 0 0; color: var(--qrd-soft); font-size: 13px; line-height: 2.3; max-width: 40em; }
+.qrd-lead { margin: 28px 0 0; color: var(--qrd-soft); font-size: 14px; line-height: 2.3; max-width: 40em; }
 .qrd-src { margin: 9vh 0 0; font-size: 11px; color: var(--qrd-faint); letter-spacing: 0.04em; line-height: 2.1; }
 .qrd-link {
-  font-size: 12px; letter-spacing: 0.22em; white-space: nowrap; color: var(--qrd-ink);
+  font-size: 13px; letter-spacing: 0.22em; white-space: nowrap; color: var(--qrd-ink);
   border-bottom: 1px solid var(--qrd-ink); padding-bottom: 6px;
   transition: color 0.3s, border-color 0.3s; display: inline-block;
 }
@@ -174,7 +174,7 @@
   font-size: clamp(30px, 3vw, 54px); line-height: 1.15; letter-spacing: 0.02em;
 }
 .qrd-stat strong { display: block; margin-top: 16px; font-size: 15px; letter-spacing: 0.12em; font-weight: 500; }
-.qrd-stat small { display: block; margin-top: 10px; font-size: 11.5px; color: var(--qrd-faint); line-height: 2; }
+.qrd-stat small { display: block; margin-top: 10px; font-size: 12.5px; color: var(--qrd-faint); line-height: 2; }
 
 /* ---------- そもそもROV・AUVとは ---------- */
 .qrd-rovauv { margin-top: 13vh; border-top: 1px solid var(--qrd-rule); padding-top: 6vh; }
@@ -189,7 +189,7 @@
   font-family: var(--qrd-serif); font-weight: 500; font-size: 18px; letter-spacing: 0.1em;
 }
 .qrd-rovauv-item b span { font-size: 11px; letter-spacing: 0.14em; color: var(--qrd-faint); font-weight: 400; }
-.qrd-rovauv-item p { margin: 12px 0 0; font-size: 12.5px; color: var(--qrd-soft); line-height: 2.2; }
+.qrd-rovauv-item p { margin: 12px 0 0; font-size: 13.5px; color: var(--qrd-soft); line-height: 2.2; }
 
 /* ---------- ストーリー（数字リード・非対称） ---------- */
 .qrd-story { margin-top: 6vh; }
@@ -211,7 +211,7 @@
   font-family: var(--qrd-serif); font-weight: 500; margin: 0 0 22px;
   font-size: clamp(19px, 1.9vw, 28px); line-height: 2; letter-spacing: 0.08em;
 }
-.qrd-story-copy p { color: var(--qrd-soft); font-size: 13px; line-height: 2.3; max-width: 32em; margin: 0; }
+.qrd-story-copy p { color: var(--qrd-soft); font-size: 14px; line-height: 2.3; max-width: 32em; margin: 0; }
 
 /* ---------- ロードマップ（3ステップ） ---------- */
 .qrd-road { margin-top: 8vh; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3vw; border-top: 1px solid var(--qrd-rule); }
@@ -222,7 +222,7 @@
 }
 .qrd-road-step span { font-size: 11px; letter-spacing: 0.3em; color: var(--qrd-orange); font-weight: 600; }
 .qrd-road-step b { display: block; margin-top: 12px; font-family: var(--qrd-serif); font-weight: 500; font-size: 16px; letter-spacing: 0.1em; }
-.qrd-road-step small { display: block; margin-top: 8px; font-size: 12px; color: var(--qrd-faint); line-height: 2; }
+.qrd-road-step small { display: block; margin-top: 8px; font-size: 13px; color: var(--qrd-faint); line-height: 2; }
 
 /* ---------- Job Map（写真つきエディトリアルグリッド） ---------- */
 .qrd-role-grid { margin-top: 10vh; display: grid; grid-template-columns: 1fr 1fr; gap: 10vh 4vw; counter-reset: qrdrole; }
@@ -237,9 +237,9 @@
 }
 .qrd-role h3::before {
   counter-increment: qrdrole; content: "0" counter(qrdrole);
-  font-size: 12px; letter-spacing: 0.3em; color: var(--qrd-orange);
+  font-size: 13px; letter-spacing: 0.3em; color: var(--qrd-orange);
 }
-.qrd-role p { margin: 14px 0 0; font-size: 12.5px; color: var(--qrd-soft); line-height: 2.2; }
+.qrd-role p { margin: 14px 0 0; font-size: 13.5px; color: var(--qrd-soft); line-height: 2.2; }
 .qrd-role-skills { margin-top: 14px; font-size: 11px; letter-spacing: 0.14em; color: var(--qrd-orange) !important; line-height: 2 !important; font-weight: 600; }
 
 /* ---------- Skill Bridge（タイポグラフィのみ） ---------- */
@@ -258,7 +258,7 @@
   align-self: center; text-align: center; color: var(--qrd-orange);
   font-size: 20px; line-height: 1; transform: translateY(8px);
 }
-.qb-note { grid-column: 1 / -1; margin: 14px 0 0; font-size: 12px; color: var(--qrd-soft); line-height: 2.2; max-width: 56em; }
+.qb-note { grid-column: 1 / -1; margin: 14px 0 0; font-size: 13px; color: var(--qrd-soft); line-height: 2.2; max-width: 56em; }
 
 /* ---------- Self Check ---------- */
 .qrd-sc-grid { margin-top: 10vh; display: grid; grid-template-columns: 1.2fr 1fr; gap: 4.5vw; align-items: start; }
@@ -267,9 +267,9 @@
   list-style: none; display: flex; gap: 24px; padding: 28px 4px;
   border-bottom: 1px solid var(--qrd-rule);
 }
-.qrd-step-no { font-size: 12px; letter-spacing: 0.3em; color: var(--qrd-orange); font-weight: 600; transform: translateY(4px); }
+.qrd-step-no { font-size: 13px; letter-spacing: 0.3em; color: var(--qrd-orange); font-weight: 600; transform: translateY(4px); }
 .qrd-steps b { display: block; font-family: var(--qrd-serif); font-weight: 500; font-size: 16px; letter-spacing: 0.1em; }
-.qrd-steps i { display: block; font-style: normal; margin-top: 8px; font-size: 12px; color: var(--qrd-faint); line-height: 2; }
+.qrd-steps i { display: block; font-style: normal; margin-top: 8px; font-size: 13px; color: var(--qrd-faint); line-height: 2; }
 .qrd-sc-stats { display: flex; gap: 4vw; margin-top: 7vh; }
 .qrd-sc-stats b { display: block; font-family: var(--qrd-serif); font-weight: 600; font-size: clamp(24px, 2.2vw, 34px); line-height: 1.2; }
 .qrd-sc-stats small { display: block; margin-top: 8px; font-size: 11px; letter-spacing: 0.18em; color: var(--qrd-faint); }
@@ -307,10 +307,10 @@
   font-family: var(--qrd-serif); font-weight: 500; margin: 0;
   font-size: clamp(17px, 1.6vw, 22px); letter-spacing: 0.12em; line-height: 1.9;
 }
-.qrd-player-row > div > p { margin: 0; font-size: 12.5px; color: var(--qrd-soft); line-height: 2.2; max-width: 46em; }
+.qrd-player-row > div > p { margin: 0; font-size: 13.5px; color: var(--qrd-soft); line-height: 2.2; max-width: 46em; }
 .qrd-orgs { margin-top: 22px; display: flex; gap: 12px; flex-wrap: wrap; }
 .qrd-orgs a {
-  font-size: 11.5px; letter-spacing: 0.08em; color: var(--qrd-soft);
+  font-size: 12.5px; letter-spacing: 0.08em; color: var(--qrd-soft);
   border: 1px solid rgba(20, 24, 28, 0.22); border-radius: 999px; padding: 7px 18px;
   display: inline-flex; align-items: center; gap: 6px;
   transition: all 0.3s;
@@ -347,10 +347,10 @@
   display: flex; align-items: baseline; gap: 20px; line-height: 1.9;
 }
 .qrd-faq-list summary::-webkit-details-marker { display: none; }
-.qrd-faq-list summary::before { content: "Q"; font-size: 12px; letter-spacing: 0.2em; color: var(--qrd-orange); font-weight: 600; }
+.qrd-faq-list summary::before { content: "Q"; font-size: 13px; letter-spacing: 0.2em; color: var(--qrd-orange); font-weight: 600; }
 .qrd-faq-list details p {
   margin: 0; padding: 0 6px 34px 42px;
-  font-size: 12.5px; color: var(--qrd-soft); line-height: 2.3; max-width: 44em;
+  font-size: 13.5px; color: var(--qrd-soft); line-height: 2.3; max-width: 44em;
 }
 
 /* ---------- Deep Dive（海底到達点。ここだけ墨の帯=深海) ---------- */
@@ -366,7 +366,7 @@
 .qrd-dive .qrd-lead { color: rgba(255, 255, 255, 0.75); }
 .qrd-dive .qrd-src { color: rgba(255, 255, 255, 0.5); }
 .qrd-dive-inner { max-width: none; margin: 0; }
-.qrd-note { margin: 6vh 0 0; font-size: 12px; color: rgba(255, 255, 255, 0.72); line-height: 2.2; }
+.qrd-note { margin: 6vh 0 0; font-size: 13px; color: rgba(255, 255, 255, 0.72); line-height: 2.2; }
 
 /* ---------- 締めCTA ---------- */
 .qrd-final { position: relative; padding: 18vh 5vw 14vh 8vw; }
@@ -376,7 +376,7 @@
   font-family: var(--qrd-serif); font-weight: 500; margin: 0;
   font-size: clamp(21px, 2.3vw, 33px); letter-spacing: 0.1em; line-height: 1.95;
 }
-.qrd-final-grid p { margin: 20px 0 0; font-size: 13px; color: var(--qrd-soft); line-height: 2.3; max-width: 32em; }
+.qrd-final-grid p { margin: 20px 0 0; font-size: 14px; color: var(--qrd-soft); line-height: 2.3; max-width: 32em; }
 .qrd-final-grid .qrd-btn { margin-top: 36px; }
 
 /* ---------- モバイル ---------- */
