@@ -87,7 +87,7 @@ export default function Home() {
           <p className="rd-kicker-w rd-rv">OCEAN QUEST — 海洋産業のキャリア・採用支援</p>
           <h1 className="rd-rv rd-rv-slow">
             <span className="rd-h1-pre">日本の国土は、世界61位。</span>
-            けれど海は、世界<em><span className="rd-num">6</span>位</em>。
+            けれど日本の海は、世界<em><span className="rd-num">6</span>位</em>。
           </h1>
           <p className="rd-hero-sub rd-rv rd-rv-slow">
             海に眠っているのは資源だけじゃない。
