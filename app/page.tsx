@@ -76,6 +76,13 @@ export default function Home() {
         <div className="rd-hero-bg">
           <HeroVideo />
         </div>
+        <div className="rd-hero-lockup" aria-label="Ocean Quest × POTENTIALIGHT">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="rd-lockup-oq" src="/images/brand/ocean-quest-logo.png" alt="Ocean Quest" />
+          <span aria-hidden="true">×</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="rd-lockup-pl" src="/images/brand/potentialight-logo-white.png" alt="POTENTIALIGHT" />
+        </div>
         <div className="rd-hero-inner">
           <p className="rd-kicker-w rd-rv">OCEAN QUEST — 海洋産業のキャリア・採用支援</p>
           <h1 className="rd-rv rd-rv-slow">
@@ -161,7 +168,7 @@ export default function Home() {
             </div>
             <span className="rd-link">キャリア診断へ</span>
           </a>
-          <a className="rd-fy-row rd-rv" href="/notes">
+          <a className="rd-fy-row rd-rv" href="#contents">
             <span className="rd-fy-no">02</span>
             <div>
               <h3>まず、海洋産業を知りたい。</h3>
