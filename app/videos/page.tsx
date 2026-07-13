@@ -1,5 +1,4 @@
-import { ArrowUpRight, PlayCircle } from "lucide-react";
-import { ProfileCta } from "@/components/ProfileCta";
+import { RdFx } from "@/components/RdFx";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { pageMetadata } from "@/lib/seo";
@@ -18,68 +17,98 @@ export default async function VideosPage() {
   const videos = await listYouTubeContents().catch(() => []);
 
   return (
-    <main className="subpage-shell subpage-bg-shark">
+    <main className="rd">
       <SiteHeader solid />
-      <section className="subpage-hero">
-        <p className="section-kicker">Videos</p>
-        <h1>海洋産業を、動画でわかりやすく。</h1>
-        <p>
-          海洋産業の仕事、技術、企業、キャリアの可能性を、対談や解説動画で届けます。まだ業界に詳しくない方でも、まずは興味のあるテーマから学べる動画ライブラリです。
-        </p>
-        <div className="hero-actions subpage-actions">
-          <a className="primary-button" href="#videos">
-            動画を見る
-            <ArrowUpRight size={18} />
-          </a>
-          <a className="secondary-button light" href="/contact">
-            キャリア相談する
-          </a>
+      <RdFx />
+
+      <section className="rd-sub-hero">
+        <div className="rd-sub-hero-bg" style={{ backgroundImage: "url('/images/backgrounds/deep-sea.jpg')" }} />
+        <div className="rd-sub-hero-inner">
+          <p className="rd-kicker-w rd-rv">VIDEOS — 動画で学ぶ</p>
+          <h1 className="rd-rv rd-rv-slow">
+            海洋産業を、
+            <br />
+            動画でわかりやすく。
+          </h1>
+          <p className="rd-lead-w rd-rv rd-rv-slow">
+            海洋産業の仕事、技術、企業、キャリアの可能性を、対談や解説動画で届けます。まだ業界に詳しくない方でも、興味のあるテーマから学べる動画ライブラリです。
+          </p>
         </div>
       </section>
 
-      <section className="section video-library" id="videos" aria-label="動画一覧">
+      <section className="rd-sec" id="videos" aria-label="動画一覧">
+        <div className="rd-rv">
+          <p className="rd-kicker">LIBRARY</p>
+          <h2 className="rd-title">
+            ここでしか聞けない話を、<em>動画</em>で。
+          </h2>
+        </div>
         {videos.length > 0 ? (
-          videos.map((video) => (
-            <article className="video-card" key={video.id}>
-              <a className="video-thumb" href={video.source_url} target="_blank" rel="noreferrer">
-                {video.thumbnail_url ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={video.thumbnail_url} alt={video.title} />
-                ) : (
-                  <span>
-                    <PlayCircle size={38} />
-                  </span>
-                )}
-                <span className="video-play">
-                  <PlayCircle size={20} />
-                </span>
-              </a>
-              <div className="video-card-body">
-                <p className="content-type">{video.category ?? "動画"}</p>
-                <h2>{video.title}</h2>
-                <p>{video.description || "YouTubeから取り込んだ動画コンテンツです。"}</p>
-                <div className="card-meta">
-                  <time dateTime={video.published_at ?? video.created_at}>
-                    {formatDate(video.published_at ?? video.created_at)}
-                  </time>
-                  <a href={video.source_url} target="_blank" rel="noreferrer">
-                    YouTubeで見る
-                    <ArrowUpRight size={15} />
-                  </a>
+          <div className="rd-media-list">
+            {videos.map((video) => (
+              <article className="rd-media-row rd-rv" key={video.id}>
+                <a
+                  className="rd-media-thumb"
+                  href={video.source_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${video.title}をYouTubeで見る`}
+                >
+                  {video.thumbnail_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={video.thumbnail_url} alt={video.title} />
+                  ) : (
+                    <span>▶</span>
+                  )}
+                </a>
+                <div>
+                  <p className="rd-media-cat">{video.category ?? "動画"}</p>
+                  <h2>{video.title}</h2>
+                  <p className="rd-d">{video.description || "YouTubeから取り込んだ動画コンテンツです。"}</p>
+                  <div className="rd-media-meta">
+                    <time dateTime={video.published_at ?? video.created_at}>
+                      {formatDate(video.published_at ?? video.created_at)}
+                    </time>
+                    <a className="rd-link" href={video.source_url} target="_blank" rel="noreferrer">
+                      YouTubeで見る
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))
+              </article>
+            ))}
+          </div>
         ) : (
-          <div className="empty-state">
-            <PlayCircle size={28} />
-            <h2>To Be Continued</h2>
-            <p>海洋産業の仕事や技術をわかりやすく学べる動画を、順次公開していきます。</p>
+          <div className="rd-tbc rd-rv">
+            <p className="rd-t">To Be Continued</p>
+            <p className="rd-d">
+              海洋産業の仕事や技術をわかりやすく学べる動画を、順次公開していきます。
+              <br />
+              公開のお知らせは、noteとイベント案内でお届けします。
+            </p>
           </div>
         )}
       </section>
 
-      <ProfileCta primaryLabel="無料でキャリア相談する" />
+      <section className="rd-final rd-sub-final">
+        <div className="rd-final-bg" style={{ backgroundImage: "url('/images/backgrounds/journey-jelly.jpg')" }} />
+        <div className="rd-final-inner">
+          <h2 className="rd-rv rd-rv-slow">
+            見て、知って、
+            <br />
+            それから決めればいい。
+          </h2>
+          <p className="rd-final-sub rd-rv rd-rv-slow">キャリア相談は無料です。動画の感想からでも、話せます。</p>
+          <div className="rd-final-ctas rd-rv">
+            <a className="rd-btn rd-btn-primary" href="/contact">
+              無料でキャリア相談する
+            </a>
+            <a className="rd-btn rd-btn-ghost" href="/notes">
+              noteの記事を読む
+            </a>
+          </div>
+        </div>
+      </section>
+
       <SiteFooter />
     </main>
   );

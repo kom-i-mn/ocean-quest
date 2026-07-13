@@ -1,5 +1,4 @@
-import { ArrowUpRight, FileText } from "lucide-react";
-import { ProfileCta } from "@/components/ProfileCta";
+import { RdFx } from "@/components/RdFx";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { pageMetadata } from "@/lib/seo";
@@ -18,70 +17,96 @@ export default async function NotesPage() {
   const notes = await listNoteContents().catch(() => []);
 
   return (
-    <main className="subpage-shell subpage-bg-jellyfish-dark">
+    <main className="rd">
       <SiteHeader solid />
-      <section className="subpage-hero">
-        <p className="section-kicker">note</p>
-        <h1>海洋産業の今と、これからを読む。</h1>
-        <p>
-          海洋産業の可能性、技術、職種、採用、キャリアについて、Ocean Questの視点で解説します。ニュースだけでは見えにくい業界の文脈を、わかりやすく言語化していきます。
-        </p>
-        <div className="hero-actions subpage-actions">
-          <a className="primary-button" href="#notes">
-            noteを読む
-            <ArrowUpRight size={18} />
-          </a>
-          <a className="secondary-button light" href="/ebooks">
-            eBookを見る
-          </a>
+      <RdFx />
+
+      <section className="rd-sub-hero">
+        <div className="rd-sub-hero-bg" style={{ backgroundImage: "url('/images/backgrounds/jellyfish-dark.jpg')" }} />
+        <div className="rd-sub-hero-inner">
+          <p className="rd-kicker-w rd-rv">NOTE — 読み物</p>
+          <h1 className="rd-rv rd-rv-slow">
+            海洋産業の今と、
+            <br />
+            これからを読む。
+          </h1>
+          <p className="rd-lead-w rd-rv rd-rv-slow">
+            海洋産業の可能性、技術、職種、採用、キャリアについて、Ocean
+            Questの視点で解説します。ニュースだけでは見えにくい業界の文脈を、わかりやすく言語化していきます。
+          </p>
         </div>
       </section>
 
-      <section className="section note-library" id="notes" aria-label="note記事一覧">
+      <section className="rd-sec" id="notes" aria-label="note記事一覧">
+        <div className="rd-rv">
+          <p className="rd-kicker">ARTICLES</p>
+          <h2 className="rd-title">
+            ニュースの<em>行間</em>を、読み解く。
+          </h2>
+        </div>
         {notes.length > 0 ? (
-          notes.map((note) => (
-            <article className="note-card" key={note.id}>
-              <a className="note-thumb" href={note.source_url} target="_blank" rel="noreferrer">
-                {note.thumbnail_url ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={note.thumbnail_url} alt={note.title} />
-                ) : (
-                  <span>
-                    <FileText size={34} />
-                  </span>
-                )}
-              </a>
-              <div className="note-card-body">
-                <p className="content-type">{note.category ?? "note"}</p>
-                <h2>{note.title}</h2>
-                <p>{note.description || "noteから取り込んだ記事コンテンツです。"}</p>
-                <div className="card-meta">
-                  <time dateTime={note.published_at ?? note.created_at}>
-                    {formatDate(note.published_at ?? note.created_at)}
-                  </time>
-                  <a href={note.source_url} target="_blank" rel="noreferrer">
-                    noteで読む
-                    <ArrowUpRight size={15} />
-                  </a>
+          <div className="rd-media-list">
+            {notes.map((note) => (
+              <article className="rd-media-row rd-rv" key={note.id}>
+                <a
+                  className="rd-media-thumb"
+                  href={note.source_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${note.title}をnoteで読む`}
+                >
+                  {note.thumbnail_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={note.thumbnail_url} alt={note.title} />
+                  ) : (
+                    <span>note</span>
+                  )}
+                </a>
+                <div>
+                  <p className="rd-media-cat">{note.category ?? "note"}</p>
+                  <h2>{note.title}</h2>
+                  <p className="rd-d">{note.description || "noteから取り込んだ記事コンテンツです。"}</p>
+                  <div className="rd-media-meta">
+                    <time dateTime={note.published_at ?? note.created_at}>
+                      {formatDate(note.published_at ?? note.created_at)}
+                    </time>
+                    <a className="rd-link" href={note.source_url} target="_blank" rel="noreferrer">
+                      noteで読む
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))
+              </article>
+            ))}
+          </div>
         ) : (
-          <div className="empty-state">
-            <FileText size={28} />
-            <h2>To Be Continued</h2>
-            <p>海洋産業の今とこれからを読み解く記事を、順次公開していきます。</p>
+          <div className="rd-tbc rd-rv">
+            <p className="rd-t">To Be Continued</p>
+            <p className="rd-d">海洋産業の今とこれからを読み解く記事を、順次公開していきます。</p>
           </div>
         )}
       </section>
 
-      <ProfileCta
-        primaryLabel="noteで全記事を見る"
-        primaryHref="https://note.com/gentle_moraea373"
-        secondaryLabel="無料相談する"
-        secondaryHref="/contact"
-      />
+      <section className="rd-final rd-sub-final">
+        <div className="rd-final-bg" style={{ backgroundImage: "url('/images/backgrounds/sun-jellyfish.jpg')" }} />
+        <div className="rd-final-inner">
+          <h2 className="rd-rv rd-rv-slow">読むほど、海は近くなる。</h2>
+          <p className="rd-final-sub rd-rv rd-rv-slow">気になった記事があれば、そこから話しましょう。相談は無料です。</p>
+          <div className="rd-final-ctas rd-rv">
+            <a
+              className="rd-btn rd-btn-primary"
+              href="https://note.com/gentle_moraea373"
+              target="_blank"
+              rel="noreferrer"
+            >
+              noteで全記事を見る
+            </a>
+            <a className="rd-btn rd-btn-ghost" href="/contact">
+              無料相談する
+            </a>
+          </div>
+        </div>
+      </section>
+
       <SiteFooter />
     </main>
   );
