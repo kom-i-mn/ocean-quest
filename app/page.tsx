@@ -257,7 +257,11 @@ export default function Home() {
           <figure className="rd-about-photo rd-rv">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/minenaho-profile.jpg" alt="Ocean Questを運営するミネナホのプロフィール写真" />
-            <figcaption>FOUNDER — 株式会社ポテンシャライト</figcaption>
+            <figcaption>
+              FOUNDER — 株式会社ポテンシャライト
+              <br />
+              Ocean Quest 責任者 ミネナホ
+            </figcaption>
           </figure>
           <div className="rd-about-copy rd-rv">
             <h3>
