@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowRight, ArrowUpRight, FileText } from "lucide-react";
 import { DepthJourney } from "@/components/DepthJourney";
+import { DepthMarks } from "./DepthMarks";
 import { QuestFx } from "@/components/QuestFx";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -486,12 +487,30 @@ function QdiveWukong() {
   );
 }
 
+function QdiveFendouzhe() {
+  return (
+    <svg viewBox="0 0 96 46" aria-hidden="true">
+      {/* 奮闘者号: 白い耐圧殻+緑の上部構造の有人潜水船(しんかい6500と描き分け: 緑+丸い船体) */}
+      <circle cx="9" cy="27" r="7" fill="none" stroke="#0a2e3f" strokeWidth="3" />
+      <path d="M40 6 C 40 2, 58 2, 58 6 L58 18 L40 18 Z" fill="#1f8a4c" />
+      <rect x="12" y="15" width="74" height="26" rx="13" fill="#f2f6f4" />
+      <path d="M12 24 C 36 20, 62 20, 86 24 L86 30 C 62 26, 36 26, 12 30 Z" fill="#1f8a4c" opacity="0.85" />
+      <circle cx="70" cy="25" r="4.4" fill="#0a2e3f" />
+      <circle cx="71.4" cy="23.8" r="1.3" fill="#9ff5ee" />
+      <circle cx="52" cy="27" r="3" fill="#0a2e3f" />
+      <rect x="22" y="41" width="14" height="4" rx="2" fill="#0a2e3f" />
+      <rect x="56" y="41" width="14" height="4" rx="2" fill="#0a2e3f" />
+    </svg>
+  );
+}
+
 export default async function RoboticsQuestPage() {
   const notes = await listNoteContents(3).catch(() => []);
 
   return (
     <main className="subpage-shell quest-page qrd">
       <DepthJourney />
+      <DepthMarks />
       <SiteHeader solid />
       <QuestFx />
 
@@ -886,7 +905,7 @@ export default async function RoboticsQuestPage() {
               水中ロボットは、どこまで<em>深く</em>潜れるのか。
             </h2>
             <p className="qrd-lead">
-              日本のAUV「うらしま8000」の潜航能力は8,000m級。富士山を逆さに沈めても半分にも届かず、エベレストを沈めてもまだ余裕があります。地球でいちばん深い海の底、チャレンジャー海淵（約10,920m）には、日本のROV「かいこう」が1995年に到達済み——人類より先に、水中ロボットが海の最深部を知っています。そして今、AUVの世界最深記録は中国「悟空号」の10,896m。この競争は、もう始まっています。
+              日本のAUV「うらしま8000」の潜航能力は8,000m級。富士山を逆さに沈めても半分にも届かず、エベレストを沈めてもまだ余裕があります。地球でいちばん深い海の底、チャレンジャー海淵（約10,920m）には、日本のROV「かいこう」が1995年に到達済み——人類より先に、水中ロボットが海の最深部を知っています。そして今、AUVの世界最深記録は中国「悟空号」の10,896m。有人でも中国「奮闘者号」が10,909mまで到達済み。この競争は、もう始まっています。
             </p>
           </div>
           <div className="qdive-chart rv" role="img" aria-label="潜航深度の比較チャート">
@@ -922,6 +941,13 @@ export default async function RoboticsQuestPage() {
                 art: QdiveWukong,
               },
               {
+                depth: 10909,
+                label: "奮闘者号",
+                sub: "（有人潜水船・中国）",
+                cls: "qdive-fendouzhe qdive-vehicle",
+                art: QdiveFendouzhe,
+              },
+              {
                 depth: 10920,
                 label: "チャレンジャー海淵",
                 sub: "地球最深部 約10,920m",
@@ -951,7 +977,7 @@ export default async function RoboticsQuestPage() {
           </p>
           <p className="qrd-src rv">
             出典:
-            JAMSTEC「うらしま8000」（2025年7月、深度8,015mに到達・国産巡航型AUVの日本記録）、ハルビン工程大学「悟空号」（2021年11月、10,896m・AUVの世界最深記録）、JAMSTEC「しんかい6500」「かいこう」公表資料。
+            JAMSTEC「うらしま8000」（2025年7月、深度8,015mに到達・国産巡航型AUVの日本記録）、ハルビン工程大学「悟空号」（2021年11月、10,896m・AUVの世界最深記録）、中国科学院ほか「奮闘者号」（2020年11月、10,909m・有人潜水の中国記録）、JAMSTEC「しんかい6500」「かいこう」公表資料。
           </p>
         </div>
       </section>
