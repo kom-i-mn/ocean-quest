@@ -1,12 +1,14 @@
 /* ============================================================
    /robotics エディトリアル刷新（2026-07-13 ミネさんFB起点）
-   v3: 深度ジャーニー(DepthJourney)を再び全画面に敷き、
-   コンテンツ帯は「透ける白」(rgba)で写真がサイト全体に見えるようにする。
+   v4: 深度ジャーニー(DepthJourney)は全画面のまま、コンテンツ帯を
+   左約7割に戻す(右約3割=素の写真が見える「海の窓」)。
+   左の帯は「透ける白」(rgba 0.7)で、白の下にも写真がうっすら見える。
    スクロールで潜るほど深くなる演出と右下の深度計はそのまま。
    qrd- 名前空間。トップの rd- 様式(游明朝・罫線・オレンジ1色)に揃える。
    ============================================================ */
 .qrd {
-  --qrd-veil: rgba(253, 253, 251, 0.8); /* 透ける白。文字と写真が両立する透け度 */
+  --qrd-strip: clamp(260px, 30vw, 640px); /* 右の「海の窓」の幅 */
+  --qrd-veil: rgba(253, 253, 251, 0.7); /* 透ける白。文字と写真が両立する透け度 */
   --qrd-ink: #14181c;
   --qrd-soft: #4a5259;
   --qrd-faint: #8a9199;
@@ -22,20 +24,22 @@
   letter-spacing: normal;
 }
 
-/* 深度ジャーニーは全画面(globalsの既定)。コンテンツ帯は全幅+透ける白 */
+/* 深度ジャーニーは全画面(globalsの既定)。
+   コンテンツ帯は左約7割+透ける白。右約3割は素の写真が見える「海の窓」 */
+.qrd-hero,
+.qrd-breath,
+.qrd-sec,
+.qrd-dive,
+.qrd-final {
+  width: calc(100vw - var(--qrd-strip));
+  max-width: none;
+  margin: 0;
+}
 .qrd-hero,
 .qrd-breath,
 .qrd-sec,
 .qrd-final {
-  width: 100%;
-  max-width: none;
-  margin: 0;
   background: var(--qrd-veil);
-}
-.qrd-dive {
-  width: 100%;
-  max-width: none;
-  margin: 0;
 }
 
 /* ---------- ヒーロー ---------- */
@@ -44,7 +48,7 @@
   min-height: 100svh;
   display: flex;
   align-items: flex-end;
-  padding: 180px 8vw 12vh 8vw;
+  padding: 180px 5vw 12vh 8vw;
 }
 .qrd-hero-inner { position: relative; z-index: 2; }
 .qrd-plate {
@@ -93,21 +97,21 @@
 
 /* 深度スケール(海の窓の中に置く。写真の上なので白文字のまま) */
 .qrd-depth {
-  position: absolute; right: 7vw; top: 18vh; bottom: 24vh; z-index: 2;
-  border-right: 1px solid rgba(20, 24, 28, 0.3);
+  position: absolute; right: calc(-0.5 * var(--qrd-strip)); top: 18vh; bottom: 0; z-index: 2;
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
   width: 1px;
 }
 .qrd-depth span {
   position: absolute; top: var(--d); right: 14px;
   display: flex; flex-direction: column; align-items: flex-end;
-  white-space: nowrap;
+  white-space: nowrap; text-shadow: 0 1px 8px rgba(2, 10, 16, 0.6);
 }
 .qrd-depth span::after {
   content: ""; position: absolute; right: -14px; top: 0.9em;
-  width: 8px; height: 1px; background: rgba(20, 24, 28, 0.45);
+  width: 8px; height: 1px; background: rgba(255, 255, 255, 0.7);
 }
-.qrd-depth i { font-style: normal; font-size: 10px; letter-spacing: 0.22em; color: var(--qrd-soft); }
-.qrd-depth em { font-style: normal; font-size: 10px; letter-spacing: 0.16em; color: var(--qrd-orange); margin-top: 2px; }
+.qrd-depth i { font-style: normal; font-size: 10px; letter-spacing: 0.22em; color: rgba(255, 255, 255, 0.85); }
+.qrd-depth em { font-style: normal; font-size: 10px; letter-spacing: 0.16em; color: #ffb37a; margin-top: 2px; }
 .qrd-scroll {
   position: absolute; left: 8vw; bottom: 4.5vh; z-index: 2;
   font-size: 10px; letter-spacing: 0.4em; color: var(--qrd-faint);
@@ -121,7 +125,7 @@
 @media (prefers-reduced-motion: reduce) { .qrd-scroll::after { animation: none; } }
 
 /* ---------- 余白だけのセクション ---------- */
-.qrd-breath { padding: 26vh 8vw; text-align: center; position: relative; }
+.qrd-breath { padding: 26vh 5vw 26vh 8vw; text-align: center; position: relative; }
 .qrd-line {
   font-family: var(--qrd-serif); font-weight: 500; margin: 0;
   font-size: clamp(30px, 4.4vw, 64px); letter-spacing: 0.12em; line-height: 1.8;
@@ -133,7 +137,7 @@
 }
 
 /* ---------- セクション共通 ---------- */
-.qrd-sec { position: relative; padding: 15vh 8vw; }
+.qrd-sec { position: relative; padding: 15vh 5vw 15vh 8vw; }
 .qrd-kicker {
   font-size: 10px; letter-spacing: 0.4em; color: var(--qrd-faint);
   display: flex; align-items: center; gap: 16px; margin: 0 0 34px;
@@ -342,7 +346,7 @@
 
 /* ---------- Deep Dive（海底到達点。ここだけ墨の帯=深海) ---------- */
 .qrd-dive {
-  position: relative; padding: 15vh 8vw 13vh;
+  position: relative; padding: 15vh 5vw 13vh 8vw;
   background:
     linear-gradient(180deg, rgba(2, 16, 26, 0.9), rgba(1, 10, 18, 0.94)),
     url("/images/backgrounds/deep-dive.jpg") center 30% / cover no-repeat;
@@ -356,7 +360,7 @@
 .qrd-note { margin: 6vh 0 0; font-size: 12px; color: rgba(255, 255, 255, 0.72); line-height: 2.2; }
 
 /* ---------- 締めCTA ---------- */
-.qrd-final { position: relative; padding: 18vh 8vw 14vh; }
+.qrd-final { position: relative; padding: 18vh 5vw 14vh 8vw; }
 .qrd-final-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5vw; }
 .qrd-final-grid article { border-top: 1px solid var(--qrd-rule); padding-top: 38px; }
 .qrd-final-grid h2 {
@@ -372,10 +376,11 @@
   .qrd-stat-row { grid-template-columns: 1fr 1fr; gap: 6vh 6vw; }
 }
 @media (max-width: 760px) {
-  .qrd-hero { padding: 130px 6vw 12vh; }
-  .qrd-sec, .qrd-dive { padding: 12vh 6vw; }
-  .qrd-breath { padding: 18vh 6vw; }
-  .qrd-final { padding: 14vh 6vw 12vh; }
+  .qrd { --qrd-strip: 22vw; }
+  .qrd-hero { padding: 130px 5vw 12vh 6vw; }
+  .qrd-sec, .qrd-dive { padding: 12vh 5vw 12vh 6vw; }
+  .qrd-breath { padding: 18vh 5vw 18vh 6vw; }
+  .qrd-final { padding: 14vh 5vw 12vh 6vw; }
   .qrd-stat-row { grid-template-columns: 1fr; gap: 6vh; }
   .qrd-rovauv-grid { grid-template-columns: 1fr; gap: 8vh; }
   .qrd-story-row { grid-template-columns: 1fr; padding: 8vh 0; gap: 26px; }
