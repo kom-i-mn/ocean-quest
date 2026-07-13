@@ -86,12 +86,11 @@ export default function Home() {
         <div className="rd-hero-inner">
           <p className="rd-kicker-w rd-rv">OCEAN QUEST — 海洋産業のキャリア・採用支援</p>
           <h1 className="rd-rv rd-rv-slow">
-            国土は、世界<span className="rd-num">61</span>位。
-            <br />
-            海は、世界<em><span className="rd-num">6</span>位</em>。
+            <span className="rd-h1-pre">日本の国土は、世界61位。</span>
+            けれど海は、世界<em><span className="rd-num">6</span>位</em>。
           </h1>
           <p className="rd-hero-sub rd-rv rd-rv-slow">
-            日本は、海の国。その海の仕事を、キャリアの選択肢にするためのサービスです。
+            海に眠っているのは資源だけじゃない。このポテンシャルも。あなたのキャリアも。
           </p>
         </div>
         <div className="rd-scroll-cue">SCROLL</div>
