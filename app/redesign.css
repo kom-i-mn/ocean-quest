@@ -4,17 +4,17 @@
    原則: 白・墨+オレンジ1色 / ジャンプ率大 / 余白のリズム /
          カードよりタイポグラフィ / 写真はフルブリードで
    ============================================================ */
-@import url("https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap");
-
+/* フォント = 游明朝で統一（ユーザーFB・2026-07-13）:
+   見出し=Medium(500〜600) / 本文=Regular(400)。Webフォントは読み込まない */
 .rd {
   --rd-ink: #14181c;
   --rd-ink-soft: #4a5259;
   --rd-ink-faint: #8a9199;
   --rd-paper: #fdfdfb;
   --rd-orange: #f07020;
-  --rd-serif: "Zen Old Mincho", "Yu Mincho", serif;
-  --rd-sans: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
-  font-family: var(--rd-sans);
+  --rd-serif: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", serif;
+  --rd-sans: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", serif;
+  font-family: var(--rd-serif);
   color: var(--rd-ink);
   background: var(--rd-paper);
   font-weight: 400;
@@ -54,7 +54,7 @@
 }
 .rd-kicker-w::before { content: ""; width: 44px; height: 1px; background: var(--rd-orange); }
 .rd-hero h1 {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0;
   font-size: clamp(34px, 6.2vw, 92px);
   line-height: 1.55; letter-spacing: 0.06em;
   text-shadow: 0 2px 30px rgba(3, 14, 20, 0.45);
@@ -80,7 +80,7 @@
 /* ---------- 余白だけのセクション ---------- */
 .rd-breath { padding: 30vh 8vw; text-align: center; }
 .rd-breath .rd-line {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0;
   font-size: clamp(30px, 5vw, 66px); letter-spacing: 0.12em; line-height: 1.8;
 }
 .rd-breath .rd-line em { font-style: normal; background: linear-gradient(transparent 70%, rgba(240, 112, 32, 0.35) 70%); }
@@ -93,11 +93,11 @@
 }
 .rd-kicker::before { content: ""; width: 36px; height: 1px; background: var(--rd-orange); }
 .rd-title {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0;
   font-size: clamp(26px, 3.4vw, 44px); line-height: 1.9; letter-spacing: 0.1em;
 }
 .rd-title em { font-style: normal; background: linear-gradient(transparent 70%, rgba(240, 112, 32, 0.4) 70%); }
-.rd-lead { margin: 28px 0 0; color: var(--rd-ink-soft); font-size: 13px; line-height: 2.3; font-weight: 300; max-width: 38em; }
+.rd-lead { margin: 28px 0 0; color: var(--rd-ink-soft); font-size: 13px; line-height: 2.3; font-weight: 400; max-width: 38em; }
 
 /* ---------- ストーリー（数字リード・非対称） ---------- */
 .rd-story { padding: 4vh 0 10vh; }
@@ -107,19 +107,19 @@
 }
 .rd-story-row:nth-child(even) .rd-story-num { order: 2; text-align: right; }
 .rd-story-num {
-  font-family: var(--rd-serif); font-weight: 700;
+  font-family: var(--rd-serif); font-weight: 600;
   font-size: clamp(72px, 11vw, 170px); line-height: 1.1; letter-spacing: 0.01em;
 }
 .rd-story-num small { font-size: 0.3em; letter-spacing: 0.1em; }
 .rd-tag {
-  font-size: 10px; letter-spacing: 0.34em; color: var(--rd-orange); font-weight: 700;
+  font-size: 10px; letter-spacing: 0.34em; color: var(--rd-orange); font-weight: 600;
   display: block; margin-bottom: 26px;
 }
 .rd-story-copy h2 {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0 0 24px;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0 0 24px;
   font-size: clamp(20px, 2.3vw, 30px); line-height: 2; letter-spacing: 0.08em;
 }
-.rd-story-copy p { color: var(--rd-ink-soft); font-size: 13px; line-height: 2.3; max-width: 30em; font-weight: 300; margin: 0; }
+.rd-story-copy p { color: var(--rd-ink-soft); font-size: 13px; line-height: 2.3; max-width: 30em; font-weight: 400; margin: 0; }
 
 /* ---------- フルブリード写真 ---------- */
 .rd-bleed {
@@ -130,7 +130,7 @@
 .rd-bleed::after { content: ""; position: absolute; inset: 0; background: rgba(4, 16, 24, 0.36); }
 .rd-bleed p {
   position: relative; z-index: 2; margin: 0;
-  font-family: var(--rd-serif); font-weight: 600;
+  font-family: var(--rd-serif); font-weight: 500;
   font-size: clamp(26px, 4.4vw, 58px); letter-spacing: 0.14em; line-height: 2.1;
   text-align: center; text-shadow: 0 2px 26px rgba(2, 10, 16, 0.6);
   padding: 0 6vw;
@@ -147,10 +147,10 @@
 .rd-fy-row:hover { background: rgba(20, 24, 28, 0.025); }
 .rd-fy-no { font-family: var(--rd-serif); font-size: 13px; letter-spacing: 0.3em; color: var(--rd-orange); }
 .rd-fy-row h3 {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0;
   font-size: clamp(20px, 2.6vw, 34px); letter-spacing: 0.1em; line-height: 1.8;
 }
-.rd-fy-row .rd-d { margin: 14px 0 0; font-size: 12.5px; color: var(--rd-ink-soft); line-height: 2.2; font-weight: 300; max-width: 40em; }
+.rd-fy-row .rd-d { margin: 14px 0 0; font-size: 12.5px; color: var(--rd-ink-soft); line-height: 2.2; font-weight: 400; max-width: 40em; }
 .rd-link {
   font-size: 12px; letter-spacing: 0.22em; white-space: nowrap;
   border-bottom: 1px solid var(--rd-ink); padding-bottom: 6px;
@@ -165,13 +165,13 @@
 .rd-about-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(0.88); display: block; }
 .rd-about-photo figcaption { margin-top: 16px; font-size: 11px; letter-spacing: 0.18em; color: var(--rd-ink-faint); }
 .rd-about-copy h3 {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0 0 28px;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0 0 28px;
   font-size: clamp(19px, 2.2vw, 28px); letter-spacing: 0.1em; line-height: 2;
 }
-.rd-about-copy p { font-size: 13px; color: var(--rd-ink-soft); line-height: 2.4; font-weight: 300; max-width: 40em; margin: 0; }
+.rd-about-copy p { font-size: 13px; color: var(--rd-ink-soft); line-height: 2.4; font-weight: 400; max-width: 40em; margin: 0; }
 .rd-about-copy p + p { margin-top: 24px; }
 .rd-strong-line {
-  font-family: var(--rd-serif); font-weight: 600; color: var(--rd-ink) !important;
+  font-family: var(--rd-serif); font-weight: 500; color: var(--rd-ink) !important;
   font-size: 15px !important; letter-spacing: 0.08em;
 }
 
@@ -189,10 +189,10 @@
 .rd-quest-feature:hover .rd-quest-photo img { transform: scale(1.04); }
 .rd-qno { font-family: var(--rd-serif); font-size: 12px; letter-spacing: 0.34em; color: var(--rd-orange); display: block; margin-bottom: 22px; }
 .rd-quest-copy h3 {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0;
   font-size: clamp(24px, 2.8vw, 38px); letter-spacing: 0.1em; line-height: 1.8;
 }
-.rd-quest-copy .rd-d { margin: 20px 0 0; font-size: 13px; color: rgba(255, 255, 255, 0.62); line-height: 2.3; font-weight: 300; }
+.rd-quest-copy .rd-d { margin: 20px 0 0; font-size: 13px; color: rgba(255, 255, 255, 0.62); line-height: 2.3; font-weight: 400; }
 .rd-quest-copy .rd-link { color: #fff; border-color: rgba(255, 255, 255, 0.6); display: inline-block; margin-top: 34px; }
 .rd-quest-copy .rd-link:hover, .rd-quest-feature:hover .rd-quest-copy .rd-link { color: var(--rd-orange); border-color: var(--rd-orange); }
 .rd-quest-next {
@@ -211,7 +211,7 @@
 }
 .rd-tlist-row:first-child { border-top: 1px solid rgba(20, 24, 28, 0.14); }
 .rd-tlist-row h3 {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0;
   font-size: clamp(18px, 2.2vw, 27px); letter-spacing: 0.1em; line-height: 1.8;
   display: flex; align-items: baseline; gap: 22px;
 }
@@ -219,8 +219,8 @@
   counter-increment: rdt; content: "0" counter(rdt);
   font-size: 12px; letter-spacing: 0.3em; color: var(--rd-orange);
 }
-.rd-tlist-row p { font-size: 12.5px; color: var(--rd-ink-soft); line-height: 2.2; font-weight: 300; margin: 0; }
-.rd-src { margin-top: 8vh; font-size: 11px; color: var(--rd-ink-faint); letter-spacing: 0.06em; line-height: 2; font-weight: 300; }
+.rd-tlist-row p { font-size: 12.5px; color: var(--rd-ink-soft); line-height: 2.2; font-weight: 400; margin: 0; }
+.rd-src { margin-top: 8vh; font-size: 11px; color: var(--rd-ink-faint); letter-spacing: 0.06em; line-height: 2; font-weight: 400; }
 .rd-src a { border-bottom: 1px solid currentColor; }
 
 /* ---------- CONTENTS グリッド ---------- */
@@ -228,8 +228,8 @@
 .rd-contents-grid { margin-top: 9vh; display: grid; grid-template-columns: repeat(3, 1fr); gap: 5vh 3vw; }
 .rd-content-cell { border-top: 1px solid rgba(20, 24, 28, 0.2); padding-top: 26px; transition: border-color 0.4s; display: block; }
 .rd-content-cell:hover { border-top-color: var(--rd-orange); }
-.rd-content-cell h3 { font-family: var(--rd-serif); font-weight: 600; font-size: 18px; letter-spacing: 0.14em; margin: 0; }
-.rd-content-cell p { margin: 12px 0 0; font-size: 12px; color: var(--rd-ink-soft); line-height: 2.1; font-weight: 300; }
+.rd-content-cell h3 { font-family: var(--rd-serif); font-weight: 500; font-size: 18px; letter-spacing: 0.14em; margin: 0; }
+.rd-content-cell p { margin: 12px 0 0; font-size: 12px; color: var(--rd-ink-soft); line-height: 2.1; font-weight: 400; }
 .rd-content-cell .rd-link { display: inline-block; margin-top: 20px; font-size: 11px; }
 .rd-content-cell:hover .rd-link { color: var(--rd-orange); border-color: var(--rd-orange); }
 
@@ -246,11 +246,11 @@
 }
 .rd-companies .rd-kicker { color: rgba(255, 255, 255, 0.55); }
 .rd-companies h2 {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0;
   font-size: clamp(26px, 3.2vw, 42px); line-height: 1.95; letter-spacing: 0.1em;
   text-shadow: 0 2px 24px rgba(2, 10, 16, 0.5);
 }
-.rd-companies .rd-lead-w { margin: 26px 0 0; font-size: 13px; color: rgba(255, 255, 255, 0.78); line-height: 2.3; font-weight: 300; max-width: 32em; }
+.rd-companies .rd-lead-w { margin: 26px 0 0; font-size: 13px; color: rgba(255, 255, 255, 0.78); line-height: 2.3; font-weight: 400; max-width: 32em; }
 .rd-support-list { border-top: 1px solid rgba(255, 255, 255, 0.25); }
 .rd-support-list > div {
   display: flex; gap: 22px; align-items: baseline;
@@ -266,14 +266,14 @@
 .rd-faq-list details { border-bottom: 1px solid rgba(20, 24, 28, 0.14); }
 .rd-faq-list summary {
   cursor: pointer; list-style: none; padding: 30px 6px;
-  font-family: var(--rd-serif); font-weight: 600; font-size: 15px; letter-spacing: 0.08em;
+  font-family: var(--rd-serif); font-weight: 500; font-size: 15px; letter-spacing: 0.08em;
   display: flex; align-items: baseline; gap: 20px;
 }
 .rd-faq-list summary::-webkit-details-marker { display: none; }
 .rd-faq-list summary::before { content: "Q"; font-size: 12px; letter-spacing: 0.2em; color: var(--rd-orange); }
 .rd-faq-list details p {
   margin: 0; padding: 0 6px 34px 42px;
-  font-size: 12.5px; color: var(--rd-ink-soft); line-height: 2.3; font-weight: 300; max-width: 44em;
+  font-size: 12.5px; color: var(--rd-ink-soft); line-height: 2.3; font-weight: 400; max-width: 44em;
 }
 .rd-keywords { margin-top: 8vh; }
 .rd-keywords p { font-size: 11px; letter-spacing: 0.2em; color: var(--rd-ink-faint); margin: 0 0 20px; }
@@ -297,11 +297,11 @@
 }
 .rd-final-inner { position: relative; z-index: 2; padding: 18vh 8vw; }
 .rd-final h2 {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0;
   font-size: clamp(30px, 5vw, 64px); letter-spacing: 0.12em; line-height: 2;
   text-shadow: 0 2px 30px rgba(2, 10, 16, 0.6);
 }
-.rd-final .rd-final-sub { margin: 34px 0 0; font-size: 13px; color: rgba(255, 255, 255, 0.8); letter-spacing: 0.1em; line-height: 2.4; font-weight: 300; }
+.rd-final .rd-final-sub { margin: 34px 0 0; font-size: 13px; color: rgba(255, 255, 255, 0.8); letter-spacing: 0.1em; line-height: 2.4; font-weight: 400; }
 .rd-final-ctas { margin-top: 60px; display: flex; gap: 26px; justify-content: center; flex-wrap: wrap; }
 .rd-btn {
   font-size: 13px; letter-spacing: 0.22em; padding: 18px 52px; border-radius: 999px;
@@ -326,14 +326,14 @@
 }
 .rd-sub-hero-inner { position: relative; z-index: 2; max-width: 1240px; }
 .rd-sub-hero h1 {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0;
   font-size: clamp(28px, 4.6vw, 64px);
   line-height: 1.8; letter-spacing: 0.08em;
   text-shadow: 0 2px 30px rgba(3, 14, 20, 0.45);
 }
 .rd-sub-hero .rd-lead-w {
   margin: 30px 0 0; font-size: 13px; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.85);
-  max-width: 40em; line-height: 2.3; font-weight: 300;
+  max-width: 40em; line-height: 2.3; font-weight: 400;
 }
 .rd-badges { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
 .rd-badges span {
@@ -351,17 +351,17 @@
   text-align: center;
 }
 .rd-tbc .rd-t {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0;
   font-size: clamp(20px, 2.4vw, 30px); letter-spacing: 0.16em;
 }
-.rd-tbc .rd-d { margin: 20px 0 0; font-size: 12.5px; color: var(--rd-ink-soft); font-weight: 300; line-height: 2.3; }
+.rd-tbc .rd-d { margin: 20px 0 0; font-size: 12.5px; color: var(--rd-ink-soft); font-weight: 400; line-height: 2.3; }
 
 /* 数字スタッツ */
 .rd-stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4vw; margin-top: 9vh; }
-.rd-stat .rd-v { font-family: var(--rd-serif); font-weight: 700; font-size: clamp(44px, 6vw, 90px); line-height: 1.1; margin: 0; }
+.rd-stat .rd-v { font-family: var(--rd-serif); font-weight: 600; font-size: clamp(44px, 6vw, 90px); line-height: 1.1; margin: 0; }
 .rd-stat .rd-v small { font-size: 0.36em; letter-spacing: 0.1em; }
 .rd-stat .rd-l { margin: 16px 0 0; font-family: var(--rd-serif); font-size: 15px; letter-spacing: 0.12em; }
-.rd-stat .rd-n { margin: 10px 0 0; font-size: 12px; color: var(--rd-ink-faint); line-height: 2.1; font-weight: 300; }
+.rd-stat .rd-n { margin: 10px 0 0; font-size: 12px; color: var(--rd-ink-faint); line-height: 2.1; font-weight: 400; }
 
 /* 墨色の帯 */
 .rd-dark-band { background: var(--rd-ink); color: #eef1f2; padding: 16vh 8vw; }
@@ -384,12 +384,12 @@
 .rd-media-thumb { overflow: hidden; aspect-ratio: 16 / 9; background: #0e2a34; display: grid; place-items: center; color: rgba(255,255,255,0.6); }
 .rd-media-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; display: block; }
 .rd-media-row:hover .rd-media-thumb img { transform: scale(1.04); }
-.rd-media-cat { font-size: 10px; letter-spacing: 0.3em; color: var(--rd-orange); font-weight: 700; margin: 0 0 14px; }
+.rd-media-cat { font-size: 10px; letter-spacing: 0.3em; color: var(--rd-orange); font-weight: 600; margin: 0 0 14px; }
 .rd-media-row h2 {
-  font-family: var(--rd-serif); font-weight: 600; margin: 0;
+  font-family: var(--rd-serif); font-weight: 500; margin: 0;
   font-size: clamp(17px, 1.9vw, 23px); letter-spacing: 0.06em; line-height: 1.9;
 }
-.rd-media-row .rd-d { margin: 14px 0 0; font-size: 12.5px; color: var(--rd-ink-soft); line-height: 2.2; font-weight: 300; max-width: 44em; }
+.rd-media-row .rd-d { margin: 14px 0 0; font-size: 12.5px; color: var(--rd-ink-soft); line-height: 2.2; font-weight: 400; max-width: 44em; }
 .rd-media-meta { margin-top: 18px; display: flex; gap: 28px; align-items: baseline; font-size: 11px; letter-spacing: 0.14em; color: var(--rd-ink-faint); }
 .rd-media-meta .rd-link { font-size: 11px; }
 
@@ -401,20 +401,20 @@
 
 /* 診断結果プレビュー */
 .rd-dx-card { margin-top: 10vh; border: 1px solid rgba(20, 24, 28, 0.16); padding: 9vh 7vw; }
-.rd-dx-label { font-size: 10px; letter-spacing: 0.34em; color: var(--rd-orange); font-weight: 700; margin: 0; }
+.rd-dx-label { font-size: 10px; letter-spacing: 0.34em; color: var(--rd-orange); font-weight: 600; margin: 0; }
 .rd-dx-card h3 {
-  font-family: var(--rd-serif); font-weight: 600; margin: 26px 0 0;
+  font-family: var(--rd-serif); font-weight: 500; margin: 26px 0 0;
   font-size: clamp(22px, 2.8vw, 36px); letter-spacing: 0.08em; line-height: 1.9;
 }
 .rd-dx-sub { margin: 12px 0 0; font-size: 12px; letter-spacing: 0.18em; color: var(--rd-ink-faint); }
-.rd-dx-body { margin: 26px 0 0; font-size: 13px; color: var(--rd-ink-soft); line-height: 2.3; font-weight: 300; max-width: 40em; }
+.rd-dx-body { margin: 26px 0 0; font-size: 13px; color: var(--rd-ink-soft); line-height: 2.3; font-weight: 400; max-width: 40em; }
 .rd-dx-stats {
   margin-top: 7vh; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3vw;
   border-top: 1px solid rgba(20, 24, 28, 0.14); padding-top: 44px;
 }
 .rd-dx-stats strong { display: block; font-size: 10.5px; letter-spacing: 0.26em; color: var(--rd-ink-faint); font-weight: 500; margin-bottom: 12px; }
-.rd-dx-stats span { font-family: var(--rd-serif); font-weight: 600; font-size: clamp(15px, 1.6vw, 20px); letter-spacing: 0.06em; line-height: 1.8; }
-.rd-dx-note { margin-top: 6vh; font-size: 11.5px; color: var(--rd-ink-faint); font-weight: 300; line-height: 2.1; }
+.rd-dx-stats span { font-family: var(--rd-serif); font-weight: 500; font-size: clamp(15px, 1.6vw, 20px); letter-spacing: 0.06em; line-height: 1.8; }
+.rd-dx-note { margin-top: 6vh; font-size: 11.5px; color: var(--rd-ink-faint); font-weight: 400; line-height: 2.1; }
 
 /* ---------- モバイル ---------- */
 @media (max-width: 760px) {
