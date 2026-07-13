@@ -90,7 +90,9 @@ export default function Home() {
             けれど海は、世界<em><span className="rd-num">6</span>位</em>。
           </h1>
           <p className="rd-hero-sub rd-rv rd-rv-slow">
-            海に眠っているのは資源だけじゃない。このポテンシャルも。あなたのキャリアも。
+            海に眠っているのは資源だけじゃない。
+            <br />
+            このポテンシャルも。あなたのキャリアも。
           </p>
         </div>
         <div className="rd-scroll-cue">SCROLL</div>

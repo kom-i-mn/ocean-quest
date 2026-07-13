@@ -76,7 +76,8 @@
 /* 前フリ行(小さめ)→主役行(大)の2段コピー */
 .rd-hero h1 .rd-h1-pre {
   display: block; font-size: 0.5em; letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.88); margin-bottom: 0.5em;
+  color: rgba(255, 255, 255, 0.88); margin-bottom: 0;
+  line-height: 1.4;
 }
 .rd-hero-sub {
   margin: 36px 0 0; font-size: 13px; letter-spacing: 0.1em; color: rgba(255, 255, 255, 0.85);
