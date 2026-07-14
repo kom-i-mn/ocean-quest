@@ -343,7 +343,10 @@ export default function Home() {
             loading="lazy"
           />
         </figure>
-        <p className="rd-src rd-rv">出典: 内閣府「海洋産業の活動状況に関する調査」／第4期海洋基本計画</p>
+        <p className="rd-src rd-rv">
+          3分類（海洋空間活動型・素材・サービス等供給型・海洋資源活用型）は内閣府「海洋産業の活動状況に関する調査」（平成20年度）・第4期海洋基本計画等に基づく。各分類内の業種の整理・分類は、公開資料をもとにしたOcean
+          Questによる独自の見解を含みます。
+        </p>
       </section>
 
       {/* CONTENTS */}
