@@ -1,14 +1,20 @@
+import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 import { getGoogleAccessToken } from "@/lib/google-auth";
 
 export const runtime = "nodejs";
 
 // 一時的なGA4診断エンドポイント。診断完了後に削除する。
-export async function GET(request: Request) {
-  const authHeader = request.headers.get("authorization");
-  const cronSecret = process.env.CRON_SECRET;
+// 認証: ワンオフトークンのSHA-256ハッシュ照合(トークン自体はリポジトリに含めない)
+const DEBUG_TOKEN_SHA256 =
+  "b2f20bbead3a0dc7db3a3db90d71ff359eb6b4378e8bca45c84ee0f0f7db9e54";
 
-  if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
+export async function GET(request: Request) {
+  const authHeader = request.headers.get("authorization") ?? "";
+  const token = authHeader.replace(/^Bearer /, "");
+  const hash = createHash("sha256").update(token).digest("hex");
+
+  if (hash !== DEBUG_TOKEN_SHA256) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
