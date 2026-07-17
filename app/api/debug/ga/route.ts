@@ -89,6 +89,24 @@ export async function GET(request: Request) {
             users: r.metricValues?.[1]?.value,
           }),
         );
+    const rtRes = await fetch(
+      `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runRealtimeReport`,
+      {
+        method: "POST",
+        headers: { ...headers, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          metrics: [{ name: "activeUsers" }, { name: "screenPageViews" }],
+        }),
+        cache: "no-store",
+      },
+    );
+    const rt = await rtRes.json();
+    out.realtime = rt.error
+      ? { error: rt.error.status, message: rt.error.message }
+      : {
+          activeUsers: rt.rows?.[0]?.metricValues?.[0]?.value ?? "0",
+          pageViews: rt.rows?.[0]?.metricValues?.[1]?.value ?? "0",
+        };
   } catch (error) {
     out.fatal = error instanceof Error ? error.message : String(error);
   }
