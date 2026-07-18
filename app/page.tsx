@@ -47,6 +47,7 @@ const contents = [
   { title: "note", body: "海洋産業の魅力とキャリアの可能性を、ブログで。", href: "/notes", cta: "読む" },
   { title: "イベント", body: "海洋産業に関わる人と企業が出会える場を、準備中。", href: "/events", cta: "知る" },
   { title: "海の地図（β）", body: "海流・港湾・灯台・海底ケーブルを、地図から探索。", href: "/map", cta: "探す" },
+  { title: "ニュース", body: "洋上風力、海底ケーブル、漁業など、業界の動きをキーワードで自動収集。", href: "/news", cta: "読む" },
   { title: "キャリア診断", body: "11問・約3分。あなたに合う海の入口が、無料でわかる。", href: "/diagnosis", cta: "診断する" },
 ];
 

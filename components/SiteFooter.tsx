@@ -9,6 +9,7 @@ const footerColumns = [
       { label: "eBook（無料DL）", href: "/ebooks" },
       { label: "イベント", href: "/events" },
       { label: "海の地図（β）", href: "/map" },
+      { label: "海洋産業ニュース", href: "/news" },
       { label: "海洋キャリア診断", href: "/diagnosis" },
       { label: "お知らせ", href: "/updates" },
     ],

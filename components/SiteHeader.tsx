@@ -7,6 +7,7 @@ const navigationBefore = [
   { label: "note", href: "/notes" },
   { label: "イベント", href: "/events" },
   { label: "海の地図", href: "/map" },
+  { label: "ニュース", href: "/news" },
   { label: "診断", href: "/diagnosis" },
 ];
 

@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "notes",
     "events",
     "map",
+    "news",
     "diagnosis",
     "companies",
     "contact",
