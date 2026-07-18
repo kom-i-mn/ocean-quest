@@ -28,6 +28,8 @@ const defaultHero = {
   kicker: "OCEAN QUEST NEWS",
   heading: "海洋産業の動きを、\nキャリア視点で読み解く。",
   lead: "洋上風力、海底ケーブル、水中ロボティクス、漁業・水産、港湾・海運など、海洋産業に関する国内外の報道を自動収集しています。見出し・提供元・リンクのみを掲載し、記事本文は各メディアのリンク先でご覧ください。",
+  sectionKicker: "",
+  sectionHeading: "",
 };
 
 function buildQuery(params: { q?: string; category?: string }) {
@@ -94,9 +96,13 @@ export default async function NewsPage({
 
       <section className="rd-sec" id="news" aria-label="海洋産業ニュース一覧">
         <div className="rd-rv">
-          <p className="rd-kicker">HEADLINES</p>
+          <p className="rd-kicker">{hero.sectionKicker || "HEADLINES"}</p>
           <h2 className="rd-title">
-            海の仕事は、<em>今日も動いている</em>。
+            {hero.sectionHeading || (
+              <>
+                海の仕事は、<em>今日も動いている</em>。
+              </>
+            )}
           </h2>
         </div>
 

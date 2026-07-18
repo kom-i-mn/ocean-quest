@@ -44,6 +44,8 @@ export type MicroCmsPageHero = {
   kicker: string;
   heading: string;
   lead: string;
+  sectionKicker?: string;
+  sectionHeading?: string;
 };
 
 type MicroCmsPageHeroListResponse = {
