@@ -10,6 +10,7 @@ const footerColumns = [
       { label: "イベント", href: "/events" },
       { label: "海の地図（β）", href: "/map" },
       { label: "海洋キャリア診断", href: "/diagnosis" },
+      { label: "お知らせ", href: "/updates" },
     ],
   },
   {
