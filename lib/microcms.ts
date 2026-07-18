@@ -60,10 +60,10 @@ export async function fetchMicroCmsPageHero(slug: string): Promise<MicroCmsPageH
 
   try {
     const response = await fetch(
-      `https://${domain}.microcms.io/api/v1/pageHero?filters=slug[equals]${encodeURIComponent(slug)}&limit=1`,
+      `https://${domain}.microcms.io/api/v1/pagehero?filters=slug[equals]${encodeURIComponent(slug)}&limit=1`,
       {
         headers: { "X-MICROCMS-API-KEY": apiKey },
-        next: { revalidate: 60 },
+        cache: "no-store",
       },
     );
     if (!response.ok) return null;
