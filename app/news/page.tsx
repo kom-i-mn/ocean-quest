@@ -12,7 +12,10 @@ import {
 } from "@/lib/news";
 import { fetchMicroCmsPageHero } from "@/lib/microcms";
 
-export const revalidate = 3600;
+// ページ全体は300秒（5分）で再検証。ニュース記事自体はlib/news.tsの
+// 各fetch呼び出しが独自にrevalidate:3600(1時間)を持つため、ここを短くしても
+// Googleニュースへのリクエスト頻度は変わらない。CMSの見出し反映を早めるための設定
+export const revalidate = 300;
 
 export const metadata: Metadata = pageMetadata({
   title: "海洋産業ニュース | Ocean Quest",
