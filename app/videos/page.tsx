@@ -3,6 +3,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { pageMetadata } from "@/lib/seo";
 import { listYouTubeContents } from "@/lib/supabase";
+import { fetchMicroCmsPageHero } from "@/lib/microcms";
 
 export const revalidate = 300;
 
@@ -13,8 +14,18 @@ export const metadata = pageMetadata({
   path: "/videos",
 });
 
+const defaultHero = {
+  kicker: "VIDEOS — 動画で学ぶ",
+  heading: "海洋産業を、\n動画でわかりやすく。",
+  lead: "海洋産業の仕事、技術、企業、キャリアの可能性を、対談や解説動画で届けます。まだ業界に詳しくない方でも、興味のあるテーマから学べる動画ライブラリです。",
+};
+
 export default async function VideosPage() {
-  const videos = await listYouTubeContents().catch(() => []);
+  const [videos, cmsHero] = await Promise.all([
+    listYouTubeContents().catch(() => []),
+    fetchMicroCmsPageHero("videos"),
+  ]);
+  const hero = cmsHero ?? defaultHero;
   // metadata.is_short(取り込み時に判定)で本編とショートに振り分ける。未判定は本編扱い
   const mainVideos = videos.filter((video) => video.metadata?.is_short !== true);
   const shortVideos = videos.filter((video) => video.metadata?.is_short === true);
@@ -27,15 +38,16 @@ export default async function VideosPage() {
       <section className="rd-sub-hero">
         <div className="rd-sub-hero-bg" style={{ backgroundImage: "url('/images/backgrounds/deep-sea.jpg')" }} />
         <div className="rd-sub-hero-inner">
-          <p className="rd-kicker-w rd-rv">VIDEOS — 動画で学ぶ</p>
+          <p className="rd-kicker-w rd-rv">{hero.kicker}</p>
           <h1 className="rd-rv rd-rv-slow">
-            海洋産業を、
-            <br />
-            動画でわかりやすく。
+            {hero.heading.split("\n").map((line, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            ))}
           </h1>
-          <p className="rd-lead-w rd-rv rd-rv-slow">
-            海洋産業の仕事、技術、企業、キャリアの可能性を、対談や解説動画で届けます。まだ業界に詳しくない方でも、興味のあるテーマから学べる動画ライブラリです。
-          </p>
+          <p className="rd-lead-w rd-rv rd-rv-slow">{hero.lead}</p>
         </div>
       </section>
 

@@ -3,6 +3,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { pageMetadata } from "@/lib/seo";
 import { listNoteContents } from "@/lib/supabase";
+import { fetchMicroCmsPageHero } from "@/lib/microcms";
 
 export const revalidate = 300;
 
@@ -13,8 +14,18 @@ export const metadata = pageMetadata({
   path: "/notes",
 });
 
+const defaultHero = {
+  kicker: "NOTE — 読み物",
+  heading: "海洋産業の今と、\nこれからを読む。",
+  lead: "海洋産業の可能性、技術、職種、採用、キャリアについて、Ocean Questの視点で解説します。ニュースだけでは見えにくい業界の文脈を、わかりやすく言語化していきます。",
+};
+
 export default async function NotesPage() {
-  const notes = await listNoteContents().catch(() => []);
+  const [notes, cmsHero] = await Promise.all([
+    listNoteContents().catch(() => []),
+    fetchMicroCmsPageHero("notes"),
+  ]);
+  const hero = cmsHero ?? defaultHero;
 
   return (
     <main className="rd">
@@ -24,16 +35,16 @@ export default async function NotesPage() {
       <section className="rd-sub-hero">
         <div className="rd-sub-hero-bg" style={{ backgroundImage: "url('/images/backgrounds/jellyfish-dark.jpg')" }} />
         <div className="rd-sub-hero-inner">
-          <p className="rd-kicker-w rd-rv">NOTE — 読み物</p>
+          <p className="rd-kicker-w rd-rv">{hero.kicker}</p>
           <h1 className="rd-rv rd-rv-slow">
-            海洋産業の今と、
-            <br />
-            これからを読む。
+            {hero.heading.split("\n").map((line, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            ))}
           </h1>
-          <p className="rd-lead-w rd-rv rd-rv-slow">
-            海洋産業の可能性、技術、職種、採用、キャリアについて、Ocean
-            Questの視点で解説します。ニュースだけでは見えにくい業界の文脈を、わかりやすく言語化していきます。
-          </p>
+          <p className="rd-lead-w rd-rv rd-rv-slow">{hero.lead}</p>
         </div>
       </section>
 
