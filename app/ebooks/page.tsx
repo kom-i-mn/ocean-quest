@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { pageMetadata } from "@/lib/seo";
 import { listEbookContents } from "@/lib/supabase";
+import { fetchMicroCmsPageHero } from "@/lib/microcms";
 
 export const revalidate = 300;
 
@@ -14,8 +15,18 @@ export const metadata = pageMetadata({
   path: "/ebooks",
 });
 
+const defaultHero = {
+  kicker: "EBOOKS — 無料ダウンロード資料",
+  heading: "海洋産業の採用とキャリアを、\n体系的に学ぶ。",
+  lead: "noteで発信してきた知見を、保存して読み返せる資料にまとめています。すべてメールアドレスのご登録のみ・無料でダウンロードできます。",
+};
+
 export default async function EbooksPage() {
-  const ebooks = await listEbookContents(48).catch(() => []);
+  const [ebooks, cmsHero] = await Promise.all([
+    listEbookContents(48).catch(() => []),
+    fetchMicroCmsPageHero("ebooks"),
+  ]);
+  const hero = cmsHero ?? defaultHero;
 
   return (
     <main className="rd">
@@ -25,15 +36,16 @@ export default async function EbooksPage() {
       <section className="rd-sub-hero">
         <div className="rd-sub-hero-bg" style={{ backgroundImage: "url('/images/backgrounds/bubbles.jpg')" }} />
         <div className="rd-sub-hero-inner">
-          <p className="rd-kicker-w rd-rv">EBOOKS — 無料ダウンロード資料</p>
+          <p className="rd-kicker-w rd-rv">{hero.kicker}</p>
           <h1 className="rd-rv rd-rv-slow">
-            海洋産業の採用とキャリアを、
-            <br />
-            体系的に学ぶ。
+            {hero.heading.split("\n").map((line, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            ))}
           </h1>
-          <p className="rd-lead-w rd-rv rd-rv-slow">
-            noteで発信してきた知見を、保存して読み返せる資料にまとめています。すべてメールアドレスのご登録のみ・無料でダウンロードできます。
-          </p>
+          <p className="rd-lead-w rd-rv rd-rv-slow">{hero.lead}</p>
         </div>
       </section>
 

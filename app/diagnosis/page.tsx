@@ -4,6 +4,7 @@ import { RdFx } from "@/components/RdFx";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { pageMetadata } from "@/lib/seo";
+import { fetchMicroCmsPageHero } from "@/lib/microcms";
 
 export const metadata: Metadata = pageMetadata({
   title: "海洋産業キャリア診断 | Ocean Quest",
@@ -12,7 +13,16 @@ export const metadata: Metadata = pageMetadata({
   path: "/diagnosis",
 });
 
-export default function DiagnosisPage() {
+const defaultHero = {
+  kicker: "DIAGNOSIS — 海洋キャリア診断",
+  heading: "あなたに合う海の入口を、\n11問で見つける。",
+  lead: "経歴や志向に応じて次の質問が変わる、あなた専用の診断フロー。海洋産業9領域とのマッチ度に、4つの職種タイプ（エンジニア/リサーチャー/ビジネスビルダー/フィールドリーダー）をかけ合わせて、あなたのタイプ・想定職種・想定年収帯まで提示します。",
+};
+
+export default async function DiagnosisPage() {
+  const cmsHero = await fetchMicroCmsPageHero("diagnosis");
+  const hero = cmsHero ?? defaultHero;
+
   return (
     <main className="rd">
       <SiteHeader solid />
@@ -21,15 +31,16 @@ export default function DiagnosisPage() {
       <section className="rd-sub-hero">
         <div className="rd-sub-hero-bg" style={{ backgroundImage: "url('/images/backgrounds/sun-jellyfish.jpg')" }} />
         <div className="rd-sub-hero-inner">
-          <p className="rd-kicker-w rd-rv">DIAGNOSIS — 海洋キャリア診断</p>
+          <p className="rd-kicker-w rd-rv">{hero.kicker}</p>
           <h1 className="rd-rv rd-rv-slow">
-            あなたに合う海の入口を、
-            <br />
-            11問で見つける。
+            {hero.heading.split("\n").map((line, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            ))}
           </h1>
-          <p className="rd-lead-w rd-rv rd-rv-slow">
-            経歴や志向に応じて次の質問が変わる、あなた専用の診断フロー。海洋産業9領域とのマッチ度に、4つの職種タイプ（エンジニア/リサーチャー/ビジネスビルダー/フィールドリーダー）をかけ合わせて、あなたのタイプ・想定職種・想定年収帯まで提示します。
-          </p>
+          <p className="rd-lead-w rd-rv rd-rv-slow">{hero.lead}</p>
           <div className="rd-badges rd-rv">
             <span>全11問</span>
             <span>約3分</span>

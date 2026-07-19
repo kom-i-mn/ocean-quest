@@ -4,6 +4,7 @@ import { RdFx } from "@/components/RdFx";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { pageMetadata } from "@/lib/seo";
+import { fetchMicroCmsPageHero } from "@/lib/microcms";
 
 export const metadata: Metadata = pageMetadata({
   title: "海の地図(β) | Ocean Quest",
@@ -11,6 +12,12 @@ export const metadata: Metadata = pageMetadata({
     "海上保安庁「海しる」の公開データで、黒潮などの海流、全国の水族館・海の展示施設・体験学習施設、港湾、灯台、海底ケーブルを地図から探索できます。海洋産業を知る入口としてご活用ください。",
   path: "/map",
 });
+
+const defaultHero = {
+  kicker: "OCEAN MAP（β）",
+  heading: "海の地図から、\n海洋産業の入口を探す。",
+  lead: "海上保安庁の海洋情報サービス「海しる」の公開データと連携。海流・水族館・港湾・灯台・海底ケーブルを地図上で探索できます。気になる場所を見つけたら、そのまま診断や動画へ。",
+};
 
 const highlights = [
   {
@@ -27,7 +34,10 @@ const highlights = [
   },
 ];
 
-export default function MapPage() {
+export default async function MapPage() {
+  const cmsHero = await fetchMicroCmsPageHero("map");
+  const hero = cmsHero ?? defaultHero;
+
   return (
     <main className="rd">
       <SiteHeader solid />
@@ -36,15 +46,16 @@ export default function MapPage() {
       <section className="rd-sub-hero">
         <div className="rd-sub-hero-bg" style={{ backgroundImage: "url('/images/backgrounds/ocean-foam.jpg')" }} />
         <div className="rd-sub-hero-inner">
-          <p className="rd-kicker-w rd-rv">OCEAN MAP（β）</p>
+          <p className="rd-kicker-w rd-rv">{hero.kicker}</p>
           <h1 className="rd-rv rd-rv-slow">
-            海の地図から、
-            <br />
-            海洋産業の入口を探す。
+            {hero.heading.split("\n").map((line, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            ))}
           </h1>
-          <p className="rd-lead-w rd-rv rd-rv-slow">
-            海上保安庁の海洋情報サービス「海しる」の公開データと連携。海流・水族館・港湾・灯台・海底ケーブルを地図上で探索できます。気になる場所を見つけたら、そのまま診断や動画へ。
-          </p>
+          <p className="rd-lead-w rd-rv rd-rv-slow">{hero.lead}</p>
         </div>
       </section>
 
