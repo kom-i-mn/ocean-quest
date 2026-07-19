@@ -2,6 +2,7 @@ import { RdFx } from "@/components/RdFx";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { pageMetadata } from "@/lib/seo";
+import { fetchMicroCmsPageHero } from "@/lib/microcms";
 
 export const metadata = pageMetadata({
   title: "企業向け採用支援 | 海洋産業特化の採用パートナー | Ocean Quest",
@@ -48,7 +49,16 @@ const process = [
   "実行支援と週次改善",
 ];
 
-export default function CompaniesPage() {
+const defaultHero = {
+  kicker: "FOR COMPANIES — 企業向け採用支援",
+  heading: "海洋産業の採用を、\n専門理解から設計する。",
+  lead: "技術や事業の魅力が伝わりにくい海洋産業だからこそ、候補者に届く言葉と接点設計が重要です。採用ブランディング、スカウト、母集団形成、コンテンツ企画まで支援します。",
+};
+
+export default async function CompaniesPage() {
+  const cmsHero = await fetchMicroCmsPageHero("companies");
+  const hero = cmsHero ?? defaultHero;
+
   return (
     <main className="rd">
       <SiteHeader solid />
@@ -57,15 +67,16 @@ export default function CompaniesPage() {
       <section className="rd-sub-hero">
         <div className="rd-sub-hero-bg" style={{ backgroundImage: "url('/images/backgrounds/port-cranes.jpg')" }} />
         <div className="rd-sub-hero-inner">
-          <p className="rd-kicker-w rd-rv">FOR COMPANIES — 企業向け採用支援</p>
+          <p className="rd-kicker-w rd-rv">{hero.kicker}</p>
           <h1 className="rd-rv rd-rv-slow">
-            海洋産業の採用を、
-            <br />
-            専門理解から設計する。
+            {hero.heading.split("\n").map((line, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            ))}
           </h1>
-          <p className="rd-lead-w rd-rv rd-rv-slow">
-            技術や事業の魅力が伝わりにくい海洋産業だからこそ、候補者に届く言葉と接点設計が重要です。採用ブランディング、スカウト、母集団形成、コンテンツ企画まで支援します。
-          </p>
+          <p className="rd-lead-w rd-rv rd-rv-slow">{hero.lead}</p>
           <div className="rd-final-ctas rd-rv" style={{ justifyContent: "flex-start", marginTop: 44 }}>
             <a className="rd-btn rd-btn-primary" href="/contact">
               採用支援を相談する

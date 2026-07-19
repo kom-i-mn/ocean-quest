@@ -2,6 +2,7 @@ import { RdFx } from "@/components/RdFx";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { pageMetadata } from "@/lib/seo";
+import { fetchMicroCmsPageHero } from "@/lib/microcms";
 
 export const metadata = pageMetadata({
   title: "イベント | 海洋産業の人と出会う | Ocean Quest",
@@ -9,6 +10,12 @@ export const metadata = pageMetadata({
     "海洋産業に関心のある人と企業・専門家がつながる勉強会、ウェビナー、対談、キャリア相談会を準備中。開催情報の案内を受け取れます。",
   path: "/events",
 });
+
+const defaultHero = {
+  kicker: "EVENTS — COMING SOON",
+  heading: "海洋産業に関わる人と、\n出会う。",
+  lead: "勉強会、ウェビナー、対談、キャリア相談会。海洋産業に関心のある人と企業・専門家がつながる場をつくります。学ぶだけで終わらず、次のキャリアや採用につながる接点を。",
+};
 
 const formats = [
   {
@@ -29,7 +36,10 @@ const formats = [
   },
 ];
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const cmsHero = await fetchMicroCmsPageHero("events");
+  const hero = cmsHero ?? defaultHero;
+
   return (
     <main className="rd">
       <SiteHeader solid />
@@ -38,15 +48,16 @@ export default function EventsPage() {
       <section className="rd-sub-hero">
         <div className="rd-sub-hero-bg" style={{ backgroundImage: "url('/images/backgrounds/port-sunset.jpg')" }} />
         <div className="rd-sub-hero-inner">
-          <p className="rd-kicker-w rd-rv">EVENTS — COMING SOON</p>
+          <p className="rd-kicker-w rd-rv">{hero.kicker}</p>
           <h1 className="rd-rv rd-rv-slow">
-            海洋産業に関わる人と、
-            <br />
-            出会う。
+            {hero.heading.split("\n").map((line, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            ))}
           </h1>
-          <p className="rd-lead-w rd-rv rd-rv-slow">
-            勉強会、ウェビナー、対談、キャリア相談会。海洋産業に関心のある人と企業・専門家がつながる場をつくります。学ぶだけで終わらず、次のキャリアや採用につながる接点を。
-          </p>
+          <p className="rd-lead-w rd-rv rd-rv-slow">{hero.lead}</p>
         </div>
       </section>
 
