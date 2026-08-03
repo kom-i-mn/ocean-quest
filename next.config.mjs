@@ -4,6 +4,8 @@ const nextConfig = {
   outputFileTracingIncludes: {
     "/api/diagnosis-report": ["./assets/fonts/**"],
   },
+  // Don't advertise "X-Powered-By: Next.js" — reduces easy version fingerprinting.
+  poweredByHeader: false,
 };
 
 export default nextConfig;
