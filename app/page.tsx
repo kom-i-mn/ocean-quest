@@ -1,7 +1,18 @@
+import { CmsHeroHeading, CmsLines } from "@/components/CmsText";
 import { HeroVideo } from "@/components/HeroVideo";
 import { RdFx } from "@/components/RdFx";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { fetchMicroCmsPageHero } from "@/lib/microcms";
+
+// microCMS(slug="top")未設定時に使う初期文言。CMS側を消してもトップが壊れないようにする
+const topHeroFallback = {
+  kicker: "OCEAN QUEST — 海洋産業のキャリア・採用支援",
+  heading: "日本の国土は、世界61位。\n深海の海水量は、世界【1位】。",
+  lead: "海に眠っているのは資源だけじゃない。\nこのポテンシャルも。あなたのキャリアも。",
+  sectionKicker: "日本は、深海で【世界一】の国だ。",
+  sectionHeading: "水深5,000m以深の海水保有体積は世界1位。領海と排他的経済水域（約447万km²）は世界6位。",
+};
 
 const faqItems = [
   {
@@ -66,7 +77,16 @@ const industryTypes = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const cms = await fetchMicroCmsPageHero("top");
+  const hero = {
+    kicker: cms?.kicker || topHeroFallback.kicker,
+    heading: cms?.heading || topHeroFallback.heading,
+    lead: cms?.lead || topHeroFallback.lead,
+    sectionKicker: cms?.sectionKicker || topHeroFallback.sectionKicker,
+    sectionHeading: cms?.sectionHeading || topHeroFallback.sectionHeading,
+  };
+
   return (
     <main className="rd">
       <SiteHeader />
@@ -85,15 +105,12 @@ export default function Home() {
           <img className="rd-lockup-pl" src="/images/brand/potentialight-logo-white.png" alt="POTENTIALIGHT" />
         </div>
         <div className="rd-hero-inner">
-          <p className="rd-kicker-w rd-rv">OCEAN QUEST — 海洋産業のキャリア・採用支援</p>
+          <p className="rd-kicker-w rd-rv">{hero.kicker}</p>
           <h1 className="rd-rv rd-rv-slow">
-            <span className="rd-h1-pre">日本の国土は、世界61位。</span>
-            日本の海は、世界<em><span className="rd-num">6</span>位</em>。
+            <CmsHeroHeading text={hero.heading} />
           </h1>
           <p className="rd-hero-sub rd-rv rd-rv-slow">
-            海に眠っているのは資源だけじゃない。
-            <br />
-            このポテンシャルも。あなたのキャリアも。
+            <CmsLines text={hero.lead} keyBase="hero-sub" />
           </p>
         </div>
         <div className="rd-scroll-cue">SCROLL</div>
@@ -102,9 +119,9 @@ export default function Home() {
       {/* 余白 */}
       <section className="rd-breath">
         <p className="rd-line rd-rv">
-          日本は、<em>海の国</em>だ。
+          <CmsLines text={hero.sectionKicker} keyBase="breath" />
         </p>
-        <small className="rd-rv">領海と排他的経済水域は約447万km²。世界第6位の広さ。</small>
+        <small className="rd-rv">{hero.sectionHeading}</small>
       </section>
 
       {/* ストーリー */}
@@ -135,7 +152,7 @@ export default function Home() {
                 <div className="rd-more-item">
                   <p className="rd-more-lead">日本でしか採れない資源が、海の底に眠っている。</p>
                   <p>
-                    メタンハイドレート（燃える氷）、海底熱水鉱床、コバルトリッチクラスト。世界6位のEEZ（約447万km²）の中に眠りますが、そのほとんどは水深2,000〜6,000m。採りに行く技術はこれからで、商業利用できる「最初の国」になれる可能性があります。
+                    メタンハイドレート（燃える氷）、海底熱水鉱床、コバルトリッチクラスト。世界6位のEEZ（約447万km²）の中に眠りますが、そのほとんどは水深2,000〜6,000m。採りに行く技術はこれからで、商業利用できる「最初の国」になれる可能性があります。深さで見ると、水深5,000m以深の海水保有体積は世界1位（笹川平和財団 海洋政策研究所調べ）。日本の海は、広さだけでなく深さでも世界屈指です。
                   </p>
                 </div>
                 <div className="rd-more-item">

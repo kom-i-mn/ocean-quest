@@ -2493,7 +2493,7 @@ h3 {
 .floating-cta {
   position: fixed;
   right: 20px;
-  top: 50%;
+  top: calc(50% - 34px);
   z-index: 60;
   display: inline-flex;
   align-items: center;
@@ -2521,6 +2521,12 @@ h3 {
 
 .floating-cta:hover {
   filter: brightness(1.08);
+}
+
+/* 企業向け「サービス内容」ボタン。個人向け相談ボタンの下に並べ、色を変えて別導線と分かるようにする */
+.floating-cta-company {
+  top: calc(50% + 34px);
+  background: var(--accent);
 }
 
 @media (max-width: 640px) {
