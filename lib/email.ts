@@ -1,4 +1,5 @@
 import type { DailyAnalyticsReportInput } from "./analytics";
+import { isDiagnosisKind, leadKindPresentation, resolveLeadKind } from "./leads";
 
 const notifyEmail = process.env.CONTACT_NOTIFY_EMAIL || "mine@potentialight.com";
 const dailyReportEmail = process.env.DAILY_REPORT_EMAIL || "mine@potentialight.com";
@@ -31,7 +32,9 @@ export async function sendContactNotificationEmail(submission: {
       from: fromEmail,
       to: notifyEmail,
       reply_to: submission.email,
-      subject: `【Ocean Quest】新しい問い合わせ: ${submission.name || submission.email}`,
+      subject: `【Ocean Quest】${
+        leadKindPresentation[resolveLeadKind(submission.topic)].subjectLabel
+      }: ${submission.name || submission.email}`,
       html: buildNotificationEmailHtml(submission),
     }),
   });
@@ -234,12 +237,24 @@ function buildNotificationEmailHtml(submission: {
   topic: string | null;
   message: string;
 }) {
-  const rows: Array<[string, string]> = [
-    ["お名前", submission.name || "(未入力)"],
-    ["会社名", submission.company || "(未入力)"],
-    ["メールアドレス", submission.email],
-    ["相談したい内容", submission.topic || "(未選択)"],
-  ];
+  const kind = resolveLeadKind(submission.topic);
+  const presentation = leadKindPresentation[kind];
+  const isDiagnosis = isDiagnosisKind(kind);
+
+  // 診断の通知に「会社名(未入力)」「相談したい内容: diagnosis_start」が並ぶと
+  // 問い合わせと見分けがつかないので、診断のときは人が読める行だけを出す。
+  const rows: Array<[string, string]> = isDiagnosis
+    ? [
+        ["お名前", submission.name || "(未入力)"],
+        ["メールアドレス", submission.email],
+        ["種別", presentation.label],
+      ]
+    : [
+        ["お名前", submission.name || "(未入力)"],
+        ["会社名", submission.company || "(未入力)"],
+        ["メールアドレス", submission.email],
+        ["相談したい内容", submission.topic || "(未選択)"],
+      ];
 
   const rowsHtml = rows
     .map(
@@ -260,9 +275,14 @@ function buildNotificationEmailHtml(submission: {
     <div style="background:#eef8f7;padding:32px 16px;font-family:'Hiragino Sans','Yu Gothic',Arial,sans-serif;">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background:#fbfffd;border-radius:12px;overflow:hidden;border:1px solid #e2f5f3;">
         <tr>
-          <td style="background:#005866;padding:28px 32px;">
+          <td style="background:${presentation.headerColor};padding:28px 32px;">
             <div style="color:#fbfffd;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.8;">Ocean Quest</div>
-            <div style="color:#fbfffd;font-size:20px;font-weight:700;margin-top:6px;">新しい問い合わせが届きました</div>
+            <div style="color:#fbfffd;font-size:20px;font-weight:700;margin-top:6px;">${escapeHtml(
+              presentation.headline,
+            )}</div>
+            <div style="display:inline-block;margin-top:14px;padding:5px 12px;border-radius:999px;background:rgba(251,255,253,0.16);border:1px solid rgba(251,255,253,0.4);color:#fbfffd;font-size:12px;font-weight:700;letter-spacing:0.04em;">${escapeHtml(
+              presentation.badge,
+            )}</div>
           </td>
         </tr>
         <tr>
@@ -274,7 +294,9 @@ function buildNotificationEmailHtml(submission: {
         </tr>
         <tr>
           <td style="padding:8px 32px 32px;">
-            <div style="font-size:13px;color:#4b7075;margin-bottom:8px;">相談内容の詳細</div>
+            <div style="font-size:13px;color:#4b7075;margin-bottom:8px;">${escapeHtml(
+              presentation.detailHeading,
+            )}</div>
             <div style="background:#e2f5f3;border-radius:8px;padding:18px 20px;color:#003f4a;font-size:14px;line-height:1.8;white-space:pre-wrap;">${escapeHtml(
               submission.message,
             )}</div>
@@ -283,8 +305,11 @@ function buildNotificationEmailHtml(submission: {
         <tr>
           <td style="padding:20px 32px;background:#f4faf9;border-top:1px solid #e2f5f3;">
             <div style="font-size:12px;color:#8eaaa9;line-height:1.7;">
-              このメールはOcean Questの問い合わせフォームから自動送信されています。<br>
-              このまま返信すると、送信者（${escapeHtml(submission.email)}）に直接届きます。
+              ${
+                presentation.needsReply
+                  ? "このメールはOcean Questの問い合わせフォームから自動送信されています。<br>このまま返信すると、送信者"
+                  : "これはキャリア診断の自動通知です。お問い合わせではないので、返信は必要ありません。<br>ご本人に連絡する場合は、このまま返信すると"
+              }（${escapeHtml(submission.email)}）に直接届きます。
             </div>
           </td>
         </tr>

@@ -231,6 +231,17 @@ export async function getLatestAnalyticsReport() {
   }
 }
 
+/**
+ * 問い合わせ・診断イベントを古い順に全件取得する（スプレッドシート同期用）。
+ * 個人情報を含むのでサービスロールキーで読む。
+ */
+export async function listContactSubmissions(limit = 5000) {
+  return supabaseRequest<ContactSubmission[]>("contact_submissions", {
+    query: `select=*&order=created_at.asc&limit=${limit}`,
+    useServiceRole: true,
+  });
+}
+
 export async function insertContactSubmission(
   submission: Pick<ContactSubmission, "name" | "company" | "email" | "topic" | "message">,
 ) {

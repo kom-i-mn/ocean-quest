@@ -8,6 +8,15 @@ type GoogleServiceAccount = {
 
 const tokenCache = new Map<string, { accessToken: string; expiresAt: number }>();
 
+/** サービスアカウントのメールアドレス（スプレッドシートの共有先として案内する用） */
+export function getGoogleServiceAccountEmail() {
+  return getGoogleClientEmail();
+}
+
+export function hasGoogleCredentials() {
+  return Boolean(getGoogleClientEmail() && getGooglePrivateKey());
+}
+
 export function hasGoogleAnalyticsConfig() {
   return Boolean(
     process.env.GA4_PROPERTY_ID &&

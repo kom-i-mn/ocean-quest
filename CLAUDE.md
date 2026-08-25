@@ -31,6 +31,7 @@
 ## 主要機能（消してはいけないもの）
 
 - 分岐型キャリア診断（11問・9領域×4職種=36タイプ・結果メール+PDF）→ /diagnosis
+- 診断・問い合わせの通知メールは`lib/leads.ts`の`resolveLeadKind()`で4種別（お問い合わせ／診断スタート／診断を受けました／レポートDL）に出し分ける。**問い合わせだけオレンジ＋「要返信」、診断は自動通知扱い**。同じ判定をスプレッドシート同期でも使うので、種別を増やすときはここ1箇所を直す
 - 海の地図β（海しるAPI・出典表記あり）→ /map
 - 動画（本編上層・Shorts下層の2段構成、本編はタイトルのみ）/ note / eBook（メールゲートDL）/ イベント
 - FAQ + JSON-LD、llms.txt などのSEO/AEO施策
@@ -64,3 +65,5 @@
 | トップページ | `app/page.tsx` + `app/redesign.css` |
 | /robotics | `app/robotics/page.tsx` + `quest-rd.css` + `DepthJourney.tsx` / `DepthMarks.tsx` |
 | eBook自動化の仕組み | `docs/content-automation.md` |
+| リードのスプレッドシート管理 | `docs/leads-spreadsheet.md` |
+| 通知メールの種別判定 | `lib/leads.ts` |

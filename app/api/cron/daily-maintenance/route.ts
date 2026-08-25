@@ -5,6 +5,7 @@ import { hasResendConfig, sendDailyMaintenanceEmail } from "@/lib/email";
 import { hasGoogleAnalyticsConfig } from "@/lib/google-auth";
 import { processEbookGeneration } from "@/lib/ebook";
 import { fetchNoteRssContents } from "@/lib/note";
+import { hasLeadsSheetConfig, syncLeadsToSheet } from "@/lib/sheets";
 import {
   hasSupabaseWriteConfig,
   upsertAnalyticsReport,
@@ -93,6 +94,23 @@ export async function GET(request: Request) {
       skipped: true,
       reason:
         "GA4_PROPERTY_ID, SEARCH_CONSOLE_SITE_URL, and Google service account credentials are required.",
+    };
+  }
+
+  // 診断・問い合わせのリードをスプレッドシートへ同期する（未設定ならスキップ）
+  if (hasLeadsSheetConfig()) {
+    try {
+      results.leads_sheet = await syncLeadsToSheet();
+    } catch (error) {
+      results.leads_sheet = {
+        skipped: true,
+        error: error instanceof Error ? error.message : "Leads sheet sync failed.",
+      };
+    }
+  } else {
+    results.leads_sheet = {
+      skipped: true,
+      reason: "LEADS_SHEET_ID is required.",
     };
   }
 
