@@ -8,10 +8,13 @@
  * 個人情報を扱うため、公開URLやトークン付きURLは作らない（Google側に押し出す方式）。
  */
 
-import { getGoogleAccessToken } from "./google-auth";
+import { after } from "next/server";
+import { getGoogleAccessToken, hasGoogleCredentials } from "./google-auth";
 import {
+  buildLeadContactRows,
   buildLeadEventRows,
   buildLeadPersonRows,
+  leadContactHeader,
   leadEventHeader,
   leadPersonHeader,
 } from "./leads";
@@ -20,6 +23,8 @@ import { listContactSubmissions } from "./supabase";
 const sheetsScope = "https://www.googleapis.com/auth/spreadsheets";
 const apiBase = "https://sheets.googleapis.com/v4/spreadsheets";
 
+/** 返信が必要なお問い合わせだけ（いちばん最初に見るシート） */
+const contactTabTitle = "お問い合わせ（要返信）";
 /** 人物一覧（名寄せ済み・実際に運用で見るシート） */
 const personTabTitle = "リード一覧";
 /** 全イベントの時系列ログ */
@@ -105,17 +110,36 @@ export async function syncLeadsToSheet() {
   const accessToken = await getGoogleAccessToken([sheetsScope]);
   const submissions = await listContactSubmissions();
 
+  const contactRows = buildLeadContactRows(submissions);
   const personRows = buildLeadPersonRows(submissions);
   const eventRows = buildLeadEventRows(submissions);
 
-  await ensureTabs(accessToken, spreadsheetId, [personTabTitle, eventTabTitle]);
+  await ensureTabs(accessToken, spreadsheetId, [contactTabTitle, personTabTitle, eventTabTitle]);
+  await writeTab(accessToken, spreadsheetId, contactTabTitle, [leadContactHeader, ...contactRows]);
   await writeTab(accessToken, spreadsheetId, personTabTitle, [leadPersonHeader, ...personRows]);
   await writeTab(accessToken, spreadsheetId, eventTabTitle, [leadEventHeader, ...eventRows]);
 
   return {
     spreadsheetId,
+    contacts: contactRows.length,
     people: personRows.length,
     events: eventRows.length,
     syncedAt: new Date().toISOString(),
   };
+}
+
+/**
+ * 問い合わせ・診断が届いた直後に呼ぶ。返信を待たせないよう、レスポンスを返した後で同期する。
+ * 失敗してもフォーム送信には影響させず、翌朝の日次cronで全件を書き直して追いつく。
+ */
+export function scheduleLeadsSheetSync() {
+  if (!hasLeadsSheetConfig() || !hasGoogleCredentials()) return;
+
+  after(async () => {
+    try {
+      await syncLeadsToSheet();
+    } catch (error) {
+      console.error("Failed to sync leads sheet after submission:", error);
+    }
+  });
 }

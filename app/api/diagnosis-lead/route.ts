@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { hasResendConfig, sendContactNotificationEmail } from "@/lib/email";
 import { hasSupabaseWriteConfig, insertContactSubmission } from "@/lib/supabase";
+import { scheduleLeadsSheetSync } from "@/lib/sheets";
 
 export const runtime = "nodejs";
 
@@ -42,6 +43,7 @@ export async function POST(request: Request) {
   let saved = false;
   try {
     await insertContactSubmission(submission);
+    scheduleLeadsSheetSync();
     saved = true;
   } catch (error) {
     console.error("Failed to save diagnosis lead:", error);

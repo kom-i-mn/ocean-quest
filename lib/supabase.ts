@@ -52,6 +52,8 @@ type SupabaseRequestOptions = {
   body?: unknown;
   prefer?: string;
   useServiceRole?: boolean;
+  /** GETでも5分キャッシュを使わず、毎回最新を読む */
+  fresh?: boolean;
 };
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -74,6 +76,7 @@ export async function supabaseRequest<T>(
     body,
     prefer,
     useServiceRole = false,
+    fresh = false,
   }: SupabaseRequestOptions = {},
 ): Promise<T> {
   const apiKey = useServiceRole ? supabaseServiceRoleKey : supabaseAnonKey;
@@ -93,7 +96,9 @@ export async function supabaseRequest<T>(
         ...(prefer ? { Prefer: prefer } : {}),
       },
       body: body ? JSON.stringify(body) : undefined,
-      ...(method === "GET" ? { next: { revalidate: 300 } } : { cache: "no-store" as const }),
+      ...(method === "GET" && !fresh
+        ? { next: { revalidate: 300 } }
+        : { cache: "no-store" as const }),
     },
   );
 
@@ -234,11 +239,13 @@ export async function getLatestAnalyticsReport() {
 /**
  * 問い合わせ・診断イベントを古い順に全件取得する（スプレッドシート同期用）。
  * 個人情報を含むのでサービスロールキーで読む。
+ * 届いた直後の同期で新しい1件が漏れないよう、キャッシュは使わない。
  */
 export async function listContactSubmissions(limit = 5000) {
   return supabaseRequest<ContactSubmission[]>("contact_submissions", {
     query: `select=*&order=created_at.asc&limit=${limit}`,
     useServiceRole: true,
+    fresh: true,
   });
 }
 

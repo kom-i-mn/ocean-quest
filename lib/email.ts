@@ -308,7 +308,7 @@ function buildNotificationEmailHtml(submission: {
               ${
                 presentation.needsReply
                   ? "このメールはOcean Questの問い合わせフォームから自動送信されています。<br>このまま返信すると、送信者"
-                  : "これはキャリア診断の自動通知です。お問い合わせではないので、返信は必要ありません。<br>ご本人に連絡する場合は、このまま返信すると"
+                  : "これはキャリア診断・ダウンロードの自動通知です。お問い合わせではないので、返信は必要ありません。<br>ご本人に連絡する場合は、このまま返信すると"
               }（${escapeHtml(submission.email)}）に直接届きます。
             </div>
           </td>

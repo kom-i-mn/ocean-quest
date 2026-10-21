@@ -6,12 +6,18 @@
  *   diagnosis_start    … 名前とメールを入れて診断を開始した
  *   diagnosis_complete … 11問を終えて結果が出た
  *   diagnosis_report   … 結果ページから詳細版PDFをダウンロードした
+ *   ebook_download     … eBookをメールゲート経由でダウンロードした
  * それ以外（=お問い合わせフォームの選択肢）は本物の問い合わせとして扱う。
  */
 
 import type { ContactSubmission } from "./supabase";
 
-export type LeadKind = "contact" | "diagnosis_start" | "diagnosis_complete" | "diagnosis_report";
+export type LeadKind =
+  | "contact"
+  | "diagnosis_start"
+  | "diagnosis_complete"
+  | "diagnosis_report"
+  | "ebook_download";
 
 export function resolveLeadKind(topic: string | null | undefined): LeadKind {
   switch (topic) {
@@ -21,6 +27,8 @@ export function resolveLeadKind(topic: string | null | undefined): LeadKind {
       return "diagnosis_complete";
     case "diagnosis_report":
       return "diagnosis_report";
+    case "ebook_download":
+      return "ebook_download";
     default:
       return "contact";
   }
@@ -89,6 +97,16 @@ export const leadKindPresentation: Record<LeadKind, LeadKindPresentation> = {
     detailHeading: "ダウンロード内容",
     needsReply: false,
   },
+  ebook_download: {
+    label: "eBook DL",
+    subjectLabel: "eBookダウンロード",
+    headline: "eBookがダウンロードされました",
+    headerColor: "#005866",
+    badge: "自動通知 / 返信不要",
+    badgeColor: "#4b7075",
+    detailHeading: "ダウンロード内容",
+    needsReply: false,
+  },
 };
 
 /**
@@ -141,6 +159,33 @@ export function buildLeadEventRows(submissions: ContactSubmission[]) {
       isTestLead(submission.email) ? "テスト" : "",
     ];
   });
+}
+
+export const leadContactHeader = [
+  "受付日時(JST)",
+  "お名前",
+  "会社名",
+  "メールアドレス",
+  "相談内容の種類",
+  "内容",
+  "テスト",
+] as const;
+
+/** 返信が必要な「お問い合わせ」だけを新しい順に並べる。いちばん最初に見るシート */
+export function buildLeadContactRows(submissions: ContactSubmission[]) {
+  return submissions
+    .filter((submission) => resolveLeadKind(submission.topic) === "contact")
+    .sort((a, b) => b.created_at.localeCompare(a.created_at))
+    .map((submission) => [
+      toTokyoDateTime(submission.created_at),
+      submission.name || "",
+      submission.company || "",
+      submission.email,
+      submission.topic || "",
+      // 問い合わせ本文は読み返すので改行を残す（セル内改行になる）
+      submission.message,
+      isTestLead(submission.email) ? "テスト" : "",
+    ]);
 }
 
 export const leadPersonHeader = [

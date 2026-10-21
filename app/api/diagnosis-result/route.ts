@@ -9,6 +9,7 @@ import {
   sendDiagnosisResultEmail,
 } from "@/lib/email";
 import { insertContactSubmission } from "@/lib/supabase";
+import { scheduleLeadsSheetSync } from "@/lib/sheets";
 
 export const runtime = "nodejs";
 
@@ -111,6 +112,7 @@ export async function POST(request: Request) {
 
   try {
     await insertContactSubmission(submission);
+    scheduleLeadsSheetSync();
   } catch (error) {
     console.error("Failed to save diagnosis result:", error);
   }

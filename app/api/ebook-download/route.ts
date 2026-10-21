@@ -7,6 +7,7 @@ import {
   hasSupabaseWriteConfig,
   insertContactSubmission,
 } from "@/lib/supabase";
+import { scheduleLeadsSheetSync } from "@/lib/sheets";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -59,6 +60,7 @@ export async function POST(request: Request) {
   let saved = false;
   try {
     await insertContactSubmission(submission);
+    scheduleLeadsSheetSync();
     saved = true;
   } catch (error) {
     console.error("Failed to save ebook download lead:", error);
