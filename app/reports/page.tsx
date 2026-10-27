@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ReportHistory, type DailyRow } from "@/components/ReportHistory";
+import { channelLabel, eventLabel, pageLabel, type ReportLabel } from "@/lib/report-labels";
 import {
   getLatestAnalyticsReport,
   listAnalyticsReportSummaries,
@@ -56,6 +57,7 @@ export default async function ReportsPage() {
               <ReportRows
                 rows={report.channel_groups}
                 primaryKey="name"
+                labelOf={channelLabel}
                 metrics={["sessions", "users"]}
               />
             </ReportBlock>
@@ -68,12 +70,13 @@ export default async function ReportsPage() {
               <ReportRows
                 rows={report.landing_pages}
                 primaryKey="name"
+                labelOf={pageLabel}
                 metrics={["page_views", "users"]}
               />
             </ReportBlock>
 
             <ReportBlock title="主要イベント" icon={<BarChart3 size={18} />}>
-              <ReportRows rows={report.events} primaryKey="name" metrics={["events"]} />
+              <ReportRows rows={report.events} primaryKey="name" metrics={["events"]} labelOf={eventLabel} />
             </ReportBlock>
 
             <div className="report-note">
@@ -144,10 +147,12 @@ function ReportRows({
   rows,
   primaryKey,
   metrics,
+  labelOf = (name) => ({ label: name }),
 }: {
   rows: Array<Record<string, unknown>>;
   primaryKey: string;
   metrics: string[];
+  labelOf?: (name: string) => ReportLabel;
 }) {
   if (rows.length === 0) {
     return <p className="report-muted">データがありません。</p>;
@@ -155,16 +160,22 @@ function ReportRows({
 
   return (
     <div className="report-table">
-      {rows.map((row) => (
-        <div className="report-row" key={String(row[primaryKey])}>
-          <span>{String(row[primaryKey] ?? "-")}</span>
-          <small>
-            {metrics
-              .map((metric) => `${metricLabel(metric)} ${getMetric(row, metric)}`)
-              .join(" / ")}
-          </small>
-        </div>
-      ))}
+      {rows.map((row) => {
+        const { label, raw } = labelOf(String(row[primaryKey] ?? "-"));
+        return (
+          <div className="report-row" key={String(row[primaryKey])}>
+            <span>
+              {label}
+              {raw && <em className="report-raw">{raw}</em>}
+            </span>
+            <small>
+              {metrics
+                .map((metric) => `${metricLabel(metric)} ${getMetric(row, metric)}`)
+                .join(" / ")}
+            </small>
+          </div>
+        );
+      })}
     </div>
   );
 }

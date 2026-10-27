@@ -1708,6 +1708,15 @@ h3 {
   font-weight: 600;
 }
 
+.report-raw {
+  margin-left: 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
 .history-table {
   display: grid;
   font-variant-numeric: tabular-nums;
