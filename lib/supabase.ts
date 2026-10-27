@@ -236,6 +236,30 @@ export async function getLatestAnalyticsReport() {
   }
 }
 
+export type AnalyticsReportSummary = Pick<AnalyticsReport, "report_date" | "summary">;
+
+/** /reportsの日次一覧用。日付とサマリー数値だけを全期間分(最大1年)取得する */
+export async function listAnalyticsReportSummaries(limit = 366) {
+  if (!hasSupabaseReadConfig()) {
+    return [];
+  }
+
+  const query = new URLSearchParams({
+    select: "report_date,summary",
+    order: "report_date.asc",
+    limit: String(limit),
+  });
+
+  try {
+    return await supabaseRequest<AnalyticsReportSummary[]>("analytics_reports", {
+      query: query.toString(),
+    });
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
 /**
  * 問い合わせ・診断イベントを古い順に全件取得する（スプレッドシート同期用）。
  * 個人情報を含むのでサービスロールキーで読む。

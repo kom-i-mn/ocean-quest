@@ -2,7 +2,12 @@ import { BarChart3, Search, TrendingUp } from "lucide-react";
 import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { getLatestAnalyticsReport } from "@/lib/supabase";
+import { ReportHistory, type DailyRow } from "@/components/ReportHistory";
+import {
+  getLatestAnalyticsReport,
+  listAnalyticsReportSummaries,
+  type AnalyticsReportSummary,
+} from "@/lib/supabase";
 
 export const revalidate = 300;
 
@@ -12,7 +17,11 @@ export const metadata = {
 };
 
 export default async function ReportsPage() {
-  const report = await getLatestAnalyticsReport().catch(() => null);
+  const [report, history] = await Promise.all([
+    getLatestAnalyticsReport().catch(() => null),
+    listAnalyticsReportSummaries().catch(() => [] as AnalyticsReportSummary[]),
+  ]);
+  const dailyRows = toDailyRows(history);
 
   return (
     <main className="subpage-shell subpage-bg-blue-water">
@@ -95,6 +104,8 @@ export default async function ReportsPage() {
           </div>
         )}
       </section>
+
+      {dailyRows.length > 0 && <ReportHistory rows={dailyRows} />}
       <SiteFooter />
     </main>
   );
@@ -177,6 +188,19 @@ function SearchRows({ rows }: { rows: Array<Record<string, unknown>> }) {
       ))}
     </div>
   );
+}
+
+function toDailyRows(history: AnalyticsReportSummary[]): DailyRow[] {
+  return history.map((row) => {
+    const summary = row.summary ?? {};
+    return {
+      date: row.report_date,
+      pageViews: getMetric(summary, "page_views"),
+      users: getMetric(summary, "users"),
+      sessions: getMetric(summary, "sessions"),
+      events: getMetric(summary, "events"),
+    };
+  });
 }
 
 function getMetric(row: Record<string, unknown>, key: string) {
